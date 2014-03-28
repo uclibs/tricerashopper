@@ -9,7 +9,7 @@ class CreateLostMissingLongOverdues < ActiveRecord::Migration
       t.string :status
       t.integer :checkouts
       t.string :location
-      t.array :note
+      t.text :note
       t.string :call_number
       t.string :volume
       t.string :barcode
