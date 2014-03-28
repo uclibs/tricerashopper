@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Item number:</strong>
+  <%= @lost_missing_long_overdue.item_number %>
+</p>
+
+<p>
+  <strong>Bib number:</strong>
+  <%= @lost_missing_long_overdue.bib_number %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @lost_missing_long_overdue.title %>
+</p>
+
+<p>
+  <strong>Imprint:</strong>
+  <%= @lost_missing_long_overdue.imprint %>
+</p>
+
+<p>
+  <strong>Isbn:</strong>
+  <%= @lost_missing_long_overdue.isbn %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @lost_missing_long_overdue.status %>
+</p>
+
+<p>
+  <strong>Checkouts:</strong>
+  <%= @lost_missing_long_overdue.checkouts %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @lost_missing_long_overdue.location %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @lost_missing_long_overdue.note %>
+</p>
+
+<p>
+  <strong>Call number:</strong>
+  <%= @lost_missing_long_overdue.call_number %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @lost_missing_long_overdue.volume %>
+</p>
+
+<p>
+  <strong>Barcode:</strong>
+  <%= @lost_missing_long_overdue.barcode %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @lost_missing_long_overdue.due_date %>
+</p>
+
+<p>
+  <strong>Last checkout:</strong>
+  <%= @lost_missing_long_overdue.last_checkout %>
+</p>
+
+<%= link_to 'Edit', edit_lost_missing_long_overdue_path(@lost_missing_long_overdue) %> |
+<%= link_to 'Back', lost_missing_long_overdues_path %>

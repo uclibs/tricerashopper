@@ -1,0 +1,73 @@
+<%= form_for(@lost_missing_long_overdue) do |f| %>
+  <% if @lost_missing_long_overdue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@lost_missing_long_overdue.errors.count, "error") %> prohibited this lost_missing_long_overdue from being saved:</h2>
+
+      <ul>
+      <% @lost_missing_long_overdue.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :item_number %><br>
+    <%= f.number_field :item_number %>
+  </div>
+  <div class="field">
+    <%= f.label :bib_number %><br>
+    <%= f.number_field :bib_number %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :imprint %><br>
+    <%= f.text_field :imprint %>
+  </div>
+  <div class="field">
+    <%= f.label :isbn %><br>
+    <%= f.text_field :isbn %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :checkouts %><br>
+    <%= f.number_field :checkouts %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br>
+    <%= f.text_field :note %>
+  </div>
+  <div class="field">
+    <%= f.label :call_number %><br>
+    <%= f.text_field :call_number %>
+  </div>
+  <div class="field">
+    <%= f.label :volume %><br>
+    <%= f.text_field :volume %>
+  </div>
+  <div class="field">
+    <%= f.label :barcode %><br>
+    <%= f.text_field :barcode %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date %><br>
+    <%= f.date_select :due_date %>
+  </div>
+  <div class="field">
+    <%= f.label :last_checkout %><br>
+    <%= f.date_select :last_checkout %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

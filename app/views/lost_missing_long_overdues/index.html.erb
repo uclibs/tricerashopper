@@ -1,0 +1,53 @@
+<h1>Listing lost_missing_long_overdues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Item number</th>
+      <th>Bib number</th>
+      <th>Title</th>
+      <th>Imprint</th>
+      <th>Isbn</th>
+      <th>Status</th>
+      <th>Checkouts</th>
+      <th>Location</th>
+      <th>Note</th>
+      <th>Call number</th>
+      <th>Volume</th>
+      <th>Barcode</th>
+      <th>Due date</th>
+      <th>Last checkout</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lost_missing_long_overdues.each do |lost_missing_long_overdue| %>
+      <tr>
+        <td><%= lost_missing_long_overdue.item_number %></td>
+        <td><%= lost_missing_long_overdue.bib_number %></td>
+        <td><%= lost_missing_long_overdue.title %></td>
+        <td><%= lost_missing_long_overdue.imprint %></td>
+        <td><%= lost_missing_long_overdue.isbn %></td>
+        <td><%= lost_missing_long_overdue.status %></td>
+        <td><%= lost_missing_long_overdue.checkouts %></td>
+        <td><%= lost_missing_long_overdue.location %></td>
+        <td><%= lost_missing_long_overdue.note %></td>
+        <td><%= lost_missing_long_overdue.call_number %></td>
+        <td><%= lost_missing_long_overdue.volume %></td>
+        <td><%= lost_missing_long_overdue.barcode %></td>
+        <td><%= lost_missing_long_overdue.due_date %></td>
+        <td><%= lost_missing_long_overdue.last_checkout %></td>
+        <td><%= link_to 'Show', lost_missing_long_overdue %></td>
+        <td><%= link_to 'Edit', edit_lost_missing_long_overdue_path(lost_missing_long_overdue) %></td>
+        <td><%= link_to 'Destroy', lost_missing_long_overdue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lost missing long overdue', new_lost_missing_long_overdue_path %>

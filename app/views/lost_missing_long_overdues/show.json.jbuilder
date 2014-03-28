@@ -1,0 +1,1 @@
+json.extract! @lost_missing_long_overdue, :id, :item_number, :bib_number, :title, :imprint, :isbn, :status, :checkouts, :location, :note, :call_number, :volume, :barcode, :due_date, :last_checkout, :created_at, :updated_at
