@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:uclibs/active_sierra.git
-  revision: 7bd98466f932fb1b3f6aed6d8f5fe3d9672381ca
+  revision: 1753a5fdb508ca763b9f9b4c9fa17f40244cd005
+  branch: add_models
   specs:
     active_sierra (0.0.1)
       pg
@@ -105,12 +106,12 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
-    thread_safe (0.3.2)
+    thread_safe (0.3.3)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.2.1)
+    turbolinks (2.2.2)
       coffee-rails
     tzinfo (0.3.39)
     uglifier (2.5.0)
