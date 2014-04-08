@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'therubyracer'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
@@ -7,8 +9,8 @@ gem 'rails', '4.0.4'
 gem 'sqlite3'
 
 # Use ActiveSierra for access to III database
-gem 'active_sierra', git:'git@github.com:uclibs/active_sierra.git'
-
+#gem 'active_sierra', git:'git@github.com:uclibs/active_sierra.git'
+gem 'active_sierra', git:"git@github.com:uclibs/active_sierra.git", branch:"add_models"
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
 
