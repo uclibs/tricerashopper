@@ -23,7 +23,7 @@ namespace :selector_reports do
           created_at: x.record_creation_date_gmt,
           updated_at: x.record_metadata.record_last_updated_gmt
           ) 
-  puts bibview.title
+    puts bibview.title
   end 
       
   desc "reset db"
