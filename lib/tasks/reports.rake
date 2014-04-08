@@ -23,8 +23,9 @@ namespace :selector_reports do
           created_at: x.record_creation_date_gmt,
           updated_at: x.record_metadata.record_last_updated_gmt
           ) 
-      end 
-
+  puts bibview.title
+  end 
+      
   desc "reset db"
   task:reset_db => :environment do
     Rake::Task['db:reset'].execute
@@ -74,4 +75,14 @@ namespace :selector_reports do
       lmlo_create(i)
     end
   end 
+
+  desc "run all"
+  task :runall => [
+    :reset_db,
+    :get_status_p, 
+    :get_status_l, 
+    :get_status_dollar, 
+    :get_status_z, 
+    :get_status_x] do
+  end
 end
