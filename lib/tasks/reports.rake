@@ -2,6 +2,14 @@ namespace :selector_reports do
 
   @minus3months = Time.now - 3.months
   @minus1year = Time.now - 1.year
+
+  def filter_delims(field)
+    unless field.nil?
+      field = field.gsub(/\|a/, '')
+      field.gsub(/\|[b-z]/, ' ')
+    end
+  end
+
   def lmlo_create(x)
       bibview = x.bib_views.first
       metadata = x.record_metadata
@@ -9,13 +17,13 @@ namespace :selector_reports do
           item_number: x.record_num,
           bib_number: bibview.record_num,
           title: bibview.title,
-          imprint: bibview.varfield_views.where(marc_tag: '260').first.try(:field_content) || nil,
-          isbn: (isbn = Array.new; bibview.varfield_views.where(marc_tag: '020').each {|r| isbn << r.field_content}; isbn = isbn.to_s),
+          imprint: filter_delims(bibview.varfield_views.where(marc_tag: '260').first.try(:field_content) || nil),
+          isbn: filter_delims((isbn = Array.new; bibview.varfield_views.where(marc_tag: '020').each {|r| isbn << r.field_content}; isbn = isbn.join(','))),
           status: x.item_status_code,
           checkouts: x.checkout_total,
           location: x.location_code,
           #note: x.varfields
-          call_number: x.item_record_property.call_number_norm,
+          call_number: filter_delims(x.item_record_property.call_number),
           volume: x.varfield_views.where("varfield_type_code = 'v'").first.try(:field_content) || nil,
           barcode: x.barcode,
           due_date: x.checkout.try(:due_gmt) || nil,
