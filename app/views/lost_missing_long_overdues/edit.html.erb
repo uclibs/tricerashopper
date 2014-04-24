@@ -1,6 +1,5 @@
-<h1>Editing lost_missing_long_overdue</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @lost_missing_long_overdue %> |
-<%= link_to 'Back', lost_missing_long_overdues_path %>
+<%- model_class = LostMissingLongOverdue -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>

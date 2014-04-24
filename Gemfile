@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'therubyracer'
 
+gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'will_paginate-bootstrap'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 

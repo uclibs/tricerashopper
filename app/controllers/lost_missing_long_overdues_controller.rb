@@ -4,7 +4,9 @@ class LostMissingLongOverduesController < ApplicationController
   # GET /lost_missing_long_overdues
   # GET /lost_missing_long_overdues.json
   def index
-    @lost_missing_long_overdues = LostMissingLongOverdue.all
+    @lost_missing_long_overdues = LostMissingLongOverdue.paginate(per_page: 20, page: params[:page]) 
+
+    #@lost_missing_long_overdues = LostMissingLongOverdue.all
   end
 
   # GET /lost_missing_long_overdues/1
