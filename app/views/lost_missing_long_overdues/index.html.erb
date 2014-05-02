@@ -56,7 +56,9 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @lost_missing_long_overdues %>
+<div class="pagination">
+<%= will_paginate @lost_missing_long_overdues, renderer: BootstrapPagination::Rails %>
+</div>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_lost_missing_long_overdue_path,
             :class => 'btn btn-primary' %>
