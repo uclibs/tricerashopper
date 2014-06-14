@@ -1,4 +1,4 @@
-<%= form_for @lost_missing_long_overdue, :html => { :class => 'form-horizontal' } do |f| %>
+<%= form_for @lost, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
     <%= f.label :item_number, :class => 'control-label' %>
     <div class="controls">
@@ -87,6 +87,6 @@
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                lost_missing_long_overdues_path, :class => 'btn' %>
+                losts_path, :class => 'btn' %>
   </div>
 <% end %>
