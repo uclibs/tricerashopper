@@ -13,7 +13,7 @@ namespace :selector_reports do
   def lmlo_create(x)
       bibview = x.bib_views.first
       metadata = x.record_metadata
-        LostMissingLongOverdue.create(
+        Lost.create(
           item_number: x.record_num,
           bib_number: bibview.record_num,
           title: bibview.title,

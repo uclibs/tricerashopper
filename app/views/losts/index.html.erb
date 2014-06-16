@@ -1,4 +1,4 @@
-<%- model_class = LostMissingLongOverdue -%>
+<%- model_class = Lost -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
@@ -16,24 +16,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @lost_missing_long_overdues.each do |lost_missing_long_overdue| %>
+    <% @losts.each do |lost| %>
       <tr>
-        <td><%= link_to lost_missing_long_overdue.id, lost_missing_long_overdue_path(lost_missing_long_overdue) %></td>
-        <td><%= lost_missing_long_overdue.item_number %></td>
-        <td><%= lost_missing_long_overdue.title %></td>
-        <td><%= lost_missing_long_overdue.status %></td>
-        <td><%= lost_missing_long_overdue.location %></td>
-        <td><%= lost_missing_long_overdue.call_number %></td>
-        <td><%= lost_missing_long_overdue.barcode %></td>
-        <td><%= lost_missing_long_overdue.due_date %></td>
-        <td><%= lost_missing_long_overdue.last_checkout %></td>
+        <td><%= link_to lost.id, lost_path(lost) %></td>
+        <td><%= lost.item_number %></td>
+        <td><%= lost.title %></td>
+        <td><%= lost.status %></td>
+        <td><%= lost.location %></td>
+        <td><%= lost.call_number %></td>
+        <td><%= lost.barcode %></td>
+        <td><%= lost.due_date %></td>
+        <td><%= lost.last_checkout %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <div class="pagination">
-<%= will_paginate @lost_missing_long_overdues, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @losts, renderer: BootstrapPagination::Rails %>
 </div>
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_lost_missing_long_overdue_path,
+            new_lost_path,
             :class => 'btn btn-primary' %>

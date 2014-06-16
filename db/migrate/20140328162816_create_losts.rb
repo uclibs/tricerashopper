@@ -1,6 +1,6 @@
-class CreateLostMissingLongOverdues < ActiveRecord::Migration
+class CreateLosts < ActiveRecord::Migration
   def change
-    create_table :lost_missing_long_overdues do |t|
+    create_table :losts do |t|
       t.integer :item_number
       t.integer :bib_number
       t.string :title

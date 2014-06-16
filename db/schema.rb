@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20140328162816) do
 
-  create_table "lost_missing_long_overdues", force: true do |t|
+  create_table "losts", force: true do |t|
     t.integer  "item_number"
     t.integer  "bib_number"
     t.string   "title"
