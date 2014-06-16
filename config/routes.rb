@@ -1,4 +1,5 @@
 SelectorReporting::Application.routes.draw do
+  root "static_pages#home"
   resources :losts
 
   # The priority is based upon order of creation: first created -> highest priority.
