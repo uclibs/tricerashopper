@@ -6,7 +6,7 @@ class Lost < ActiveRecord::Base
     self.imprint = self.imprint.presence || '-'
     self.barcode = self.barcode.presence || '-'
     self.note = self.note.presence || '-'
-    self.call_number = self.call_number || '-'
-    self.volume = self.volume || '-'
+    self.call_number = self.call_number.presence || '-'
+    self.volume = self.volume.presence || '-'
   end
 end
