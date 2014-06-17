@@ -8,7 +8,6 @@ require 'spec_helper'
       @lost = Lost.new(isbn: '')
       @lost.save
       expect(@lost.isbn).not_to eq('')
-      puts @lost.isbn
     end
   end
 end
