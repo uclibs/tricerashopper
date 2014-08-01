@@ -16,6 +16,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'database_cleaner'
+gem 'sunspot_rails'
 
 group :doc do
   gem 'sdoc', require: false
@@ -23,6 +24,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'sunspot_solr'
 end
 
 group :test do

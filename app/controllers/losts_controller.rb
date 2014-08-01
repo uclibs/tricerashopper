@@ -4,11 +4,23 @@ class LostsController < ApplicationController
   # GET /losts
   # GET /losts.json
   def index
-    @losts = Lost.paginate(per_page: 20, page: params[:page]) 
+   
+    @search = Lost.search do 
+      paginate(per_page: 50, page: params[:page])
+        fulltext params[:search]
+          with(:call_number)
+            facet(:class_trunc, sort: :index)
+              with(:class_trunc, params[:trunc]) if params[:trunc].present?
+            facet(:class_full, sort: :index)
+              with(:class_full, params[:full]) if params[:full].present?
+           with(:location)
+            facet(:loc_trunc, sort: :index)
+              with(:loc_trunc, params[:loc]) if params[:loc].present?
+    end
 
-    #@losts = Lost.all
+    @losts = @search.results
+  
   end
-
   # GET /losts/1
   # GET /losts/1.json
   def show
