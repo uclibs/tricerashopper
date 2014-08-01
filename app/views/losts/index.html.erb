@@ -2,6 +2,52 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+
+<div class="container">
+ <div class="container-fluid">
+  <div class="row-fluid">
+  <%= form_tag losts_path, :method => :get do %>
+    <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", name: nil %>
+<% end %>
+</div>
+</div>
+</div>
+    <div id="facets" class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <h4>Location</h4>
+             <% for row in @search.facet(:loc_trunc).rows %>
+               <% if params[:loc].blank? %>
+                   <li>   <%= link_to row.value, request.params.merge({loc: row.value, page: nil}) %></li>
+               <% else %>
+                 <li> <%= link_to "#{row.value} (remove)", request.params.merge({loc: nil, page: nil}) %></li>
+           
+           <h4>General LC Class</h4>
+             <% for row in @search.facet(:class_trunc).rows %>
+               <% if params[:trunc].blank? %>
+                 <li><%= link_to row.value, request.params.merge({trunc: row.value, page: nil}) %></li>
+               <% else %>
+                 <li> <%= link_to "#{row.value} (remove)", request.params.merge({trunc: nil, page: nil, full: nil}) %></li>
+                 <h4>Full LC Class</h4>
+               <% for row in @search.facet(:class_full).rows %>
+                <% if params[:full].blank?%>
+                 <li><%= link_to row.value, request.params.merge({full: row.value, page: nil}) %></li>
+               <% else %>
+                 <li> <%= link_to "#{row.value} (remove)", request.params.merge({full: nil, page: nil}) %></li>
+               <% end %>
+               <% end %>
+               <% end %>
+               <% end %>
+               <% end %>
+                 </li>
+             <% end %> 
+          </ul>
+        </div>
+      </div>
+<div class="span9">
+  <div class="row">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -31,8 +77,11 @@
     <% end %>
   </tbody>
 </table>
+</div>
+</div>
+</div>
 <div class="pagination">
-<%= will_paginate @losts, renderer: BootstrapPagination::Rails %>
+  <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
 </div>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_lost_path,

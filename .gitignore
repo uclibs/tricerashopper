@@ -20,3 +20,7 @@
 
 # Misc swap files, etc
 *.swp
+
+# Sunspot Solr Dev and log files
+solr/
+/log/*.log.lck
