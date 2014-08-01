@@ -4,46 +4,16 @@
 </div>
 
 <div class="container">
-  <div class="row"> 
-  <div class="span9">
+ <div class="container-fluid">
+  <div class="row-fluid">
   <%= form_tag losts_path, :method => :get do %>
     <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", name: nil %>
 <% end %>
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:item_number) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:location) %></th>
-      <th><%= model_class.human_attribute_name(:call_number) %></th>
-      <th><%= model_class.human_attribute_name(:barcode) %></th>
-      <th><%= model_class.human_attribute_name(:last_checkout) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @losts.each do |lost| %>
-      <tr>
-        <td><%= link_to lost.id, lost_path(lost) %></td>
-        <td><%= lost.item_number %></td>
-        <td><%= lost.title %></td>
-        <td><%= lost.status %></td>
-        <td><%= lost.location %></td>
-        <td><%= lost.call_number %></td>
-        <td><%= lost.barcode %></td>
-        <td><%= lost.due_date %></td>
-        <td><%= lost.last_checkout %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 </div>
-<div class="container-fluid">
-  <div class="row-fluid">
+</div>
+</div>
     <div id="facets" class="span3">
       <div class="well sidebar-nav">
         <ul class="nav nav-list">
@@ -76,8 +46,39 @@
           </ul>
         </div>
       </div>
-    </div>
-  </div>
+<div class="span9">
+  <div class="row">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:item_number) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:location) %></th>
+      <th><%= model_class.human_attribute_name(:call_number) %></th>
+      <th><%= model_class.human_attribute_name(:barcode) %></th>
+      <th><%= model_class.human_attribute_name(:last_checkout) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @losts.each do |lost| %>
+      <tr>
+        <td><%= link_to lost.id, lost_path(lost) %></td>
+        <td><%= lost.item_number %></td>
+        <td><%= lost.title %></td>
+        <td><%= lost.status %></td>
+        <td><%= lost.location %></td>
+        <td><%= lost.call_number %></td>
+        <td><%= lost.barcode %></td>
+        <td><%= lost.due_date %></td>
+        <td><%= lost.last_checkout %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
 </div>
 <div class="pagination">
   <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>

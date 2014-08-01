@@ -22,7 +22,5 @@
 *.swp
 
 # Sunspot Solr Dev and log files
-solr/test
-solr/development
-solr/default/data
+solr/
 /log/*.log.lck
