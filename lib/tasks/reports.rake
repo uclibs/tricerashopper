@@ -5,7 +5,8 @@ namespace :selector_reports do
 
   def filter_delims(field)
     unless field.nil?
-      field = field.gsub(/\|a/, '')
+      field = field.gsub(/\|[af]/, '')
+      field.gsub(/\|[a]/, '')
       field.gsub(/\|[b-z]/, ' ')
     end
   end
@@ -88,6 +89,15 @@ namespace :selector_reports do
         lmlo_create(i)
       end
     end 
+
+    desc "Notify Users of new matierals"
+    task:notify_users => :environment do#=> :run_all do
+      @users = User.all
+      @users.each do |user|
+        LostNotify.new_report(user).deliver
+      end
+    end
+
   
     desc "run all losts"
     task :run_all => [

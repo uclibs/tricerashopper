@@ -6,7 +6,7 @@ class LostsController < ApplicationController
   def index
    
     @search = Lost.search do 
-      paginate(per_page: 50, page: params[:page])
+      paginate(per_page: 25, page: params[:page])
         fulltext params[:search]
           with(:call_number)
             facet(:class_trunc, sort: :index)
