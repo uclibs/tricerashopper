@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+  <div class="container">
+    <div class="row">
+      <div class="spans"> 
+        <div class="hero-unit"><p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Login:</strong>
+  <%= @user.login %>
+  </p>
+  <p>
+  <strong>Location:</strong>
+  <%= @user.location %>
+  </p>
+</div>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+</div>
+</div>
+</div>
+</p>
