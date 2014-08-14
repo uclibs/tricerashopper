@@ -18,9 +18,6 @@
 # Ignore the database configuration yaml, which contains secret information
 /config/database.yml
 
-# Misc swap files, etc
-*.swp
-.DS_Store
 # Sunspot Solr Dev and log files
 solr/
 /log/*.log.lck
