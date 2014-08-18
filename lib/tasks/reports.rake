@@ -23,7 +23,7 @@ namespace :selector_reports do
           status: x.item_status_code,
           checkouts: x.checkout_total,
           location: x.location_code,
-          #note: x.varfields
+          note: filter_delims((note = Array.new; x.varfield_views.where("record_type_code = 'i' AND (varfield_type_code = 'x' OR varfield_type_code = 'm')").each {|r| note << r.field_content}; note = note.join(','))),
           call_number: filter_delims(x.item_record_property.call_number),
           volume: x.varfield_views.where("varfield_type_code = 'v'").first.try(:field_content) || nil,
           barcode: x.barcode,
