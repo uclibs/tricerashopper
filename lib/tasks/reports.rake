@@ -19,11 +19,11 @@ namespace :selector_reports do
           bib_number: bibview.record_num,
           title: bibview.title,
           imprint: filter_delims(bibview.varfield_views.where(marc_tag: '260').first.try(:field_content) || nil),
-          isbn: filter_delims((isbn = Array.new; bibview.varfield_views.where(marc_tag: '020').each {|r| isbn << r.field_content}; isbn = isbn.join(','))),
+          isbn: filter_delims(bibview.varfield_views.where(marc_tag: '020').collect {|r| r.field_content}.join(', ')),
           status: x.item_status_code,
           checkouts: x.checkout_total,
           location: x.location_code,
-          #note: x.varfields
+          note: filter_delims(x.varfield_views.where("record_type_code = 'i' AND (varfield_type_code = 'x' OR varfield_type_code = 'm')").collect { |x| x.field_content }.join(', ')),
           call_number: filter_delims(x.item_record_property.call_number),
           volume: x.varfield_views.where("varfield_type_code = 'v'").first.try(:field_content) || nil,
           barcode: x.barcode,
