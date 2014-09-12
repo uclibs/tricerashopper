@@ -1,4 +1,4 @@
-namespace :selector_reports do
+namespace :reports do
 
   @minus3months = Time.now - 3.months
   @minus1year = Time.now - 1.year
@@ -36,17 +36,13 @@ namespace :selector_reports do
   end 
 
   namespace :losts do
-    desc "drop losts table"
-    task:drop_losts => :environment do
-      if ActiveRecord::Base.connection.table_exists? 'losts'
-        DatabaseCleaner.clean_with(:truncation, :only => %w[losts])
-        else
-          Rake::Task['db:migrate'].execute
-        end
+    desc "reset losts table"
+    task:reset => :environment do
+      Lost.destroy_all
     end
   
     desc "Get status'p' records"
-    task:get_status_p => :drop_losts do
+    task:get_status_p => :environment do
       
       p = ItemView.where("item_status_code = 'p'")
       p.each do |i|
@@ -57,7 +53,7 @@ namespace :selector_reports do
     end
   
     desc "Get status 'l' item records"
-    task:get_status_l => :get_status_p do
+    task:get_status_l => :environment do
       l = ItemView.where("item_status_code = 'l'")
       l.each do |i|
         unless i.record_metadata.record_last_updated_gmt > @minus1year
@@ -67,7 +63,7 @@ namespace :selector_reports do
     end
   
     desc "Get status '$' item records"
-    task:get_status_dollar => :get_status_l do
+    task:get_status_dollar => :environment do
       dollar = ItemView.where("item_status_code = '$'")
       dollar.each do |i|
         lmlo_create(i)
@@ -75,7 +71,7 @@ namespace :selector_reports do
     end
   
     desc "Get status 'z' item records"
-    task:get_status_z => :get_status_dollar do
+    task:get_status_z => :environment do
       z = ItemView.where("item_status_code = 'z'")
       z.each do |i|
         lmlo_create(i)
@@ -83,7 +79,7 @@ namespace :selector_reports do
     end
   
     desc "Get status 'x' item records"
-    task:get_status_x => :get_status_z do
+    task:get_status_x => :environment do
       x = ItemView.where("item_status_code = 'x'")
       x.each do |i|
         lmlo_create(i)
@@ -101,7 +97,6 @@ namespace :selector_reports do
   
     desc "run all losts"
     task :run_all => [
-      :drop_losts,
       :get_status_p, 
       :get_status_l, 
       :get_status_dollar, 
