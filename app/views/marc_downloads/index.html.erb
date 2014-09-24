@@ -1,0 +1,11 @@
+<% flash.each do |key, msg| %>
+  <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
+<%end%>
+
+<table class='table table-striped'>
+  <% Dir["public/tmp/records/*.*"].each do |file| %>
+    <tr>
+      <td><%= link_to file[/[A-Za-z0-9_\.]*$/], file.gsub('public', '') %></td>
+  </tr>
+  <% end %>
+</table>

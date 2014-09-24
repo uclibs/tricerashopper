@@ -2,6 +2,11 @@ SelectorReporting::Application.routes.draw do
   resources :users
   root "static_pages#home"
   resources :losts
+  get '/marc_uploads', to: 'marc_uploads#index'
+  post '/marc_uploads/create', to: 'marc_uploads#create'
+  get '/marc_downloads', to: 'marc_downloads#index'
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
