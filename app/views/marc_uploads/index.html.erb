@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="span9">
+    <h1>Marc Record Processing</h1>
+    <p class="lead">Upload Arkive invoices in *.xlsx format</p>
+
+    <div class="hero-unit">   
+      <%= form_tag '/marc_uploads/create', { :multipart => true } do %>
+        <p>
+ 
+    <%= bootstrap_flash %>
+    <%= file_field_tag 'upload[file]' %> 
+    </p>
+    <p>
+      <%= submit_tag "Upload", class: "btn btn-default" %>
+    </p>
+  <% end %>
+</div>
+</div>
+</div>

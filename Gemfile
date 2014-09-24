@@ -17,6 +17,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'database_cleaner'
 gem 'sunspot_rails'
+gem 'marc'
+gem 'roo'
 
 group :doc do
   gem 'sdoc', require: false
