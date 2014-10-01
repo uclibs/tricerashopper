@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'active_sierra', git:'git@github.com:uclibs/active_sierra.git'
+gem 'devise'
 
 gem 'therubyracer'
 
