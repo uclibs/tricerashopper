@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'active_sierra', git:'git@github.com:uclibs/active_sierra.git'
+gem 'devise'
 
 gem 'therubyracer'
 
@@ -22,6 +23,10 @@ gem 'roo'
 
 group :doc do
   gem 'sdoc', require: false
+end
+
+group :development do
+  gem 'byebug'
 end
 
 group :development, :test do
