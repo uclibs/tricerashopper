@@ -25,6 +25,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'byebug'
+end
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'sunspot_solr'
