@@ -97,7 +97,8 @@ namespace :reports do
   
     desc "run all losts"
     task :run_all => [
-      :get_status_p, 
+      #:get_status_p, 
+      :reset,
       :get_status_l, 
       :get_status_dollar, 
       :get_status_z, 

@@ -3,6 +3,7 @@ class Lost < ActiveRecord::Base
 
   searchable do
     text :title, :location, :call_number, :class_trunc, :class_full, :loc_trunc
+    string :title
     string :call_number
     string :class_full
     string :location
@@ -19,9 +20,9 @@ class Lost < ActiveRecord::Base
         self.call_number[4] 
       elsif self.call_number[0..5] =~ /chem|phys|math|biol[A-Z][A-Z]/
         self.call_number[4..5] 
-      elsif self.call_number[0..2] =~ /geo[A-Z][A-Z]/
+      elsif self.call_number[0..4] =~ /geo[A-Z][A-Z]/
         self.call_number[3..4]
-      elsif self.call_number[0..2] =~ /geo[A-Z][0-9]/
+      elsif self.call_number[0..4] =~ /geo[A-Z][0-9]/
         self.call_number[3]
       else
         self.call_number = "Other"
