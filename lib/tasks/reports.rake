@@ -86,11 +86,11 @@ namespace :reports do
       end
     end 
 
-    desc "Notify Users of new matierals"
-    task:notify_users => :environment do#=> :run_all do
+    desc "Notify Users of new materials"
+    task:notify_users =>  :environment do
       @users = User.all
       @users.each do |user|
-        LostNotify.new_report(user).deliver
+        LmloUpdate.new_report(user).deliver
       end
     end
 

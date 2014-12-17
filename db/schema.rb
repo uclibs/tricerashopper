@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001133226) do
+ActiveRecord::Schema.define(version: 20141217134607) do
 
   create_table "losts", force: true do |t|
     t.integer  "item_number"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141001133226) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "location"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
