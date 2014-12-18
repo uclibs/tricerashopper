@@ -4,12 +4,12 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Dear <%= @user.email %>,</h1>
+    <p>Dear <%= @user.email %>,</p>
     <p>
       There is are new LMLO items ready for your review. 
     </p>
     <p>
-    To view the materials, just follow this link: <%= link_to "#{root_url}losts?loc=#{@user.location}", "#{root_url}losts?loc=#{@user.location}" %>.
+    To view the materials, just follow this link: <%= link_to "#{root_url}#{@user.location}", "#{root_url}#{@user.location}" %>.
     </p>
   </body>
 </html>
