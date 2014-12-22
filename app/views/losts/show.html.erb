@@ -7,17 +7,20 @@
   <dt><strong><%= model_class.human_attribute_name(:item_number) %>:</strong></dt>
   <dd><%= "i#{@lost.item_number.to_s}a" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bib_number) %>:</strong></dt>
-  <dd><%= "b#{@lost.bib_number}a" %></dd>
+
+  <dd><%= link_to "b#{@lost.bib_number}a", "http://uclid.uc.edu/record=b#{@lost.bib_number}~S39", target: '_blank' %></dd>
+ 
+  <% unless @lost.oclc.nil? %>
+    <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>
+    <dd><%= link_to @lost.oclc, "https://www.worldcat.org/search?q=no:#{@lost.oclc}", target: '_blank' %></dd>
+  <% end %> 
+
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @lost.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:imprint) %>:</strong></dt>
   <dd><%= @lost.imprint %></dd>
-
-
   <dt><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></dt>
   <dd><%= @lost.isbn.gsub(/(\d{13}|\d{9}[X\d])/, "<a href=\"http://www.gobi3.com/hx/Gobi.ashx?location=runsearch&source=quicksearch&quicksearchval=\\1\" target=\"_blank\">\\1</a>").html_safe %></dd>
-
-
   <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
   <dd><%= @lost.status %></dd>
   <dt><strong><%= model_class.human_attribute_name(:checkouts) %>:</strong></dt>

@@ -15,6 +15,7 @@ def lmlo_create(x)
         title: bibview.title,
         imprint: filter_delims(bibview.varfield_views.where(marc_tag: '260').first.try(:field_content) || nil),
         isbn: filter_delims(bibview.varfield_views.where(marc_tag: '020').collect {|r| r.field_content}.join(', ')),
+        oclc: bibview.varfield_views.where("record_type_code = 'b' AND varfield_type_code = 'o'").first.try(:field_content) || nil, 
         status: x.item_status_code,
         checkouts: x.checkout_total,
         location: x.location_code,
