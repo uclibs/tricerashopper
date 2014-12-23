@@ -16,33 +16,15 @@ class Lost < ActiveRecord::Base
   end
 
   def class_full
-      if self.call_number[0..2] =~ /[A-Z][A-Z][\s0-9]/
-        self.call_number[0..1]
-      elsif self.call_number[0..1] =~ /[A-Z][0-9]/
-        self.call_number[0] 
-      elsif self.call_number[0..5] =~ /chem|phys|math|biol[A-Z][0-9]/
-        self.call_number[4] 
-      elsif self.call_number[0..5] =~ /chem|phys|math|biol[A-Z][A-Z]/
-        self.call_number[4..5] 
-      elsif self.call_number[0..4] =~ /geo[A-Z][A-Z]/
-        self.call_number[3..4]
-      elsif self.call_number[0..4] =~ /geo[A-Z][0-9]/
-        self.call_number[3]
-      else
-        self.call_number = "Other"
-    end
+    match = /^[a-z]{,4}([A-Z]{1,3})\d/.match(self.call_number)
+    return "Other" if match.nil?
+    match[1]
   end
 
   def class_trunc
-    if self.call_number[0..1] =~ /[A-Z][A-Z0-9]/
-      self.call_number[0]
-    elsif self.call_number[0..3] =~ /chem|phys|math|biol/
-      self.call_number[4] 
-    elsif self.call_number[0..2] =~ /geo/
-      self.call_number[3]
-    else
-      self.call_number
-    end
+    match = /^[a-z]{,4}([A-Z])[A-Z]{0,2}\d/.match(self.call_number)
+    return self.call_number if match.nil?
+    match[1]
   end
 
   def loc_trunc
@@ -53,7 +35,7 @@ class Lost < ActiveRecord::Base
     elsif self.location =~ /tdp/
       self.location = 'SWORD'
     else 
-      self.location = 'OTHER'
+      self.location = 'Other'
     end
   end 
       
