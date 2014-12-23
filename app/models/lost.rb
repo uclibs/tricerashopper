@@ -1,4 +1,8 @@
 class Lost < ActiveRecord::Base
+  validates :item_number, presence: true
+  validates :bib_number, presence: true
+  validates :location, presence: true
+
   before_save :hyphen_for_nil
 
   searchable do
