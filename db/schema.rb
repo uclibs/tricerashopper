@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217134607) do
+ActiveRecord::Schema.define(version: 20141222182507) do
 
   create_table "losts", force: true do |t|
     t.integer  "item_number"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20141217134607) do
     t.date     "last_checkout"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "oclc"
   end
 
   create_table "payments", force: true do |t|
