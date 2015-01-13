@@ -8,7 +8,7 @@
   <dd><%= "i#{@lost.item_number.to_s}a" %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bib_number) %>:</strong></dt>
 
-  <dd><%= link_to "b#{@lost.bib_number}a", "http://uclid.uc.edu/record=b#{@lost.bib_number}~S39", target: '_blank' %></dd>
+  <dd><%= "b#{@lost.bib_number}a" %></dd>
  
   <% unless @lost.oclc.nil? %>
     <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>

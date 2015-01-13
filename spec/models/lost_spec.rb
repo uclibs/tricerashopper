@@ -63,22 +63,37 @@ describe Lost do
 
     it "returns the full class for call_number case #7" do
       lost = build(:lost, call_number: "ABC1")
-      expect(lost.class_full).to match /A/
+      expect(lost.class_full).to match /ABC/
     end
 
     it "returns the full class for call_number case #8" do
       lost = build(:lost, call_number: "chemABC1")
-      expect(lost.class_full).to match /A/
+      expect(lost.class_full).to match /ABC/
     end
 
     it "returns the full class for call_number case #9" do
       lost = build(:lost, call_number: "geoABC1")
+      expect(lost.class_full).to match /ABC/
+    end
+
+    it "returns the full class for call_number case #10" do
+      lost = build(:lost, call_number: "cl-gABC1")
+      expect(lost.class_full).to match /ABC/
+    end
+
+    it "returns the full class for call_number case #11" do
+      lost = build(:lost, call_number: "cl-gAB1")
+      expect(lost.class_full).to match /AB/
+    end
+
+    it "returns the full class for call_number case #12" do
+      lost = build(:lost, call_number: "cl-gA1")
       expect(lost.class_full).to match /A/
     end
 
-    it "returns 'Other' for other call_number cases" do
+    it "returns itself for other call_number cases" do
       lost = build(:lost, call_number: "Newspaper")
-      expect(lost.class_full).to match /Other/
+      expect(lost.class_full).to eq "Newspaper" 
     end
   end
 
@@ -105,7 +120,7 @@ describe Lost do
 
     it "returns itself for other call_number cases" do
       lost = build(:lost, call_number: "Foo")
-      expect(lost.class_trunc).to eq "Foo"
+      expect(lost.class_trunc).to match /Other/
     end
   end
 

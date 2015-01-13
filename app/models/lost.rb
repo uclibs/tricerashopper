@@ -16,14 +16,14 @@ class Lost < ActiveRecord::Base
   end
 
   def class_full
-    match = /^[a-z]{,4}([A-Z]{1,3})\d/.match(self.call_number)
-    return "Other" if match.nil?
+    match = /^[a-z\-]{,4}([A-Z]{1,3})\d/.match(self.call_number)
+    return self.call_number if match.nil?
     match[1]
   end
 
   def class_trunc
-    match = /^[a-z]{,4}([A-Z])[A-Z]{0,2}\d/.match(self.call_number)
-    return self.call_number if match.nil?
+    match = /^[a-z\-]{,4}([A-Z])[A-Z]{0,2}\d/.match(self.call_number)
+    return "Other" if match.nil?
     match[1]
   end
 
