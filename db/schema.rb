@@ -33,32 +33,6 @@ ActiveRecord::Schema.define(version: 20141222182507) do
     t.text     "oclc"
   end
 
-  create_table "payments", force: true do |t|
-    t.integer  "serial_id"
-    t.datetime "paid_date"
-    t.datetime "invoice_date"
-    t.string   "note"
-    t.integer  "amount_paid"
-    t.integer  "fiscal_year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "serials", force: true do |t|
-    t.integer  "order_number"
-    t.integer  "bib_number"
-    t.string   "title"
-    t.string   "alternate_titles"
-    t.string   "issns"
-    t.string   "fund"
-    t.string   "vendor"
-    t.string   "format"
-    t.string   "acq_type"
-    t.string   "order_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
