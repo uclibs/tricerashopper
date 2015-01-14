@@ -1,7 +1,9 @@
+<%= render 'layouts/header' %>
 <%- model_class = Lost-%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
-</div>
+<div class="container"><h2>Lost, Missing, Long-overdue</h2></div>
+<% if current_user.sign_in_count < 3 %>
+  <div class="container"><div class="span8"><%= bootstrap_flash %></div></div>
+<% end %>
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:item_number) %>:</strong></dt>
@@ -38,7 +40,9 @@
   <dt><strong><%= model_class.human_attribute_name(:last_checkout) %>:</strong></dt>
   <dd><%= @lost.last_checkout %></dd>
 </dl> 
- <div class="button_unit"><div class="btn-group">
+<div class="container">
+  <div class="span8">
+      <div class="btn-group">
      <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{@lost.bib_number}~S39", target: '_blank', class: 'btn' %>
 
      <% unless @lost.oclc.nil? %> 
@@ -47,4 +51,4 @@
    <% end %>
 </div>
 </div>
-
+</div>

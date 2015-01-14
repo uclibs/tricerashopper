@@ -1,11 +1,10 @@
 <%- model_class = Lost -%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html>
+<%= render 'layouts/header' %>
 <body>
-<div class="page-header">
-  <h1>UCL Tricera-Shopper</h1>
-</div>
-<div class="container-fluid">
-  <div class="row-fluid">
+  <div class="container-fluid">
+    <h2>Lost, Missing, Long-overdue</h2>
+    <div class="row-fluid">
     <div class="span9">
       <%= form_tag losts_path, :method => :get do %>
       <div class="input-append">
@@ -89,7 +88,7 @@
           <% unless params[:loc].include? row.value%>
           <%= link_to row.value, request.params.merge({loc: params[:loc] | [row.value], page: nil})  %>
           <% else %>
-          <%= link_to "#{row.value} (remove)", request.params.merge({loc: remove_loc(params[:loc], row.value), trunc: nil, full: nil})  %>
+            <%= link_to "#{row.value} (remove)", request.params.merge({loc: remove_loc(params[:loc], row.value), trunc: nil, full: nil}), {style: "color: blue"}  %>
           <% end %>
           <% else %>
           <%= link_to row.value, request.params.merge({loc: [row.value], page: nil})  %> 
@@ -108,7 +107,7 @@
           <%= link_to row.value, request.params.merge({trunc: row.value, page: nil}) %>
           </li><% else %>
           <li>
-          <%= link_to "#{row.value} (remove)", request.params.merge({trunc: nil, page: nil, full: nil}) %>
+          <%= link_to "#{row.value} (remove)", request.params.merge({trunc: nil, page: nil, full: nil}), {style: "color: blue"} %>
           </li><%end%><% end %>
           <% if params[:trunc].present? %> <h4>
             Full Class
@@ -118,7 +117,7 @@
           <%= link_to row.value, request.params.merge({full: row.value, page: nil}) %>
           </li><% else %>
           <li>
-          <%= link_to "#{row.value} (remove)", request.params.merge({full: nil, page: nil}) %>
+          <%= link_to "#{row.value} (remove)", request.params.merge({full: nil, page: nil}), {style: "color: blue"} %>
           </li><% end %><% end %><% end %>
           <%end%>
         </ul>

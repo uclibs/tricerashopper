@@ -5,7 +5,6 @@ class LostsController < ApplicationController
   # GET /losts
   # GET /losts.json
   def index
-   
     @search = Lost.search do 
       paginate(per_page: 25, page: params[:page])
         fulltext params[:search]
@@ -32,6 +31,11 @@ class LostsController < ApplicationController
   # GET /losts/1
   # GET /losts/1.json
   def show
+
+  if current_user.sign_in_count < 3
+    flash[:notice] = "Mouse over ISBN for link to search for item in GOBI (you can select it if available)." 
+  end
+ 
   end
 
   # GET /losts/new
