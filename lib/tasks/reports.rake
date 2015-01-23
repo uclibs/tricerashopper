@@ -31,12 +31,50 @@ def lmlo_create(x)
   puts bibview.title
 end 
 
+@minus1month = Time.now - 1.months
 @minus3months = Time.now - 3.months
 @minus1year = Time.now - 1.year
 
+def fiscal_year_beginning(x)
+  if Time.now.month.to_i < 7
+    Time.new((x - 1.year).year, 7, 1)
+  else
+    Time.new(x.year, 7, 1)
+  end
+end
+
 namespace :reports do
 
+  namespace :dda do
+    
+    def dda_create(x)
+      if x.order_view.record_creation_date_gmt > fiscal_year_beginning(Time.now)
+        DdaExpenditure.create(
+          title: x.order_view.bib_view.title, 
+          paid: x.paid_amt,
+          fund: x.order_view.order_record_cmf.fund,
+          paid_date: x.order_view.record_creation_date_gmt
+      )
+      end
+    end
+
+
+    desc "reset dda_expenditures table"
+    task:reset => :environment do
+      DdaExpenditure.destroy_all
+    end  
+
+    desc "get previous month's dda order/invoice items"
+    task:get_dda => :reset do
+      dda = InvoiceRecordLine.where("vendor_code = 'uypda'")
+      dda.each do |i|
+        dda_create(i)
+      end
+    end
+  end
+
   namespace :losts do
+   
     desc "reset losts table"
     task:reset => :environment do
       Lost.destroy_all

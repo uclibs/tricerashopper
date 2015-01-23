@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'active_sierra', git:'https://github.com/uclibs/active_sierra.git'
+gem 'active_sierra', git:'https://github.com/uclibs/active_sierra.git', branch: 'develop'
 gem 'devise'
 
 gem 'therubyracer'
@@ -19,6 +19,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'sunspot_rails'
 gem 'marc'
 gem 'roo'
+gem 'chartkick'
 
 group :doc do
   gem 'sdoc', require: false

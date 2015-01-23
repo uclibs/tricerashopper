@@ -1,4 +1,6 @@
 SelectorReporting::Application.routes.draw do
+  resources :dda_expenditures
+
   devise_for :users
   resources :users
   root "static_pages#home"
@@ -6,7 +8,7 @@ SelectorReporting::Application.routes.draw do
   get '/marc_uploads', to: 'marc_uploads#index'
   post '/marc_uploads/create', to: 'marc_uploads#create'
   get '/marc_downloads', to: 'marc_downloads#index'
-
+  get '/dda_expenditures', to: 'dda_expenditures#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
