@@ -1,25 +1,39 @@
-<h1>Listing serials</h1>
+<%- model_class = Lost -%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"><html>
+<%= render 'layouts/header' %>
+<div class='container-fluid span10'>
+  <h1>Listing serials</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @serials.each do |serial| %>
+  <table class="table table-striped table-condensed table-responsive">
+    <thead>
       <tr>
-        <td><%= link_to 'Show', serial %></td>
-        <td><%= link_to 'Edit', edit_serial_path(serial) %></td>
-        <td><%= link_to 'Destroy', serial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><%= "Order #" %></th>
+        <th><%= model_class.human_attribute_name(:fund) %></th>
+        <th><%= model_class.human_attribute_name(:vendor) %></th>
+        <th><%= model_class.human_attribute_name(:format) %></th>
+        <th><%= model_class.human_attribute_name(:order_type) %></th>
+        <th><%= model_class.human_attribute_name(:acq_type) %></th>
+        <th><%= "Bibliographic info" %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= link_to 'New Serial', new_serial_path %>
+    <tbody>
+      <% @serials.each do |serial| %>
+        <tr>
+          <td><%= "o#{serial.order_number}a" %></td>
+          <td><%= serial.fund %></td>
+          <td><%= serial.vendor %></td>
+          <td><%= serial.format %></td>
+          <td><%= serial.order_type %></td>
+          <td><%= serial.acq_type %></td>
+          <td>
+            <p><%= serial.title %></p>
+            <% if serial.issns.length > 0 %>
+              <p><%= serial.issns.join(", ") %></p>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
