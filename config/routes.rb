@@ -1,4 +1,6 @@
 SelectorReporting::Application.routes.draw do
+  resources :serials
+
   devise_for :users
   resources :users
   root "static_pages#home"

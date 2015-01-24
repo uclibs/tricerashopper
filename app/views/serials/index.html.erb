@@ -1,0 +1,25 @@
+<h1>Listing serials</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @serials.each do |serial| %>
+      <tr>
+        <td><%= link_to 'Show', serial %></td>
+        <td><%= link_to 'Edit', edit_serial_path(serial) %></td>
+        <td><%= link_to 'Destroy', serial, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Serial', new_serial_path %>
