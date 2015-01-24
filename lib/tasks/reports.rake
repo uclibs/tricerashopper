@@ -31,10 +31,43 @@ def lmlo_create(x)
   puts bibview.title
 end 
 
+def serial_create(o) 
+  b = o.bib_view 
+  issns = b.varfield_views.marc_tag('022').first.field_content.scan(/\d{4}-\d{3}[Xx\d]/) unless b.varfield_views.marc_tag('022').first.nil?
+  payments = Hash.new
+  o.order_record_paids.each { |o| payments[o.paid_date_gmt] = o.paid_amount } unless o.order_record_paids.first.nil?
+  Serial.create(
+    order_number: o.record_num,
+    bib_number: b.record_num,
+    title: b.title,
+    fund: o.order_record_cmf.fund,
+    format: o.material_type_code,
+    acq_type: o.acq_type_code,
+    order_type: o.order_type_code,
+    vendor: o.vendor_record_code,
+    issns: issns,
+    payments: payments
+  )
+  puts b.title
+end
+
 @minus3months = Time.now - 3.months
 @minus1year = Time.now - 1.year
 
 namespace :reports do
+
+  namespace :serials do
+    desc "reset serials table"
+    task:reset => :environment do
+      Serial.destroy_all
+    end
+
+    desc "get active serial orders"
+    task:get => :environment do
+      OrderView.where("order_status_code = 'f' OR order_status_code = 'c' OR order_status_code = 'd'").limit(100).each { |o| serial_create(o) }
+      
+    end
+  end
 
   namespace :losts do
     desc "reset losts table"
