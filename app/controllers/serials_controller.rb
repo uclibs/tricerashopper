@@ -4,7 +4,20 @@ class SerialsController < ApplicationController
   # GET /serials
   # GET /serials.json
   def index
-    @serials = Serial.all
+    @search = Serial.search do
+      fulltext params[:search]
+      with :fund, params[:fund] unless params[:fund].nil?
+      with :vendor, params[:vendor] unless params[:vendor].nil?
+      with :format, params[:format] unless params[:format].nil?
+      with :order_type, params[:order_type] unless params[:order_type].nil?
+      with :acq_type, params[:acq_type] unless params[:acq_type].nil?
+
+      facet :fund, :vendor, :format, :order_type, :acq_type
+
+      paginate(per_page: 10)
+    end
+
+    @serials = @search.results
   end
 
   # GET /serials/1
