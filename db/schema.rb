@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222182507) do
+ActiveRecord::Schema.define(version: 20150123222803) do
 
   create_table "losts", force: true do |t|
     t.integer  "item_number"
@@ -31,6 +31,21 @@ ActiveRecord::Schema.define(version: 20141222182507) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "oclc"
+  end
+
+  create_table "serials", force: true do |t|
+    t.integer  "order_number"
+    t.integer  "bib_number"
+    t.string   "title"
+    t.string   "fund"
+    t.string   "format"
+    t.string   "acq_type"
+    t.string   "order_type"
+    t.string   "vendor"
+    t.text     "payments"
+    t.text     "issns"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
