@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<%= render 'layouts/header' %>
+<body>
+<div class="container-fluid">
+  <h2>DDA Expenditures</h2>
+  <div class="row-fluid">
+    <%= pie_chart(@dda_all.group(:fund).sum(:paid)) %>
+
+<table class="table table-striped table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Paid</th>
+      <th>Fund</th>
+      <th>Paid date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dda_expenditures.each do |dda_expenditure| %>
+      <tr>
+        <td><%= dda_expenditure.title %></td>
+        <td><%= dda_expenditure.paid %></td>
+        <td><%= dda_expenditure.fund %></td>
+        <td><%= dda_expenditure.paid_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+
+<div class="pagination">
+  <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
+</div>

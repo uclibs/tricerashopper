@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222182507) do
+ActiveRecord::Schema.define(version: 20150122205628) do
+
+  create_table "dda_expenditures", force: true do |t|
+    t.string   "title"
+    t.decimal  "paid"
+    t.string   "fund"
+    t.text     "paid_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "losts", force: true do |t|
     t.integer  "item_number"

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @dda_expenditure.title %>
+</p>
+
+<p>
+  <strong>Paid:</strong>
+  <%= @dda_expenditure.paid %>
+</p>
+
+<p>
+  <strong>Fund:</strong>
+  <%= @dda_expenditure.fund %>
+</p>
+
+<p>
+  <strong>Paid date:</strong>
+  <%= @dda_expenditure.paid_date %>
+</p>
+
+<%= link_to 'Edit', edit_dda_expenditure_path(@dda_expenditure) %> |
+<%= link_to 'Back', dda_expenditures_path %>
