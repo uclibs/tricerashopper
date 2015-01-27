@@ -9,7 +9,12 @@
       There are new LMLO items ready for your review. 
     </p>
     <p>
-    To view the materials, just follow this link: <%= link_to "#{root_url}losts?#{@user.location.to_query('loc')}", "#{root_url}losts?#{@user.location.to_query('loc')}" %>.
+      To view the materials, just follow this link: 
+    <% if @user.location.present? %>
+    <%= link_to "#{root_url}losts?#{@user.location.to_query('loc')}", "#{root_url}losts?#{@user.location.to_query('loc')}" %>.
+    <%else %>
+    <%= link_to "#{root_url}losts", "#{root_url}losts" %>.
+  <% end %>
     </p>
   </body>
 </html>

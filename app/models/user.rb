@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  serialize :location
+  validates_inclusion_of :lmlo_receives_report, :in => [true, false]
+serialize :location
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 end

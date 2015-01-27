@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122205628) do
+ActiveRecord::Schema.define(version: 20150128193952) do
 
   create_table "dda_expenditures", force: true do |t|
     t.string   "title"
-    t.decimal  "paid"
+    t.decimal  "paid",       precision: 2, scale: 0
     t.string   "fund"
     t.text     "paid_date"
     t.datetime "created_at"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150122205628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "location"
+    t.boolean  "lmlo_receives_report"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
