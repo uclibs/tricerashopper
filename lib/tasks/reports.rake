@@ -129,7 +129,9 @@ namespace :reports do
     task:notify_users =>  :environment do
       @users = User.all
       @users.each do |user|
-        LmloUpdate.new_report(user).deliver
+        unless user.lmlo_receives_report == false 
+          LmloUpdate.new_report(user).deliver
+        end
       end
     end
 

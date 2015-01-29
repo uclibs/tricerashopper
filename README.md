@@ -9,6 +9,6 @@ Select Content Services department workflows are also supported by the app.
 Access restricted information is managed by Devise. Application administrators must manually create authorized users on the Rails console, using the following pattern:
 
 ```ruby
-@user = User.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', :location => ["loc1", "loc2"])
+@user = User.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', :location => ["loc1", "loc2"], :lmlo_receives_report => true)
 @user.save
 ```
