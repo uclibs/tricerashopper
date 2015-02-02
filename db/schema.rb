@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128193952) do
+ActiveRecord::Schema.define(version: 20150130192628) do
 
   create_table "dda_expenditures", force: true do |t|
     t.string   "title"
@@ -40,6 +40,35 @@ ActiveRecord::Schema.define(version: 20150128193952) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "oclc"
+  end
+
+  create_table "orders", force: true do |t|
+    t.string   "title"
+    t.string   "author"
+    t.string   "format"
+    t.string   "publication_date"
+    t.integer  "isbn"
+    t.string   "publisher"
+    t.integer  "oclc"
+    t.string   "edition"
+    t.string   "selector"
+    t.string   "requestor"
+    t.string   "location_code"
+    t.string   "fund"
+    t.integer  "cost"
+    t.boolean  "added_edition"
+    t.boolean  "added_copy"
+    t.string   "added_copy_call_number"
+    t.boolean  "rush_order"
+    t.boolean  "rush_process"
+    t.boolean  "notify"
+    t.boolean  "reserve"
+    t.string   "notification_contact"
+    t.string   "relevant_url"
+    t.string   "other_notes"
+    t.string   "workflow_state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

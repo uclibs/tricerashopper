@@ -1,8 +1,6 @@
 <%= render 'layouts/header' %>
-<% flash.each do |key, msg| %>
-  <%= content_tag :div, msg, :class => [key, " message"], :id => "notice_#{key}" %>
-<%end%>
-
+<div class="container">
+  <%= bootstrap_flash %>
 <table class='table table-striped'>
   <% Dir["public/tmp/records/*.*"].each do |file| %>
     <tr>
@@ -10,3 +8,4 @@
   </tr>
   <% end %>
 </table>
+</div>

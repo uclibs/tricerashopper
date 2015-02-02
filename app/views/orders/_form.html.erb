@@ -1,0 +1,177 @@
+<%= form_for @order, html: {class: 'form-horizontal'} do |f| %>
+  <% if @order.errors.any? %>
+    <div class="container">
+      <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    </div>
+  <% end %>
+ <div class="container">
+  <div class="well">
+  <div class="control-group">
+    <%= f.label :title, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :title, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :author, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :author, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :format, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :format, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publication_date, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :publication_date, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :isbn, class: 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :isbn, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :publisher, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :publisher, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :oclc, class: 'control-label' %>
+    <div class="controls">
+      <%= f.number_field :oclc, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :edition, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :edition, class: 'text-field' %>
+    </div>
+  </div>
+  </div>
+
+  <div class="well">
+    <div class="control-group">
+    <%= f.label :selector, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :selector, class: 'text-field' %>
+  </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :requestor, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :requestor, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :location_code, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :location_code, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :fund, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :fund, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :cost, class: 'control-label' %>
+    <div class="controls">
+
+      <% if @order.cost.presence %> 
+         <% if @order.cost < 10 %> 
+      <%= f.text_field :cost, class: 'text-field', value: @order.cost.to_s.insert(-2,'.0') %>
+    <% else %>
+        <%= f.text_field :cost, class: 'text-field', value: @order.cost.to_s.insert(-3,'.') %>
+      <% end %>
+    <% else %>
+      <%= f.text_field :cost, class: 'text-field' %>
+      <% end %>
+    </div>
+  </div>
+  </div>
+    <div class="well">
+  <div class="control-group">
+    <%= f.label :added_edition, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :added_edition, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :added_copy, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :added_copy, class: 'checkbox' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :added_copy_call_number, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :added_copy_call_number, class: 'text-field' %>
+    </div>
+  </div>
+  </div>
+    <div class="well"> 
+  <div class="control-group">
+    <%= f.label :rush_order, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :rush_order, class: 'checkbox' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :rush_process, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :rush_process, class: 'checkbox' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :notify, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :notify, class: 'checkbox' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :reserve, class: 'control-label' %>
+    <div class="controls">
+    <%= f.check_box :reserve, class: 'checkbox' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :notification_contact, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :notification_contact, class: 'text-field' %>
+    </div>
+  </div>
+</div>
+  <div class="well">
+  <div class="control-group">
+    <%= f.label :relevant_url, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :relevant_url, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :other_notes, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_area :other_notes, class: 'text-area' %>
+    </div>
+  </div>
+  </div>
+  <div class="actions">
+    <%= f.submit class: 'btn'%>
+  </div>
+<% end %>
