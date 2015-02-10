@@ -1,0 +1,31 @@
+<%- model_class = Order -%>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h4>Order Confirmation</h4>
+    <p>
+    <table style="width:100%">
+        <tr>
+          <td><strong><%= model_class.human_attribute_name(:author) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:title) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:fund) %>:</strong></td>
+          <td><strong><%= model_class.human_attribute_name(:cost) %>:</strong></td>
+        </tr>
+        <tr>
+          <td><%= @order.author %></td>
+          <td><%= @order.title %></td>
+          <td><%= @order.publisher %></td>
+          <td><%= @order.isbn %></td>
+          <td><%= @order.fund %></td>
+          <td><%= @order.cost %></td>
+        </tr>
+      </table>
+    </p>
+    <p><%= link_to "#{root_url}orders_path(@order)", "#{root_url}orders_path(@order)" %></p>
+  </body>
+</html>

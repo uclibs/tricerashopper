@@ -20,6 +20,7 @@ gem 'sunspot_rails'
 gem 'marc'
 gem 'roo'
 gem 'chartkick'
+gem 'workflow'
 
 group :doc do
   gem 'sdoc', require: false
