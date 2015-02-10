@@ -171,6 +171,26 @@
     </div>
   </div>
   </div>
+
+  <% if current_user.admin == true %>
+  <div class="well">
+      <div class="control-group">
+        <h4>Admin</h4>
+        <%= f.label :vendor_code, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :vendor_code, class: 'text-field' %>
+        </div>
+        </div>
+         <div class="control-group">
+        <%= f.label :vendor_note, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :vendor_note, class: 'text-field' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
   <div class="actions">
     <%= f.submit class: 'btn'%>
   </div>

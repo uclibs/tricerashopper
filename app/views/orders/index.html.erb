@@ -4,7 +4,7 @@
 <body>
   <div class="container-fluid">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-  <%= bootstrap_flash %>
+  <%= bootstrap_flash.html_safe %>
   <%= form_tag orders_path, method: :get do %>
     <div class="input-append">
       <%= text_field_tag :search, params[:search] %>
@@ -64,13 +64,15 @@
     <%= link_to t('.new', :default => t("helpers.links.new")),
             new_order_path,
             :class => 'btn' %>
-  <%= link_to 'Download MARC', export_to_marc_orders_path(), class: 'btn default' %> 
-</div>
+          <% if current_user.admin == true %>
+            <%= link_to 'Download MARC', export_to_marc_orders_path(), class: 'btn default', data: {confirm: 'Are you sure you\'re ready to create the MARC file?'} %> 
+            <% end %>
 </div>
 <div class="pagination">
   <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
 </div>
 
+</div>
 </div>
 </body>
 </html>

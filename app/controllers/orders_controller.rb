@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
 
   def index
     @search = Order.search do
-      paginate(per_page: 25, page: params[:page])
+      paginate(per_page: 20, page: params[:page])
         fulltext params[:search]
           with(:title)
         facet(:workflow_state)
@@ -30,6 +30,8 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.save
+    @user = current_user
+    OrderMailer.new_order(@user, @order).deliver
     respond_with(@order)
   end
 
@@ -73,14 +75,36 @@ class OrdersController < ApplicationController
 
   def export_to_marc
     @orders = Order.where("workflow_state = 'print_queue'")
+    
+    if @orders.any? {|i| i.vendor_code.blank? }
+      @blank_vendor_codes = Array.new
+      @orders.each {|i| @blank_vendor_codes << view_context.link_to( i.id, order_path(i.id.to_s), target: '_blank') if i.vendor_code.blank?}
+      
+      flash[:notice] = "Vendor codes can\'t be blank for MARC export, check: "+  @blank_vendor_codes.join(", ")
+      redirect_to orders_path and return
+    end 
+    
     if @orders.count > 0
       directory = "public/tmp/records"
       writer = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export.mrc")
       @orders.each do |i|
       record = MARC::Record.new()
-      record.append(MARC::DataField.new('020', '0', '0', ['a', i.isbn.to_s]))
+      record.append(MARC::DataField.new('020', ' ', ' ', ['a', i.isbn.to_s]))
       record.append(MARC::DataField.new('100', '0', '0', ['a', i.author]))
       record.append(MARC::DataField.new('245', '1', '0', ['a', i.title]))
+      record.append(MARC::DataField.new('260', ' ', ' ', ['b', i.publisher], ['c', i.publication_date.to_s]))
+      record.append(MARC::DataField.new('960', ' ', ' ', ['h', i.notify.presence ? 'r' : '-'], ['j', i.rush_order.presence ? 'n' : '-'], ['o', '1'], ['s', i.cost.to_s], ['t', i.location_code], ['u', i.fund], ['v', i.vendor_code]))
+       f961 = MARC::DataField.new('961', ' ', ' ', ['f', i.selector])
+      if i.other_notes.length > 0
+         f961.append(MARC::Subfield.new('d', i.other_notes))
+      end
+      if i.vendor_note.length > 0
+        f961.append(MARC::Subfield.new('h', i.vendor_note))
+      end
+      if i.notification_contact.length > 0
+        f961.append(MARC::Subfield.new('c', i.notification_contact))
+      end
+      record.append(f961)
       writer.write(record)
       i.export_to_marc!
       i.save
@@ -100,6 +124,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code)
     end
 end

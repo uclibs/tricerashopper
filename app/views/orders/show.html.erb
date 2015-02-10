@@ -1,10 +1,10 @@
 <%- model_class = Order -%>
 <%= render 'layouts/header' %>
+<% bootstrap_flash %>
 <div class='container'>
     <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @order.title.presence || '-'%></dd>
@@ -54,6 +54,21 @@
   <dd><%= @order.other_notes.presence || '-'%></dd>
 </dl>
 
+<% if current_user.admin == true %>
+
+<dl class="dl-horizontal">
+    <div class="well well-sm">
+    <h4>Admin</h4>
+ <dt><strong><%= model_class.human_attribute_name(:vendor_code) %>:</strong></dt>
+  <dd><%= @order.vendor_code.presence || '-'%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:vendor_note) %>:</strong></dt>
+  <dd><%= @order.vendor_note.presence || '-'%></dd>
+</div> 
+</dl>
+  <% end %>
+
+
+
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
               orders_path, :class => 'btn'  %>
@@ -61,7 +76,7 @@
           
             <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_order_path(@order), :class => 'btn' || '-' %>
 
-
+            <% if current_user.admin == true %>
 <div class="btn-group dropup">
       <% if @order.current_state.events.keys.count > 0 %>
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -70,7 +85,8 @@
       </a>
           <ul class="dropdown-menu">
            <% @order.current_state.events.keys.each do |i| %> 
-             <li> <%= link_to model_class.human_attribute_name(i), "/orders/#{@order.id}/#{i}", method: :put %> </li>
+             <li> <%= link_to model_class.human_attribute_name(i), "/orders/#{@order.id}/#{i}", method: :put, data: {confirm: 'Are you sure?'}
+           %> </li>
            <% end %>
          </ul>
        <% else %>
@@ -86,6 +102,7 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+          <% end %>
 </div>
 </div>
 
