@@ -29,7 +29,7 @@
   <div class="control-group">
     <%= f.label :format, class: 'control-label' %>
     <div class="controls">
-    <%= f.text_field :format, class: 'text-field' %>
+    <%= f.select :format, options_for_select(format_list, f.object.format), selected: @order.format %>
     </div>
   </div>
   <div class="control-group">
@@ -80,13 +80,13 @@
   <div class="control-group">
     <%= f.label :location_code, class: 'control-label' %>
     <div class="controls">
-    <%= f.text_field :location_code, class: 'text-field' %>
+    <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code) %>
     </div>
   </div>
   <div class="control-group">
     <%= f.label :fund, class: 'control-label' %>
     <div class="controls">
-    <%= f.text_field :fund, class: 'text-field' %>
+    <%= f.select :fund, options_for_select(fund_code_list, f.object.fund) %>
     </div>
   </div>
   <div class="control-group">
@@ -188,10 +188,10 @@
         </div>
       </div>
     </div>
-  </div>
 <% end %>
 
   <div class="actions">
     <%= f.submit class: 'btn'%>
+  </div>
   </div>
 <% end %>
