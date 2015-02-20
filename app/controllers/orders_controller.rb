@@ -29,9 +29,10 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    @order.save
-    @user = current_user
-    OrderMailer.new_order(@user, @order).deliver
+    if @order.save
+      @user = current_user
+      OrderMailer.new_order(@user, @order).deliver
+    end
     respond_with(@order)
   end
 
