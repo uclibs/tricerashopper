@@ -1,133 +1,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
-<%- model_class = Lost -%>
-<%= render 'layouts/header' %>
-<body>
-  <div class="container-fluid">
-    <h2>Lost, Missing, Long-overdue</h2>
-    <div class="row-fluid">
-    <div class="span9">
-      <%= form_tag losts_path, :method => :get do %>
-      <div class="input-append">
-        <%= text_field_tag :search, params[:search] %><%= submit_tag "Search", name: nil, class: 'btn btn-default' %><% end %>
+  <body>
+    <%= render 'layouts/header' %>
+
+    <div class="container-fluid">
+
+      <h2>Lost, Missing, Long-overdue</h2>
+
+      <div class="row-fluid">
+
+      <div class="span9">
+        <%= render "search_box" %>
+        <table class="table table-striped table-condensed table-responsive">
+          <%= render "results_header" %>
+          <%= render "results_body" %>
+        </table>
+
       </div>
-      <table class="table table-striped table-condensed table-responsive">
-        <thead>
-          <tr>
-            <th>
-              <%= model_class.human_attribute_name(:item_number) %>
-            </th>
-            <th>
-              <%= link_to "Title", request.params.merge({sort: :title}) %>
-            </th>
-            <th>
-              <%= model_class.human_attribute_name(:status) %>
-            </th>
-            <th>
-              <%= model_class.human_attribute_name(:location) %>
-            </th>
-            <th>
-              <%= link_to "Call Number", request.params.merge({sort: :call_number}) %>
-            </th>
-            <th>
-              <%= model_class.human_attribute_name(:barcode) %>
-            </th>
-            <th>
-              <%= model_class.human_attribute_name(:last_checkout) %>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-        <% @losts.each do |lost| %>
-        <tr>
-          <td>
-            <%= link_to "i#{lost.item_number.to_s}a", lost_path(lost), :class => 'btn btn-default' %>
-          </td>
-          <td>
-            <%= if lost.title.length > 59 then "#{lost.title[0..60]}..." else lost.title end %>
-          </td>
-          <td>
-            <%= lost.status %>
-          </td>
-          <td>
-            <%= lost.location %>
-          </td>
-          <td>
-            <%= lost.call_number %>
-          </td>
-          <td>
-            <%= lost.barcode %>
-          </td>
-          <td>
-            <%= lost.last_checkout %>
-          </td>
-        </tr><% end %>
-        </tbody>
-      </table>
-    </div>
-    <div id="facets" class="span3">
-      <div class="well sidebar-nav">
-        <ul class="nav nav-list">
-
-          <% if params[:loc].present? or params[:trunc].present? %>
-          <%= link_to 'Remove Filters', request.params.merge({trunc: nil, loc: nil, page: nil}), class:  'btn btn-default' %>
-          <%end%>
-
-          <h4>
-            Location
-          </h4>
-          <% for row in @search.facet(:loc_trunc).rows %>
-
-          <% def remove_loc(ary,val) %>
-          <% remove = ary.dup %>
-          <% remove.delete(val) %>
-          <% remove %>
-          <% end %>
-
-          <li>
-          <% if params[:loc].present? %>
-          <% unless params[:loc].include? row.value%>
-          <%= link_to row.value, request.params.merge({loc: params[:loc] | [row.value], page: nil})  %>
-          <% else %>
-            <%= link_to "#{row.value} (remove)", request.params.merge({loc: remove_loc(params[:loc], row.value), trunc: nil, full: nil}), {style: "color: red"}  %>
-          <% end %>
-          <% else %>
-          <%= link_to row.value, request.params.merge({loc: [row.value], page: nil})  %> 
-          <% end %> 
-          </li>
-          <%end%>
-
-
-          <% if params[:loc].present? %>
-          <li style="list-style: none">
-          <h4>
-            General Class
-          </h4><% for row in @search.facet(:class_trunc).rows %><% if params[:trunc].blank? %>
-          </li>
-          <li>
-          <%= link_to row.value, request.params.merge({trunc: row.value, page: nil}) %>
-          </li><% else %>
-          <li>
-          <%= link_to "#{row.value} (remove)", request.params.merge({trunc: nil, page: nil, full: nil}), {style: "color: red"} %>
-          </li><%end%><% end %>
-          <% if params[:trunc].present? %> <h4>
-            Full Class
-          </h4><% for row in @search.facet(:class_full).rows %><% if params[:full].blank?%>
-          </li>
-          <li>
-          <%= link_to row.value, request.params.merge({full: row.value, page: nil}) %>
-          </li><% else %>
-          <li>
-          <%= link_to "#{row.value} (remove)", request.params.merge({full: nil, page: nil}), {style: "color: red"} %>
-          </li><% end %><% end %><% end %>
-          <%end%>
-        </ul>
+      <%= render "facets" %>
       </div>
     </div>
-  </div>
-</div>
-<div class="pagination">
-  <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
-</div>
-</body>
+
+    <div class="pagination">
+      <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
+    </div>
+  </body>
 </html>
