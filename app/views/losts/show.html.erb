@@ -12,33 +12,31 @@
 
   <dd><%= "b#{@lost.bib_number}a" %></dd>
  
-  <% unless @lost.oclc.nil? %>
     <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>
-    <dd><%= @lost.oclc %></dd>
-  <% end %> 
+    <dd><%= @lost.oclc.presence || '-' %></dd>
 
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @lost.title %></dd>
+  <dd><%= @lost.title.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:imprint) %>:</strong></dt>
   <dd><%= @lost.imprint %></dd>
   <dt><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></dt>
-    <dd><%= @lost.isbn.gsub(/(\d{13}|\d{9}[X\d])/, "<a href=\"http://www.gobi3.com/hx/Gobi.ashx?location=runsearch&source=quicksearch&quicksearchval=\\1\" target=\"_blank\">\\1</a>").html_safe %></div></dd>
+    <dd><%= @lost.isbn.gsub(/(\d{13}|\d{9}[X\d])/, "<a href=\"http://www.gobi3.com/hx/Gobi.ashx?location=runsearch&source=quicksearch&quicksearchval=\\1\" target=\"_blank\">\\1</a>").html_safe.presence || '-' %></div></dd>
   <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
-  <dd><%= @lost.status %></dd>
+  <dd><%= @lost.status.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:checkouts) %>:</strong></dt>
-  <dd><%= @lost.checkouts %></dd>
+  <dd><%= @lost.checkouts.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
-  <dd><%= @lost.location %></dd>
+  <dd><%= @lost.location.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:call_number) %>:</strong></dt>
-  <dd><%= @lost.call_number %></dd>
+  <dd><%= @lost.call_number.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:volume) %>:</strong></dt>
-  <dd><%= @lost.volume %></dd>
+  <dd><%= @lost.volume.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:barcode) %>:</strong></dt>
-  <dd><%= @lost.barcode %></dd>
+  <dd><%= @lost.barcode.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:due_date) %>:</strong></dt>
-  <dd><%= @lost.due_date %></dd>
+  <dd><%= @lost.due_date.presence || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:last_checkout) %>:</strong></dt>
-  <dd><%= @lost.last_checkout %></dd>
+  <dd><%= @lost.last_checkout.presence || '-' %></dd>
 </dl> 
 <div class="container">
   <div class="span8">
