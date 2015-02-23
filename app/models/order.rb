@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   validates :title, presence: true
   validates :author, presence: true
   validates :publication_date, presence: true
+  validates :publication_date, length: {is: 4, message: 'format must be YYYY'} 
   validates :isbn, presence: true
   validates :isbn, length: { in: 10..13 }
   validates :vendor_code, length: { maximum: 5 }
@@ -14,8 +15,8 @@ class Order < ActiveRecord::Base
   validates :fund, length: { is: 5 }
   validates :cost, presence: true
   validates :cost, format: { with: /\d{2}/, message: 'format X.XX' }
-  validates_presence_of :notification_contact, if: :notify?
-
+  validates_presence_of :notification_contact, if: :notify?, message: 'can\'t be blank if notification requested'
+  
   belongs_to :user
 
   searchable do 

@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
         @user = current_user
         paginate(per_page: 20, page: params[:page])
         fulltext params[:search]
-       
         with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
         with(:title)
     
