@@ -37,10 +37,10 @@ class OrdersController < ApplicationController
     @order.user_id = @user.id
     if @order.save
       OrderMailer.new_order(@user, @order).deliver
-    end
     unless @user.instance_of? Assistant
       @order.approve_selection!
       @order.save
+    end
     end
     respond_with(@order)
   end

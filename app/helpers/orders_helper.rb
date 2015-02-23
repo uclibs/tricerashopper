@@ -1,6 +1,7 @@
 module OrdersHelper
   def fund_code_list
-     ['HALHN',
+     ['',
+      'HALHN',
       'HBERN',
       'HDANN',
       'HHACN',
@@ -111,7 +112,8 @@ module OrdersHelper
   end
 
   def location_code_list
-     ['HHBRO',
+     ['',
+      'HHBRO',
       'HHRSH',
       'HHSTK',
       'UAS',

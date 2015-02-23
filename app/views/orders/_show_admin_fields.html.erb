@@ -1,0 +1,10 @@
+<%- model_class = Order %>
+  <dl class="dl-horizontal">
+        <div class="well well-sm">
+        <h4>Admin</h4>
+     <dt><strong><%= model_class.human_attribute_name(:vendor_code) %>:</strong></dt>
+      <dd><%= @order.vendor_code.presence || '-'%></dd>
+      <dt><strong><%= model_class.human_attribute_name(:vendor_note) %>:</strong></dt>
+      <dd><%= @order.vendor_note.presence || '-'%></dd>
+    </div> 
+  </dl>

@@ -1,0 +1,17 @@
+<%- model_class = Order %>
+<div class="btn-group dropup">
+      <% if @order.current_state.events.keys.count > 0 %>
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    <%= "Current: #{model_class.human_attribute_name(@order.current_state)}" %> 
+        <span class="caret"></span>
+      </a>
+          <ul class="dropdown-menu">
+           <% @order.current_state.events.keys.each do |i| %> 
+             <li> <%= link_to model_class.human_attribute_name(i), "/orders/#{@order.id}/#{i}", method: :put, data: {confirm: 'Are you sure?'}
+           %> </li>
+           <% end %>
+         </ul>
+       <% else %>
+         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn' %>
+    <% end %>
+</div>

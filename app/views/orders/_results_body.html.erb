@@ -1,0 +1,26 @@
+<%- model_class = Order %>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:author) %></th>
+      <th><%= model_class.human_attribute_name(:fund) %></th>
+      <th><%= model_class.human_attribute_name(:cost) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+        <tr>
+        <td><%= link_to order.title, order_path(order) %></td>
+        <td><%= order.author %></td>
+        <td><%= order.fund %></td>
+        <td><%= order.cost.to_s.insert(-3,'.') %></td>
+        <td><%= order.created_at.strftime("%m/%d/%Y") %></td>
+        <td><%= model_class.human_attribute_name(order.workflow_state) %></td>
+     </tr>
+    <% end %>
+  </tbody>
+</table>
+

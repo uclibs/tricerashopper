@@ -1,0 +1,17 @@
+<%- model_class = Order %>
+<div id="facets">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <h4>Status</h4>
+        <% for row in @search.facet(:workflow_state).rows %>
+          <li>
+            <% if params[:state].blank? %>
+              <%= link_to model_class.human_attribute_name(row.value), state: row.value %>
+            <% else %>
+              <%= link_to "#{model_class.human_attribute_name(row.value)} (remove)", request.params.merge({state: nil, page: nil}) %> 
+            <% end %>
+          </li>
+        <% end %>
+     </ul>
+  </div>
+</div>
