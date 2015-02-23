@@ -39,6 +39,10 @@ class OrdersController < ApplicationController
     if @order.save
       OrderMailer.new_order(@user, @order).deliver
     end
+    unless @user.instance_of? Assistant
+      @order.approve_selection!
+      @order.save
+    end
     respond_with(@order)
   end
 
@@ -78,6 +82,16 @@ class OrdersController < ApplicationController
     @order.reject!
     @order.save
     respond_with(@order)
+  end
+
+  def approve_selection
+    @order = Order.find(params[:id])
+    @order.approve_selection!
+    @order.save
+    respond_with(@order)
+  end
+
+  def provisional
   end
 
   def export_to_marc

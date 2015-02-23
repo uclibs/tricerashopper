@@ -14,6 +14,7 @@ SelectorReporting::Application.routes.draw do
       put :accept_noprint
       put :accept_not_yet_published
       put :reject 
+      put :approve_selection
     end
     collection do 
       get :export_to_marc
