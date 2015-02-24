@@ -30,6 +30,10 @@ class Order < ActiveRecord::Base
   end
   
   workflow do 
+    state :provisional do
+      event :approve_selection, :transitions_to => :new
+      event :reject, :transitions_to => :rejected
+    end
     state :new do
       event :accept_print, :transitions_to => :print_queue
       event :accept_noprint, :transitions_to => :ordered
