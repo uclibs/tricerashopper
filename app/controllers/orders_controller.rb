@@ -9,7 +9,6 @@ class OrdersController < ApplicationController
         @user = current_user
         paginate(per_page: 20, page: params[:page])
         fulltext params[:search]
-       
         with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
         with(:title)
     
@@ -38,10 +37,10 @@ class OrdersController < ApplicationController
     @order.user_id = @user.id
     if @order.save
       OrderMailer.new_order(@user, @order).deliver
-    end
     unless @user.instance_of? Assistant
       @order.approve_selection!
       @order.save
+    end
     end
     respond_with(@order)
   end

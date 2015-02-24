@@ -55,18 +55,8 @@
 </dl>
 
 <% if current_user.instance_of? Admin %>
-<dl class="dl-horizontal">
-    <div class="well well-sm">
-    <h4>Admin</h4>
- <dt><strong><%= model_class.human_attribute_name(:vendor_code) %>:</strong></dt>
-  <dd><%= @order.vendor_code.presence || '-'%></dd>
-  <dt><strong><%= model_class.human_attribute_name(:vendor_note) %>:</strong></dt>
-  <dd><%= @order.vendor_note.presence || '-'%></dd>
-</div> 
-</dl>
-  <% end %>
-
-
+  <%= render "show_admin_fields" %>
+<% end %>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
@@ -74,34 +64,9 @@
           
           
             <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_order_path(@order), :class => 'btn' || '-' %>
-
-            <% if current_user.instance_of? Admin %>
-<div class="btn-group dropup">
-      <% if @order.current_state.events.keys.count > 0 %>
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    <%= "Current: #{model_class.human_attribute_name(@order.current_state)}" %> 
-        <span class="caret"></span>
-      </a>
-          <ul class="dropdown-menu">
-           <% @order.current_state.events.keys.each do |i| %> 
-             <li> <%= link_to model_class.human_attribute_name(i), "/orders/#{@order.id}/#{i}", method: :put, data: {confirm: 'Are you sure?'}
-           %> </li>
-           <% end %>
-         </ul>
-       <% else %>
-         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn' %>
-    <% end %>
-</div>
-
-
-
-
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              order_path(@order),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+<% if current_user.instance_of? Admin %>
+  <%= render "show_admin_actions" %>
+<% elsif current_user.instance_of? Selector %>
+  <%= render "show_selector_actions" %>
           <% end %>
-</div>
-</div>
-
+  </div>

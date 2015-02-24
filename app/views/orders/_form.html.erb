@@ -1,8 +1,9 @@
 <%= form_for @order, html: {class: 'form-horizontal'} do |f| %>
-  <% if @order.errors.any? %>
+  <%= bootstrap_flash %>
+<% if @order.errors.any? %>
     <div class="container">
-      <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <div class="alert alert-error">
+        <h5><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h5>
 
       <ul>
       <% @order.errors.full_messages.each do |msg| %>
@@ -14,7 +15,7 @@
   <% end %>
  <div class="container">
   <div class="well">
-  <div class="control-group">
+   <div class="control-group">
     <%= f.label :title, class: 'control-label' %>
     <div class="controls">
     <%= f.text_field :title, class: 'text-field' %>
