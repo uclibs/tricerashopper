@@ -172,7 +172,7 @@
   </div>
   </div>
 
-  <% if current_user.admin == true %>
+  <% if current_user.instance_of? Admin %>
   <div class="well">
       <div class="control-group">
         <h4>Admin</h4>

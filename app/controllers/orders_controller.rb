@@ -5,13 +5,18 @@ class OrdersController < ApplicationController
   respond_to :html
 
   def index
-    @search = Order.search do
-      paginate(per_page: 20, page: params[:page])
+      @search = Order.search do
+        @user = current_user
+        paginate(per_page: 20, page: params[:page])
         fulltext params[:search]
-          with(:title)
+       
+        with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
+        with(:title)
+    
         facet(:workflow_state)
-          with(:workflow_state, params[:state]) if params[:state].present?
-    end
+        with(:workflow_state, params[:state]) if params[:state].present?
+     end
+  
     @orders = @search.results    
   end
 
@@ -29,8 +34,9 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
+    @user = current_user
+    @order.user_id = @user.id
     if @order.save
-      @user = current_user
       OrderMailer.new_order(@user, @order).deliver
     end
     respond_with(@order)

@@ -64,7 +64,7 @@
     <%= link_to t('.new', :default => t("helpers.links.new")),
             new_order_path,
             :class => 'btn' %>
-          <% if current_user.admin == true %>
+          <% if current_user.instance_of? Admin %>
             <%= link_to 'Download MARC', export_to_marc_orders_path(), class: 'btn default', data: {confirm: 'Are you sure you\'re ready to create the MARC file?'} %> 
             <% end %>
 </div>

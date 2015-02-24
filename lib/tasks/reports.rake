@@ -127,7 +127,7 @@ namespace :reports do
 
     desc "Notify Users of new materials"
     task:notify_users =>  :environment do
-      @users = User.all
+      @users = Selector.all
       @users.each do |user|
         unless user.lmlo_receives_report == false 
           LmloUpdate.new_report(user).deliver

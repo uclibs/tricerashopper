@@ -16,10 +16,13 @@ class Order < ActiveRecord::Base
   validates :cost, format: { with: /\d{2}/, message: 'format X.XX' }
   validates_presence_of :notification_contact, if: :notify?
 
+  belongs_to :user
+
   searchable do 
     text :title, :workflow_state
     string :title
     string :workflow_state
+    integer :user_id
   end
 
   def cost=(val)

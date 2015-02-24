@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205204816) do
+ActiveRecord::Schema.define(version: 20150221122501) do
 
   create_table "dda_expenditures", force: true do |t|
     t.string   "title"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150205204816) do
     t.datetime "updated_at"
     t.string   "vendor_code"
     t.string   "vendor_note"
+    t.integer  "user_id"
   end
 
   create_table "users", force: true do |t|
@@ -88,7 +89,8 @@ ActiveRecord::Schema.define(version: 20150205204816) do
     t.datetime "updated_at"
     t.text     "location"
     t.boolean  "lmlo_receives_report"
-    t.boolean  "admin"
+    t.integer  "selector_id"
+    t.string   "type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

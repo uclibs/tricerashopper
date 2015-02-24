@@ -54,8 +54,7 @@
   <dd><%= @order.other_notes.presence || '-'%></dd>
 </dl>
 
-<% if current_user.admin == true %>
-
+<% if current_user.instance_of? Admin %>
 <dl class="dl-horizontal">
     <div class="well well-sm">
     <h4>Admin</h4>
@@ -76,7 +75,7 @@
           
             <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_order_path(@order), :class => 'btn' || '-' %>
 
-            <% if current_user.admin == true %>
+            <% if current_user.instance_of? Admin %>
 <div class="btn-group dropup">
       <% if @order.current_state.events.keys.count > 0 %>
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
