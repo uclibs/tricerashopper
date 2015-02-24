@@ -146,36 +146,4 @@ describe Lost do
     end
   end
 
-  context "hyphen_for_nil" do
-    it "replaces nil values for ISBN with '-'" do
-      lost = create(:lost, isbn: nil)
-      lost.reload
-      expect(lost.isbn).to eq '-'
-    end
-    
-    it "replaces nil values for imprint with '-'" do
-      lost = create(:lost, imprint: nil)
-      expect(lost.imprint).to eq '-'
-    end
-
-    it "replaces nil values for barcode with '-'" do
-      lost = create(:lost, barcode: nil)
-      expect(lost.barcode).to eq '-'
-    end
-
-    it "replaces nil values for note with '-'" do
-      lost = create(:lost, note: nil)
-      expect(lost.note).to eq '-'
-    end
-
-    it "replaces nil values for call_number with '-'" do
-      lost = create(:lost, call_number: nil)
-      expect(lost.call_number).to eq '-'
-    end
-
-    it "replaces nil values for volume with '-'" do
-      lost = create(:lost, volume: nil)
-      expect(lost.volume).to eq '-'
-    end
-  end
 end

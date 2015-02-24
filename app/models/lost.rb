@@ -3,7 +3,6 @@ class Lost < ActiveRecord::Base
   validates :bib_number, presence: true
   validates :location, presence: true
 
-  before_save :hyphen_for_nil
 
   searchable do
     text :title, :location, :call_number, :class_trunc, :class_full, :loc_trunc
@@ -38,13 +37,4 @@ class Lost < ActiveRecord::Base
       self.location = 'Other'
     end
   end 
-      
-  def hyphen_for_nil
-    self.isbn = self.isbn.presence || '-'
-    self.imprint = self.imprint.presence || '-'
-    self.barcode = self.barcode.presence || '-'
-    self.note = self.note.presence || '-'
-    self.call_number = self.call_number.presence || '-'
-    self.volume = self.volume.presence || '-'
-  end
 end
