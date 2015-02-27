@@ -4,18 +4,15 @@ class Order < ActiveRecord::Base
   validates :author, presence: true
   validates :publication_date, presence: true
   validates :publication_date, length: {is: 4, message: 'format must be YYYY'} 
-  validates :isbn, presence: true
-  validates :isbn, length: { in: 10..13 }
   validates :vendor_code, length: { maximum: 5 }
   validates :publisher, presence: true
   validates :selector, presence: true
   validates :location_code, presence: true
-  validates :location_code, length: { maximum: 5 }
   validates :fund, presence: true
-  validates :fund, length: { is: 5 }
   validates :cost, presence: true
   validates :cost, format: { with: /\d{2}/, message: 'format X.XX' }
   validates_presence_of :notification_contact, if: :notify?, message: 'can\'t be blank if notification requested'
+  validates_presence_of :not_yet_published_date, if: :not_yet_published?, message: 'can\'t be blank if \'not yet published\' indicated'
   
   belongs_to :user
 
@@ -24,6 +21,7 @@ class Order < ActiveRecord::Base
     string :title
     string :workflow_state
     integer :user_id
+    date :created_at
   end
 
   def cost=(val)

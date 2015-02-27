@@ -49,6 +49,6 @@ class LostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lost_params
-      params.require(:lost).permit(:item_number, :bib_number, :title, :imprint, :isbn, :status, :checkouts, :location, :note, :call_number, :volume, :barcode, :due_date, :last_checkout)
+      params.require(:lost).permit(:item_number, :bib_number, :title, :imprint, :isbn, :status, :checkouts, :location, :note, :call_number, :volume, :barcode, :due_date, :last_checkout, :author)
     end
 end

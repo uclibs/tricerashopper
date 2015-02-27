@@ -6,5 +6,9 @@
       <dd><%= @order.vendor_code.presence || '-'%></dd>
       <dt><strong><%= model_class.human_attribute_name(:vendor_note) %>:</strong></dt>
       <dd><%= @order.vendor_note.presence || '-'%></dd>
+      <dt><strong><%= model_class.human_attribute_name(:not_yet_published) %>:</strong></dt>
+      <dd><%= @order.not_yet_published || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:not_yet_published_date) %>:</strong></dt>
+      <dd><%= @order.not_yet_published_date || '-' %></dd>
     </div> 
   </dl>
