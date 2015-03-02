@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
         fulltext params[:search]
         with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
         with(:title)
-    
+        order_by(:created_at, :desc)
         facet(:workflow_state)
         with(:workflow_state, params[:state]) if params[:state].present?
      end
@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new
+    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], location_code: params[:location])
     respond_with(@order)
   end
 
@@ -110,21 +110,23 @@ class OrdersController < ApplicationController
       @orders.each do |i|
       record = MARC::Record.new()
       record.append(MARC::DataField.new('020', ' ', ' ', ['a', i.isbn.to_s]))
-      record.append(MARC::DataField.new('100', '0', '0', ['a', i.author]))
+      record.append(MARC::DataField.new('100', '0', ' ', ['a', i.author]))
       record.append(MARC::DataField.new('245', '1', '0', ['a', i.title]))
       record.append(MARC::DataField.new('260', ' ', ' ', ['b', i.publisher], ['c', i.publication_date.to_s]))
-      record.append(MARC::DataField.new('960', ' ', ' ', ['h', i.notify.presence ? 'r' : '-'], ['j', i.rush_order.presence ? 'n' : '-'], ['o', '1'], ['s', i.cost.to_s], ['t', i.location_code], ['u', i.fund], ['v', i.vendor_code]))
-       f961 = MARC::DataField.new('961', ' ', ' ', ['f', i.selector])
-      if i.other_notes.length > 0
-         f961.append(MARC::Subfield.new('d', i.other_notes))
-      end
-      if i.vendor_note.length > 0
-        f961.append(MARC::Subfield.new('h', i.vendor_note))
-      end
-      if i.notification_contact.length > 0
-        f961.append(MARC::Subfield.new('c', i.notification_contact))
-      end
+ 
+      f960 = MARC::DataField.new('960', ' ', ' ', ['o', '1'], ['s', i.cost.to_s], ['t', i.location_code], ['u', i.fund], ['v', i.vendor_code])
+      f960.append(MARC::Subfield.new('h', 'r')) unless i.rush_order.blank?
+      f960.append(MARC::Subfield.new('j', 'n')) unless i.notify.blank?
+      f960.append(MARC::Subfield.new('m', '2')) unless i.not_yet_published.blank?
+      record.append(f960)
+
+      f961 = MARC::DataField.new('961', ' ', ' ', ['f', i.selector])
+      f961.append(MARC::Subfield.new('d', i.other_notes)) unless i.other_notes.blank?
+      f961.append(MARC::Subfield.new('h', i.vendor_note)) unless i.vendor_note.blank?
+      f961.append(MARC::Subfield.new('c', i.notification_contact)) unless i.notification_contact.blank?
+      f961.append(MARC::Subfield.new('x', "Not yet published$#{i.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$Check not yet published order")) unless i.not_yet_published.blank?
       record.append(f961)
+    
       writer.write(record)
       i.export_to_marc!
       i.save
@@ -144,6 +146,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date)
     end
 end

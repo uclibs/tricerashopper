@@ -1,6 +1,7 @@
 module OrdersHelper
   def fund_code_list
      ['',
+      'TEST',
       'HALHN',
       'HBERN',
       'HDANN',
@@ -113,6 +114,7 @@ module OrdersHelper
 
   def location_code_list
      ['',
+      'OTEST',
       'HHBRO',
       'HHRSH',
       'HHSTK',
