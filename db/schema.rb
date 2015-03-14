@@ -77,6 +77,21 @@ ActiveRecord::Schema.define(version: 20150226215841) do
     t.date     "not_yet_published_date"
   end
 
+  create_table "serials", force: true do |t|
+    t.integer  "order_number"
+    t.integer  "bib_number"
+    t.string   "title"
+    t.string   "fund"
+    t.string   "format"
+    t.string   "acq_type"
+    t.string   "order_type"
+    t.string   "vendor"
+    t.text     "payments"
+    t.text     "issns"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -92,6 +107,7 @@ ActiveRecord::Schema.define(version: 20150226215841) do
     t.datetime "updated_at"
     t.text     "location"
     t.boolean  "lmlo_receives_report"
+    t.boolean  "admin"
     t.integer  "selector_id"
     t.string   "type"
   end
