@@ -1,3 +1,5 @@
+require 'resque/server'
+
 SelectorReporting::Application.routes.draw do
   resources :dda_expenditures
   devise_for :users
@@ -21,6 +23,7 @@ SelectorReporting::Application.routes.draw do
     end
   end
 
+  mount Resque::Server.new, at: "/resque"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
