@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'active_sierra', git:'https://github.com/uclibs/active_sierra.git', branch: 'develop'
 gem 'devise'
+gem 'resque'
 
 gem 'therubyracer'
 
