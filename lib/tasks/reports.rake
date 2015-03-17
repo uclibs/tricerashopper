@@ -1,3 +1,5 @@
+require 'resque/tasks'
+
 def filter_delims(field)
   unless field.nil?
     field = field.gsub(/\|[af]/, '')
