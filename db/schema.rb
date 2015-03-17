@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226215841) do
+ActiveRecord::Schema.define(version: 20150314191530) do
 
   create_table "dda_expenditures", force: true do |t|
     t.string   "title"
@@ -91,6 +91,18 @@ ActiveRecord::Schema.define(version: 20150226215841) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sierra_indices", force: true do |t|
+    t.string   "record_type"
+    t.integer  "record_num"
+    t.datetime "last_checked"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked"
+  add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num"
+  add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
