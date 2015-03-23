@@ -42,7 +42,7 @@
   <div class="control-group">
     <%= f.label :isbn, class: 'control-label' %>
     <div class="controls">
-      <%= f.number_field :isbn, class: 'text-field' %>
+      <%= f.text_field :isbn, class: 'text-field' %>
     </div>
   </div>
   <div class="control-group required">
@@ -203,6 +203,20 @@
           <%= f.date_field :not_yet_published_date, class: 'date_field' %>
         </div>
       </div>
+  <div class="control-group">
+        <%= f.label :vendor_address, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :not_yet_published_date, class: 'text-field' %>
+        </div>
+      </div>
+
+  <div class="control-group">
+        <%= f.label :credit_card_order, class: 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :credit_card_order, class: 'check-box' %>
+        </div>
+      </div>
+
 
 
     </div>
