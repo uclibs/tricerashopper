@@ -5,8 +5,8 @@ FactoryGirl.define do
     title "MyString"
     author "MyString"
     format "MyString"
-    publication_date "MyString"
-    isbn 1
+    publication_date "1999"
+    isbn "NyString"
     publisher "MyString"
     oclc 1
     edition "MyString"

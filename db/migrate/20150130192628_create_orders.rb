@@ -5,7 +5,7 @@ class CreateOrders < ActiveRecord::Migration
       t.string :author
       t.string :format
       t.string :publication_date
-      t.integer :isbn
+      t.string :isbn
       t.string :publisher
       t.integer :oclc
       t.string :edition
@@ -25,6 +25,8 @@ class CreateOrders < ActiveRecord::Migration
       t.string :relevant_url
       t.string :other_notes
       t.string :workflow_state
+      t.string :vendor_address
+      t.boolean :credit_card_order
 
       t.timestamps
     end
