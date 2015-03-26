@@ -1,0 +1,2 @@
+module SierraIndexHelper
+end
