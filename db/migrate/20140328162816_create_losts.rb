@@ -3,7 +3,7 @@ class CreateLosts < ActiveRecord::Migration
     create_table :losts do |t|
       t.integer :item_number
       t.integer :bib_number
-      t.string :title
+      t.text :title
       t.string :imprint
       t.string :isbn
       t.string :status

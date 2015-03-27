@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150314191530) do
 
   create_table "dda_expenditures", force: true do |t|
-    t.string   "title"
+    t.text     "title"
     t.decimal  "paid",       precision: 2, scale: 0
     t.string   "fund"
     t.text     "paid_date"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150314191530) do
   create_table "losts", force: true do |t|
     t.integer  "item_number"
     t.integer  "bib_number"
-    t.string   "title"
+    t.text     "title"
     t.string   "imprint"
     t.string   "isbn"
     t.string   "status"
@@ -77,21 +77,6 @@ ActiveRecord::Schema.define(version: 20150314191530) do
     t.date     "not_yet_published_date"
   end
 
-  create_table "serials", force: true do |t|
-    t.integer  "order_number"
-    t.integer  "bib_number"
-    t.string   "title"
-    t.string   "fund"
-    t.string   "format"
-    t.string   "acq_type"
-    t.string   "order_type"
-    t.string   "vendor"
-    t.text     "payments"
-    t.text     "issns"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "sierra_indices", force: true do |t|
     t.string   "record_type"
     t.integer  "record_num"
@@ -119,7 +104,6 @@ ActiveRecord::Schema.define(version: 20150314191530) do
     t.datetime "updated_at"
     t.text     "location"
     t.boolean  "lmlo_receives_report"
-    t.boolean  "admin"
     t.integer  "selector_id"
     t.string   "type"
   end

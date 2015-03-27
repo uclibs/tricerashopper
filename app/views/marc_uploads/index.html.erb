@@ -5,7 +5,7 @@
     <p class="lead">Upload Arkive invoices in *.xlsx format</p>
 
     <div class="hero-unit">   
-      <%= form_tag '/marc_uploads/create', { :multipart => true } do %>
+      <%= form_tag marc_uploads_create_path, { :multipart => true } do %>
         <p>
  
     <%= bootstrap_flash %>
