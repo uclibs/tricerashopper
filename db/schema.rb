@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150314191530) do
 
   create_table "dda_expenditures", force: true do |t|
-    t.string   "title"
+    t.text     "title"
     t.decimal  "paid",       precision: 2, scale: 0
     t.string   "fund"
     t.text     "paid_date"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150314191530) do
   create_table "losts", force: true do |t|
     t.integer  "item_number"
     t.integer  "bib_number"
-    t.string   "title"
+    t.text     "title"
     t.string   "imprint"
     t.string   "isbn"
     t.string   "status"
