@@ -11,6 +11,10 @@ describe SierraIndex do
   it "has a valid factory" do
     expect(build(:sierra_index)).to be_valid
   end
+  
+  it "is valid with record type and record number" do
+    expect(build(:sierra_index, record_type: 'b', record_num: '12345678')).to be_valid
+  end
 
   it "is invalid without record type" do
     expect(build(:sierra_index, record_type: nil )).to be_invalid
@@ -18,6 +22,11 @@ describe SierraIndex do
 
   it "is invalid without record number" do
     expect(build(:sierra_index, record_num: nil )).to be_invalid
+  end
+
+  it "is invalid when duplicating another record with the same record_num and type" do
+    create(:sierra_index, record_num: 12345678, record_type: 'b')
+    expect(build(:sierra_index, record_num: 12345678, record_type: 'b')).to be_invalid
   end
 
   it "is valid with record type 'o'" do
