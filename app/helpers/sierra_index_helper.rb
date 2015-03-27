@@ -19,14 +19,13 @@ module SierraIndexHelper
   private
 
   def self.create_with_batch(record_type, begin_date = nil)
-    batch_size = 1000
     if begin_date.nil?
-      ACTIVE_SIERRA_CLASS[record_type].find_in_batches(batch_size: batch_size) do |group| 
+      ACTIVE_SIERRA_CLASS[record_type].find_in_batches do |group| 
         group.each { |record| create_index(record) }
         echo_last_record_number(group, record_type)
       end
     else
-      ACTIVE_SIERRA_CLASS[record_type].where(record_creation_date_gmt: (begin_date - 1).beginning_of_day..DateTime.tomorrow.end_of_day).find_in_batches(batch_size: batch_size) do |group| 
+      ACTIVE_SIERRA_CLASS[record_type].where(record_creation_date_gmt: (begin_date - 1).beginning_of_day..DateTime.tomorrow.end_of_day).find_in_batches do |group| 
         group.each { |record| create_index(record) }
         echo_last_record_number(group, record_type)
       end
