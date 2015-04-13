@@ -15,7 +15,7 @@
   <dt><strong><%= model_class.human_attribute_name(:publication_date) %>:</strong></dt>
   <dd><%= @order.publication_date.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></dt>
-  <dd><%= @order.isbn  || '-'%></dd>
+  <dd><%= @order.isbn.presence  || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
   <dd><%= @order.publisher.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>
@@ -39,7 +39,7 @@
   <dt><strong><%= model_class.human_attribute_name(:added_copy_call_number) %>:</strong></dt>
   <dd><%= @order.added_copy_call_number.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:rush_order) %>:</strong></dt>
-  <dd><%= @order.rush_order  || '-'%></dd>
+  <dd><%= @order.rush_order || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:rush_process) %>:</strong></dt>
   <dd><%= @order.rush_process || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:notify) %>:</strong></dt>
