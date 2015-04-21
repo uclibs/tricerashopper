@@ -4,6 +4,6 @@ class OrderMailer < ActionMailer::Base
   def new_order(user, order)
       @user = user
       @order = order
-      mail(to: @user.email, subject: 'Tricerashopper order confirmation')
+      mail(to: @user.email, cc: Admin.pluck(:email), subject: 'Tricerashopper order confirmation')
   end
 end

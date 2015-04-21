@@ -7,7 +7,7 @@ Bundler.require(*Rails.groups)
 
 module SelectorReporting
   class Application < Rails::Application
-    config.action_mailer.default_url_options = { host: 'lucy.libraries.uc.edu' }
+    config.action_mailer.default_url_options = { host: 'lucy.libraries.uc.edu/tricerashopper' }
     config.autoload_paths += %W(#{config.root}/app/models/users)
 # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
