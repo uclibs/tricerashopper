@@ -11,9 +11,9 @@
       <dt><strong><%= model_class.human_attribute_name(:not_yet_published_date) %>:</strong></dt>
       <dd><%= @order.not_yet_published_date || '-' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:vendor_address) %>:</strong></dt>
-      <dd><%= @order.vendor_address || '-' %></dd>
+      <dd><%= @order.vendor_address.presence || '-' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:credit_card_order) %>:</strong></dt>
-      <dd><%= @order.credit_card_order || '-' %></dd>
+      <dd><%= @order.credit_card_order.presence || '-' %></dd>
     
   
     </div> 
