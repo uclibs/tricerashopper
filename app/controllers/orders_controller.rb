@@ -129,6 +129,7 @@ class OrdersController < ApplicationController
       f961.append(MARC::Subfield.new('x', "NYP Order$#{i.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$NYP- Expected date #{i.not_yet_published_date.strftime('%m/%d/%Y')}")) unless i.not_yet_published.blank?
       f961.append(MARC::Subfield.new('j', i.processing_note) unless i.processing_note.blank?
       f961.append(MARC::Subfield.new('d', i.internal_note) unless i.internal_note.blank?
+      f961.append(MARC::Subfield.new('q', i.vendor_address) unless i.vendor_address.blank?
       record.append(f961)
     
       writer.write(record)
