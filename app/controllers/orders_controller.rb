@@ -125,7 +125,7 @@ class OrdersController < ApplicationController
       f961 = MARC::DataField.new('961', ' ', ' ', ['f', i.selector])
       f961.append(MARC::Subfield.new('d', i.other_notes)) unless i.other_notes.blank?
       f961.append(MARC::Subfield.new('h', i.vendor_note)) unless i.vendor_note.blank?
-      f961.append(MARC::Subfield.new('c', i.notification_contact)) unless i.notification_contact.blank?
+      f961.append(MARC::Subfield.new('c', "Notify #{i.notification_contact}")) unless i.notification_contact.blank?
       f961.append(MARC::Subfield.new('x', "NYP Order$#{i.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$NYP- Expected date #{i.not_yet_published_date.strftime('%m/%d/%Y')}")) unless i.not_yet_published.blank?
       record.append(f961)
     
