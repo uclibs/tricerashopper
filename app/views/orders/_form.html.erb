@@ -84,13 +84,13 @@
   <div class="control-group required">
     <%= f.label :location_code, class: 'control-label' %>
     <div class="controls">
-    <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code) %>
+    <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code), include_blank: true %>
     </div>
   </div>
   <div class="control-group required">
     <%= f.label :fund, class: 'control-label' %>
     <div class="controls">
-    <%= f.select :fund, options_for_select(fund_code_list, f.object.fund) %>
+    <%= f.select :fund, options_for_select(fund_code_list, f.object.fund), include_blank: true %>
     </div>
   </div>
   <div class="control-group required">
