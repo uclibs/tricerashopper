@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314191530) do
+ActiveRecord::Schema.define(version: 20150422165739) do
 
   create_table "dda_expenditures", force: true do |t|
     t.text     "title"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20150314191530) do
     t.integer  "user_id"
     t.boolean  "not_yet_published"
     t.date     "not_yet_published_date"
+    t.text     "internal_note"
+    t.text     "processing_note"
   end
 
   create_table "sierra_indices", force: true do |t|

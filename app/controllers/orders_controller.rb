@@ -127,6 +127,8 @@ class OrdersController < ApplicationController
       f961.append(MARC::Subfield.new('h', i.vendor_note)) unless i.vendor_note.blank?
       f961.append(MARC::Subfield.new('c', "Notify #{i.notification_contact}")) unless i.notification_contact.blank?
       f961.append(MARC::Subfield.new('x', "NYP Order$#{i.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$NYP- Expected date #{i.not_yet_published_date.strftime('%m/%d/%Y')}")) unless i.not_yet_published.blank?
+      f961.append(MARC::Subfield.new('j', i.processing_note) unless i.processing_note.blank?
+      f961.append(MARC::Subfield.new('d', i.internal_note) unless i.internal_note.blank?
       record.append(f961)
     
       writer.write(record)
@@ -148,6 +150,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :rush_process, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
     end
 end
