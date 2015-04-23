@@ -10,6 +10,9 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li>
+              <%= link_to "Help", help_path %>
+              </li>
+              <li>
               <% if user_signed_in? %>
               <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
             <% else %> 

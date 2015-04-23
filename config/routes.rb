@@ -4,7 +4,8 @@ SelectorReporting::Application.routes.draw do
   resources :dda_expenditures
   devise_for :users
   resources :users
-  root "static_pages#home"
+  root 'static_pages#home'
+  get '/help', to: 'static_pages#help'
   resources :losts
   get '/marc_uploads', to: 'marc_uploads#index'
   post '/marc_uploads/create', to: 'marc_uploads#create'
