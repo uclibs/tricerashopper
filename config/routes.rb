@@ -13,10 +13,12 @@ SelectorReporting::Application.routes.draw do
   resources :orders do
     member do
       put :accept_print
-      put :accept_noprint
+      put :accept_no_print
+      put :accept_no_action
       put :accept_not_yet_published
       put :reject 
       put :approve_selection
+      put :temporary_hold
     end
     collection do 
       get :export_to_marc

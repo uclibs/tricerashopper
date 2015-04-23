@@ -1,7 +1,6 @@
 module OrdersHelper
   def fund_code_list
-     ['',
-      'TEST',
+     ['TEST',
       'HALHN',
       'HBERN',
       'HDANN',
@@ -113,8 +112,7 @@ module OrdersHelper
   end
 
   def location_code_list
-     ['',
-      'OTEST',
+      ['OTEST',
       'HHBRO',
       'HHRSH',
       'HHSTK',
@@ -132,7 +130,9 @@ module OrdersHelper
       'UINT',
       'ULA',
       'ULAH',
-      'UMA']
+      'UMA',
+      'ULAK',
+      'ULADF']
   end
   def format_list
      ['Print',

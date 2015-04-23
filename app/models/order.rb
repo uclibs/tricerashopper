@@ -35,21 +35,30 @@ class Order < ActiveRecord::Base
     end
     state :new do
       event :accept_print, :transitions_to => :print_queue
-      event :accept_noprint, :transitions_to => :ordered
-      event :accept_not_yet_published, :transitions_to => :waiting
+      event :accept_no_print, :transitions_to => :print_queue_no_po
+      event :temporary_hold, :transitions_to => :waiting
+      event :accept_no_action, :transitions_to => :ordered
       event :reject, :transitions_to => :rejected
     end
     state :print_queue do
-      event :export_to_marc, :transitions_to => :ordered
+      event :temporary_hold, :transitions_to => :waiting
+    end
+    state :print_queue_no_po do
+      event :temporary_hold, :transitions_to => :waiting
     end
     state :waiting do
       event :accept_print, :transitions_to => :print_queue
-      event :accept_no_print, :transitions_to => :ordered
+      event :accept_no_print, :transitions_to => :print_queue_no_po
+      event :accept_no_action, :transitions_to => :ordered
       event :reject, :transitions_to => :rejected
     end
     state :ordered do
+      event :accept_print, :transitions_to => :print_queue
+      event :accept_no_print, :transitions_to => :print_queue_no_po
+      event :temporary_hold, :transitions_to => :waiting
     end
     state :rejected do
+      event :temporary_hold, :transitions_to => :waiting
     end
   end 
 end

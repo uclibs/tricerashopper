@@ -6,14 +6,18 @@
       <dd><%= @order.vendor_code.presence || '-'%></dd>
       <dt><strong><%= model_class.human_attribute_name(:vendor_note) %>:</strong></dt>
       <dd><%= @order.vendor_note.presence || '-'%></dd>
+      <dt><strong><%= model_class.human_attribute_name(:internal_note) %>:</strong></dt>
+      <dd><%= @order.internal_note.presence || '-'%></dd>
+      <dt><strong><%= model_class.human_attribute_name(:processing_note) %>:</strong></dt>
+      <dd><%= @order.processing_note.presence || '-'%></dd>
       <dt><strong><%= model_class.human_attribute_name(:not_yet_published) %>:</strong></dt>
       <dd><%= @order.not_yet_published || '-' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:not_yet_published_date) %>:</strong></dt>
       <dd><%= @order.not_yet_published_date || '-' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:vendor_address) %>:</strong></dt>
-      <dd><%= @order.vendor_address || '-' %></dd>
+      <dd><%= @order.vendor_address.presence || '-' %></dd>
       <dt><strong><%= model_class.human_attribute_name(:credit_card_order) %>:</strong></dt>
-      <dd><%= @order.credit_card_order || '-' %></dd>
+      <dd><%= @order.credit_card_order.presence || '-' %></dd>
     
   
     </div> 

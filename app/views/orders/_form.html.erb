@@ -84,13 +84,13 @@
   <div class="control-group required">
     <%= f.label :location_code, class: 'control-label' %>
     <div class="controls">
-    <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code) %>
+    <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code), include_blank: true %>
     </div>
   </div>
   <div class="control-group required">
     <%= f.label :fund, class: 'control-label' %>
     <div class="controls">
-    <%= f.select :fund, options_for_select(fund_code_list, f.object.fund) %>
+    <%= f.select :fund, options_for_select(fund_code_list, f.object.fund), include_blank: true %>
     </div>
   </div>
   <div class="control-group required">
@@ -191,7 +191,19 @@
           <%= f.text_field :vendor_note, class: 'text-field' %>
         </div>
       </div> 
-        <div class="control-group">
+         <div class="control-group">
+        <%= f.label :internal_note, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :internal_note, class: 'text-field' %>
+        </div>
+      </div> 
+          <div class="control-group">
+        <%= f.label :processing_note, class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :processing_note, class: 'text-field' %>
+        </div>
+      </div> 
+  <div class="control-group">
         <%= f.label :not_yet_published, class: 'control-label' %>
         <div class="controls">
           <%= f.check_box :not_yet_published, class: 'check-box' %>
