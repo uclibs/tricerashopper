@@ -2,7 +2,10 @@
 <div class="container">
   <%= bootstrap_flash %>
 <table class='table table-striped'>
-  <% Dir["public/tmp/records/*.*"].each do |file| %>
+  <tr>
+  <th>Filename</th>
+</tr>
+  <% Dir["public/tmp/records/*.*"].reverse.each do |file| %>
     <tr>
       <td><%= link_to File.basename(file), "#{root_url}tmp/records/#{File.basename(file)}" %></td>
   </tr>

@@ -68,15 +68,10 @@
     </div>
   </div>
 </div>
-<div class="span4"><h5>To aide Acquistions staff, please enter as much title information as possible.</h5></div>
+<div class="span4">To aide Acquistions staff, please enter as much title information as possible.</div>
 
 </div>
-
-
 </div>
-
-
-
 
   <div class="well">
     <div class="control-group required">
@@ -186,9 +181,14 @@
   </div>
   </div>
 
+
+
   <% if current_user.instance_of? Admin %>
   <div class="well">
-      <div class="control-group required">
+
+    <div class="row">
+      <div class="span7">
+    <div class="control-group required">
         <h4>Admin</h4>
         <%= f.label :vendor_code, class: 'control-label' %>
         <div class="controls">
@@ -238,7 +238,13 @@
           <%= f.check_box :credit_card_order, class: 'check-box' %>
         </div>
       </div>
-
+    </div>
+    <p>All fields correspond to order record variable fields.</p>
+    <p>To include line breaks in the vendor address field, separate lines with $ (dollar) characters in your string.</p>
+    <p>The <i>Not yet published</i> option requires a date and will generate a tickler field in the MARC record.</p>
+    <p>Credit card order option will generate fixed field acq-type = 'b'</p>
+    </div>
+ 
 
 
     </div>
