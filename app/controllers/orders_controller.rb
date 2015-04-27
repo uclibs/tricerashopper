@@ -101,8 +101,36 @@ class OrdersController < ApplicationController
   end
 
   def export_to_marc
-    @orders = Order.where("workflow_state = 'print_queue'")
     
+    def create_marc(order)
+      record = MARC::Record.new()
+      record.append(MARC::DataField.new('020', ' ', ' ', ['a', order.isbn.to_s]))
+      record.append(MARC::DataField.new('100', '0', ' ', ['a', order.author]))
+      record.append(MARC::DataField.new('245', '1', '0', ['a', order.title]))
+      record.append(MARC::DataField.new('260', ' ', ' ', ['b', order.publisher], ['c', order.publication_date.to_s]))
+ 
+      f960 = MARC::DataField.new('960', ' ', ' ', ['o', '1'], ['s', order.cost.to_s], ['t', order.location_code], ['u', order.fund], ['v', order.vendor_code])
+      f960.append(MARC::Subfield.new('h', 'r')) unless order.rush_order.blank?
+      f960.append(MARC::Subfield.new('j', 'n')) unless order.notify.blank?
+      f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
+      f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
+      
+      record.append(f960)
+
+      f961 = MARC::DataField.new('961', ' ', ' ', ['f', order.selector])
+      f961.append(MARC::Subfield.new('d', order.other_notes)) unless order.other_notes.blank?
+      f961.append(MARC::Subfield.new('h', order.vendor_note)) unless order.vendor_note.blank?
+      f961.append(MARC::Subfield.new('c', "Notify #{order.notification_contact}")) unless order.notification_contact.blank?
+      f961.append(MARC::Subfield.new('x', "NYP Order$#{order.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$NYP- Expected date #{order.not_yet_published_date.strftime('%m/%d/%Y')}")) unless order.not_yet_published.blank?
+      f961.append(MARC::Subfield.new('j', order.processing_note)) unless order.processing_note.blank?
+      f961.append(MARC::Subfield.new('d', order.internal_note)) unless order.internal_note.blank?
+      f961.append(MARC::Subfield.new('q', order.vendor_address)) unless order.vendor_address.blank?
+      record.append(f961)
+      @record = record
+    end 
+   
+    @orders = Order.where("workflow_state = 'print_queue' OR workflow_state = 'print_queue_no_po'") 
+
     if @orders.any? {|i| i.vendor_code.blank? }
       @blank_vendor_codes = Array.new
       @orders.each {|i| @blank_vendor_codes << view_context.link_to( i.id, order_path(i.id.to_s), target: '_blank') if i.vendor_code.blank?}
@@ -110,40 +138,35 @@ class OrdersController < ApplicationController
       flash[:notice] = "Vendor codes can\'t be blank for MARC export, check: "+  @blank_vendor_codes.join(", ")
       redirect_to orders_path and return
     end 
-    
-    if @orders.count > 0
-      directory = "public/tmp/records"
-      writer = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export.mrc")
-      @orders.each do |i|
-      record = MARC::Record.new()
-      record.append(MARC::DataField.new('020', ' ', ' ', ['a', i.isbn.to_s]))
-      record.append(MARC::DataField.new('100', '0', ' ', ['a', i.author]))
-      record.append(MARC::DataField.new('245', '1', '0', ['a', i.title]))
-      record.append(MARC::DataField.new('260', ' ', ' ', ['b', i.publisher], ['c', i.publication_date.to_s]))
  
-      f960 = MARC::DataField.new('960', ' ', ' ', ['o', '1'], ['s', i.cost.to_s], ['t', i.location_code], ['u', i.fund], ['v', i.vendor_code])
-      f960.append(MARC::Subfield.new('h', 'r')) unless i.rush_order.blank?
-      f960.append(MARC::Subfield.new('j', 'n')) unless i.notify.blank?
-      f960.append(MARC::Subfield.new('m', '2')) unless i.not_yet_published.blank?
-      f960.append(MARC::Subfield.new('a', 'b')) unless i.credit_card_order.blank?
-      
-      record.append(f960)
+    directory = "public/tmp/records"
+    if  @orders.any? {|i| i.workflow_state == 'print_queue'}
+      writerPrintPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_PrintPO.mrc")
+    end
 
-      f961 = MARC::DataField.new('961', ' ', ' ', ['f', i.selector])
-      f961.append(MARC::Subfield.new('d', i.other_notes)) unless i.other_notes.blank?
-      f961.append(MARC::Subfield.new('h', i.vendor_note)) unless i.vendor_note.blank?
-      f961.append(MARC::Subfield.new('c', "Notify #{i.notification_contact}")) unless i.notification_contact.blank?
-      f961.append(MARC::Subfield.new('x', "NYP Order$#{i.not_yet_published_date.strftime('%Y%m%d')}$moenads@ucmail.uc.edu$NYP- Expected date #{i.not_yet_published_date.strftime('%m/%d/%Y')}")) unless i.not_yet_published.blank?
-      f961.append(MARC::Subfield.new('j', i.processing_note)) unless i.processing_note.blank?
-      f961.append(MARC::Subfield.new('d', i.internal_note)) unless i.internal_note.blank?
-      f961.append(MARC::Subfield.new('q', i.vendor_address)) unless i.vendor_address.blank?
-      record.append(f961)
-    
-      writer.write(record)
-      i.export_to_marc!
-      i.save
+    if @orders.any? {|i| i.workflow_state == 'print_queue_no_po' }
+      writerNoPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_NoPO.mrc")
+    end
+
+    if @orders.count > 0
+      @orders.each do |order|
+  
+      create_marc(order)
+   
+      if order.workflow_state == 'print_queue'
+        writerPrintPO.write(@record)
+        order.accept_no_action! #transition to ordered state
+      elsif order.workflow_state == 'print_queue_no_po'
+        writerNoPO.write(@record)
+        order.accept_no_action! #transition to ordered state
+      else
+        flash[:notice] = "Some record not processed"
+      end 
+      order.save
       end
-      writer.close()
+
+      writerNoPO.close()
+      writerPrintPO.close()
       flash[:notice] = "Records Processed"
       redirect_to marc_downloads_path
     else

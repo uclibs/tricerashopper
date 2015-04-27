@@ -41,9 +41,11 @@ class Order < ActiveRecord::Base
       event :reject, :transitions_to => :rejected
     end
     state :print_queue do
+      event :accept_no_action, :transitions_to => :ordered
       event :temporary_hold, :transitions_to => :waiting
     end
     state :print_queue_no_po do
+      event :accept_no_action, :transitions_to => :ordered
       event :temporary_hold, :transitions_to => :waiting
     end
     state :waiting do
@@ -53,8 +55,6 @@ class Order < ActiveRecord::Base
       event :reject, :transitions_to => :rejected
     end
     state :ordered do
-      event :accept_print, :transitions_to => :print_queue
-      event :accept_no_print, :transitions_to => :print_queue_no_po
       event :temporary_hold, :transitions_to => :waiting
     end
     state :rejected do

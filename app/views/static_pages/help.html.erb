@@ -15,5 +15,24 @@
       <p> TBA</p>
       <h4>Contact</h4>
       <p>Questions and requests to <%= mail_to 'crowesn@ucmail.uc.edu', 'Sean Crowe' %> or <%= mail_to 'vanmiljf@ucmail.uc.edu', 'James Van Mil' %>.</p>
-    
+
+      <% if current_user.instance_of? Admin %>
+        <ul class="nav nav-list">
+      <li class="divider"></li>
+    </ul>    <h2>Admin Functions</h2>
+    <h4>Order Workflow States</h4>
+    <p>Orders have one of several workflow states and available transitions to support the acquisitions workflow. They include</p>
+    <ul>
+      <li>New</li>
+      <li>Accept Print > Print Queue</li>
+      <li>Accept No Print > Print Queue No PO</li>
+      <li>Accept No Action > Ordered</li>
+      <li>Ordered</li>
+      <li>On hold > Waiting</li>
+      <li>Rejected</li>
+    </ul>
+    <h4>MARC record download</h4>
+    <p>Orders with a workflow state of <i>Accept print po</i> or <i>Accept no po</i> can be processed into MARC records for loading into Sierra. The index page shows a button to download MARC, clicking it will generate two separate MARC files, one for print PO and one for no print PO. Use the respective loaders in Sierra to input the records.</p>
+      <% end %>
+
     </div>

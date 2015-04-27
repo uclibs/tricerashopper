@@ -9,9 +9,10 @@ def create
    
      File.open(@path, "wb") { |f| f.write(params[:upload][:file].read) }
      s = Roo::Excelx.new(@path)
+     File.delete(@path)
      redirect_to marc_uploads_path and flash[:notice] = 'Columns must be in order: Label, Catalog, Title, UPC, Format, Invoice, Price' and return if s.row(1) != ['Label', 'Catalog', 'Title', 'UPC', 'Format', 'Invoice', 'Price']
 
-     writer = MARC::Writer.new("#{directory}/#{name.gsub('xlsx', 'mrc')}")
+     writer = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}_#{name.gsub('xlsx', 'mrc').gsub(' ', '')}")
        s.drop(1).each do |row|
        record = MARC::Record.new()
        record.append(MARC::DataField.new('024', '0', '0', ['a', row[3].to_s]))
