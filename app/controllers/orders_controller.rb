@@ -129,7 +129,7 @@ class OrdersController < ApplicationController
       @record = record
     end 
    
-    @orders = Order.where("workflow_state = 'print_queue' OR workflow_state = 'print_queue_no_po'") 
+    @orders = Order.where("workflow_state = 'marc_queue_yes_po' OR workflow_state = 'marc_queue_no_po'") 
 
     if @orders.any? {|i| i.vendor_code.blank? }
       @blank_vendor_codes = Array.new
@@ -140,11 +140,11 @@ class OrdersController < ApplicationController
     end 
  
     directory = "public/tmp/records"
-    if  @orders.any? {|i| i.workflow_state == 'print_queue'}
+    if  @orders.any? {|i| i.workflow_state == 'marc_queue_yes_po'}
       writerPrintPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_PrintPO.mrc")
     end
 
-    if @orders.any? {|i| i.workflow_state == 'print_queue_no_po' }
+    if @orders.any? {|i| i.workflow_state == 'marc_queue_no_po' }
       writerNoPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_NoPO.mrc")
     end
 
@@ -153,10 +153,10 @@ class OrdersController < ApplicationController
   
       create_marc(order)
    
-      if order.workflow_state == 'print_queue'
+      if order.workflow_state == 'marc_queue_yes_po'
         writerPrintPO.write(@record)
         order.accept_no_action! #transition to ordered state
-      elsif order.workflow_state == 'print_queue_no_po'
+      elsif order.workflow_state == 'marc_queue_no_po'
         writerNoPO.write(@record)
         order.accept_no_action! #transition to ordered state
       else
