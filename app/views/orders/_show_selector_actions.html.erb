@@ -1,6 +1,6 @@
 <%- model_class = Order %>
 <div class="btn-group dropup">
-      <% if @order.current_state.events.keys.count > 0 %>
+      <% if @order.current_state == :provisional %>
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     <%= "Current: #{model_class.human_attribute_name(@order.current_state)}" %> 
         <span class="caret"></span>
@@ -12,6 +12,6 @@
            <% end %>
          </ul>
        <% else %>
-         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn' %>
+         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn disabled' %>
     <% end %>
 </div>
