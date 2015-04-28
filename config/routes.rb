@@ -13,10 +13,9 @@ SelectorReporting::Application.routes.draw do
   get '/dda_expenditures', to: 'dda_expenditures#index'
   resources :orders do
     member do
-      put :accept_print
-      put :accept_no_print
+      put :marc_yes_po
+      put :marc_no_po
       put :accept_no_action
-      put :accept_not_yet_published
       put :reject 
       put :approve_selection
       put :temporary_hold

@@ -55,16 +55,16 @@ class OrdersController < ApplicationController
     respond_with(@order)
   end
 
-  def accept_print
+  def marc_yes_po
     @order = Order.find(params[:id])
-    @order.accept_print!
+    @order.marc_yes_po!
     @order.save
     respond_with(@order)
   end
 
-  def accept_no_print
+  def marc_no_po
     @order = Order.find(params[:id])
-    @order.accept_no_print!
+    @order.marc_no_po!
     @order.save
     respond_with(@order)
   end
@@ -129,7 +129,7 @@ class OrdersController < ApplicationController
       @record = record
     end 
    
-    @orders = Order.where("workflow_state = 'marc_queue_yes_po' OR workflow_state = 'marc_queue_no_po'") 
+    @orders = Order.where("workflow_state = 'marc_yes_po' OR workflow_state = 'marc_no_po'") 
 
     if @orders.any? {|i| i.vendor_code.blank? }
       @blank_vendor_codes = Array.new
@@ -140,42 +140,49 @@ class OrdersController < ApplicationController
     end 
  
     directory = "public/tmp/records"
-    if  @orders.any? {|i| i.workflow_state == 'marc_queue_yes_po'}
-      writerPrintPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_PrintPO.mrc")
+    if  @orders.any? {|i| i.workflow_state == 'marc_yes_po' }
+      pofile = true
+      writerPrintPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_YesPO.mrc")
+    else 
+      poFile = false
     end
 
-    if @orders.any? {|i| i.workflow_state == 'marc_queue_no_po' }
+    if @orders.any? {|i| i.workflow_state == 'marc_no_po' }
+      nopofile = true
       writerNoPO = MARC::Writer.new("#{directory}/#{DateTime.now.strftime('%Y%m%d')}export_NoPO.mrc")
+    else
+      nopoFile = false
     end
-
+    
     if @orders.count > 0
+      
       @orders.each do |order|
-  
-      create_marc(order)
-   
-      if order.workflow_state == 'marc_queue_yes_po'
-        writerPrintPO.write(@record)
-        order.accept_no_action! #transition to ordered state
-      elsif order.workflow_state == 'marc_queue_no_po'
-        writerNoPO.write(@record)
-        order.accept_no_action! #transition to ordered state
-      else
-        flash[:notice] = "Some record not processed"
-      end 
-      order.save
-      end
+        create_marc(order)
+        if order.workflow_state == 'marc_yes_po'
+          writerPrintPO.write(@record)
+          order.accept_no_action! #transition to ordered state
+        elsif order.workflow_state == 'marc_no_po'
+          writerNoPO.write(@record)
+          order.accept_no_action! #transition to ordered state
+        else
+        flash[:notice] = "Some records not processed"
+        end
+        order.save
+        end 
+      writerNoPO.close() unless nopoFile == false
+      writerPrintPO.close() unless poFile == false
 
-      writerNoPO.close()
-      writerPrintPO.close()
       flash[:notice] = "Records Processed"
       redirect_to marc_downloads_path
+
     else
       flash[:notice] = "No records to process"
       redirect_to orders_path
-    end
-  end
 
-  private
+    end
+    end
+ 
+      private
     def set_order
       @order = Order.find(params[:id])
     end
