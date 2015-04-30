@@ -1,6 +1,8 @@
 require 'resque/server'
 
 SelectorReporting::Application.routes.draw do
+  resources :problems
+
   resources :dda_expenditures
   devise_for :users
   resources :users
@@ -11,6 +13,7 @@ SelectorReporting::Application.routes.draw do
   post '/marc_uploads/create', to: 'marc_uploads#create'
   get '/marc_downloads', to: 'marc_downloads#index'
   get '/dda_expenditures', to: 'dda_expenditures#index'
+  resources :problems
   resources :orders do
     member do
       put :marc_yes_po
