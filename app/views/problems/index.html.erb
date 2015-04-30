@@ -1,0 +1,39 @@
+<%- model_class = Problem -%>
+<html>
+<%= render 'layouts/header' %>
+<body>
+<div class="container-fluid">
+  <h1> <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    <table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Record Number</th>
+      <th>Record Type</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problems.each do |problem| %>
+      <tr>
+        <td><%= problem.title %></td>
+        <td><%= problem.record_num %></td>
+        <td><%= problem.record_type %></td>
+        <td><%= problem.description %></td>
+        <td><%= link_to 'Show', problem %></td>
+        <td><%= link_to 'Edit', edit_problem_path(problem) %></td>
+        <td><%= link_to 'Destroy', problem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+</div>
+</body>
+</html>
