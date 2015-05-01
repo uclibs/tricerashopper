@@ -36,29 +36,31 @@ class Order < ActiveRecord::Base
     state :new do
       event :marc_yes_po, :transitions_to => :marc_yes_po
       event :marc_no_po, :transitions_to => :marc_no_po
-      event :temporary_hold, :transitions_to => :waiting
-      event :accept_no_action, :transitions_to => :ordered
+      event :ordered, :transitions_to => :ordered
+      event :temporary_hold, :transitions_to => :temporary_hold
       event :reject, :transitions_to => :rejected
     end
     state :marc_yes_po do
-      event :accept_no_action, :transitions_to => :ordered
-      event :temporary_hold, :transitions_to => :waiting
+      event :marc_no_po, :transitions_to => :marc_no_po
+      event :ordered, :transitions_to => :ordered
+      event :temporary_hold, :transitions_to => :temporary_hold
     end
     state :marc_no_po do
-      event :accept_no_action, :transitions_to => :ordered
-      event :temporary_hold, :transitions_to => :waiting
+      event :marc_yes_po, :transitions_to => :marc_yes_po
+      event :ordered, :transitions_to => :ordered
+      event :temporary_hold, :transitions_to => :temporary_hold
     end
-    state :waiting do
+    state :temporary_hold do
       event :marc_yes_po, :transitions_to => :marc_yes_po
       event :marc_no_po, :transitions_to => :marc_no_po
-      event :accept_no_action, :transitions_to => :ordered
+      event :ordered, :transitions_to => :ordered
       event :reject, :transitions_to => :rejected
     end
     state :ordered do
-      event :temporary_hold, :transitions_to => :waiting
+      event :temporary_hold, :transitions_to => :temporary_hold
     end
     state :rejected do
-      event :temporary_hold, :transitions_to => :waiting
+      event :temporary_hold, :transitions_to => :temporary_hold
     end
   end 
 end

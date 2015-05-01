@@ -18,7 +18,7 @@ SelectorReporting::Application.routes.draw do
     member do
       put :marc_yes_po
       put :marc_no_po
-      put :accept_no_action
+      put :ordered
       put :reject 
       put :approve_selection
       put :temporary_hold

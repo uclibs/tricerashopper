@@ -23,6 +23,7 @@
     </ul>    <h2>Admin Functions</h2>
     <h4>Order Workflow States</h4>
     <p>Orders have one of several workflow states and available actions to support the acquisitions workflow.</p>
+  <p>For administrators, each status has a list of available actions to change status.</p>
 
     <table class="table table-striped table-bordered">
       <thead>
@@ -33,76 +34,43 @@
         </tr>
       </thead>
       <tbody>
+         <tr>
+        <td>Provisional</td>
+        <td>Approve, Reject</td>
+        <td>Tricerashopper includes <i>Assistant</i> accounts that are authorized to create provisional materials reqeusts for review by selectors. Assistant requests are entered with a <i>Provisional</i> workflow state, Selectors must select Approve (-> New), or, Reject (-> Rejected) actions to move the order forward.</td>
+      </tr>
         <tr>
         <td>New</td>
-        <td>Accept print, Accept no print, Temporary hold, Accept no action, Reject</td>
+        <td>Marc yes po, Marc no po, Ordered, Reject, Temporary hold</td>
         <td>New is the default status for incoming orders submitted by selectors.</td>
       </tr>
       <tr>
-        <td>MARC queue yes po</td>
-        <td>Accept no action, Temp hold</td>
+        <td>Marc yes po</td>
+        <td>Marc no po, Ordered, Temporary hold</td>
         <td>Orders with this status are queued for batch MARC record generation, records will print a PO when loaded into Sierra.</td>
       </tr>
       <tr>
-        <td>MARC queue no po</td>
-        <td>Accept no action, Temp hold</td>
+        <td>Marc no po</td>
+        <td>Marc yes po, Ordered, Temporary hold</td>
         <td>Orders with this status are queued for batch MARC record generation, records will NOT print a PO when loaded into Sierra.</td>
       </tr>
       <tr>
         <td>Ordered</td>
-        <td>Temp hold</td>
+        <td>Temporary hold</td>
         <td>Status for orders that have been processed and officially ordered.</td>
       </tr>
-      <tr>
-        <td>Waiting</td>
-        <td>Accept print, Accept no print, Accept no action, Reject</td>
-        <td>Use Temporary hold status to hold orders for quesons/other actions.</td>
-      </tr>
-      <tr>
+     <tr>
         <td>Rejected</td>
-        <td>Temp hold</td>
+        <td>Temporary hold</td>
         <td>Rejected status is for order requests that have been rejected.</td>
       </tr>
-    </tbody>
-  </table>
-  <p>For administrators, each status has a list of available actions to change status.</p>
-  <table class="table table-striped table-bordered">
-    <thead>
       <tr>
-        <th>Action</th>
-        <th>Target States</th>
-        <th>Notes</th>
-        <tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>Accept print</td>
-      <td>MARC queue yes po</td>
-      <td>Generate a MARC record and load with PO printing</td>
-    </tr>
-    <tr>
-      <td>Accept no print</td>
-      <td>MARC queue no po</td>
-      <td>Generate a MARC file and load with NO po printing</td>
-    </tr>
-    <tr>
-      <td>Accept no action</td>
-      <td>Ordered</td>
-      <td>Transition order to ordered state, no MARC record generated</td>
-    </tr> 
-    <tr>
-      <td>Temp hold</td>
-      <td>Waiting</td>
-      <td>Transition record to waiting state; use this as a way to reset.</td>
-    </tr>
-    <tr>
-      <td>Reject</td>
-      <td>Rejected</td>
-      <td>Transition to rejected state</td>
-    </tr>
+        <td>Temporary hold</td>
+        <td>Marc yes po, Marc no po, Ordered, Reject</td>
+        <td>Use Temporary hold status to hold orders for quesons/other actions.</td>
+      </tr>
     </tbody>
   </table>
-
 
     <h4>MARC record download</h4>
     <p>Orders with a workflow state of <i>MARC queue yes po</i> or <i>MARC queue no po</i> will be processed into MARC records for loading into Sierra. Click <i>Download MARC</i> button on the index page to generate two separate MARC files: one for print PO and one for no print PO. Use the respective loaders in Sierra to input the records.</p>

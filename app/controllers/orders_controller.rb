@@ -69,9 +69,9 @@ class OrdersController < ApplicationController
     respond_with(@order)
   end
 
-  def accept_no_action
+  def ordered
     @order = Order.find(params[:id])
-    @order.accept_no_action!
+    @order.ordered!
     @order.save
     respond_with(@order)
   end
@@ -160,10 +160,10 @@ class OrdersController < ApplicationController
         create_marc(order)
         if order.workflow_state == 'marc_yes_po'
           writerPrintPO.write(@record)
-          order.accept_no_action! #transition to ordered state
+          order.ordered! #transition to ordered state
         elsif order.workflow_state == 'marc_no_po'
           writerNoPO.write(@record)
-          order.accept_no_action! #transition to ordered state
+          order.ordered! #transition to ordered state
         else
         flash[:notice] = "Some records not processed"
         end
