@@ -22,6 +22,7 @@ class Order < ActiveRecord::Base
     string :workflow_state
     integer :user_id
     date :created_at
+    integer :id
   end
 
   def cost=(val)

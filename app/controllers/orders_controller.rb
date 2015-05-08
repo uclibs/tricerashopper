@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
         fulltext params[:search]
         with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
         with(:title)
-        order_by(:created_at, :desc)
+        order_by(:id, :desc)
         facet(:workflow_state)
         with(:workflow_state, params[:state]) if params[:state].present?
      end
