@@ -19,7 +19,6 @@ FactoryGirl.define do
     added_copy false
     added_copy_call_number "MyString"
     rush_order false
-    rush_process false
     notify false
     reserve false
     notification_contact "MyString"

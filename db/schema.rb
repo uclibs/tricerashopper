@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430144508) do
+ActiveRecord::Schema.define(version: 20150508175447) do
 
   create_table "dda_expenditures", force: true do |t|
     t.text     "title"
@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 20150430144508) do
     t.boolean  "added_copy"
     t.text     "added_copy_call_number"
     t.boolean  "rush_order"
-    t.boolean  "rush_process"
     t.boolean  "notify"
     t.boolean  "reserve"
     t.text     "notification_contact"
