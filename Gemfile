@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'sunspot_rails'
 gem 'marc'
 gem 'roo'
-gem 'chartkick'
+gem 'googlecharts'
 gem 'workflow'
 
 group :doc do
