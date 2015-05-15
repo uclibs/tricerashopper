@@ -5,19 +5,17 @@ class DdaExpendituresController < ApplicationController
   respond_to :html
 
   def index
-    @search = DdaExpenditure.search do
-      paginate(per_page: 25, page: params[:page])
-        with(:fund)
-          facet(:fund)
-      order_by(params[:sort]) if params[:sort].present?
-      end
-    @dda_expenditures = @search.results
-   @dda_all = DdaExpenditure.all 
+    @dda_expenditures = DdaExpenditure.all 
+    if params[:current_month] == 'true'
+      @dda_sum = DdaExpenditure.current_month.group(:fund).sum(:paid)
+    else 
+      @dda_sum = DdaExpenditure.all.group(:fund).sum(:paid)
+    end
     respond_with(@dda_expenditures)
   end
 
   def show
-    respond_with(@dda_expenditure)
+    respond_with(@dda_expenditures)
   end
 
   def new
@@ -50,6 +48,6 @@ class DdaExpendituresController < ApplicationController
     end
 
     def dda_expenditure_params
-      params.require(:dda_expenditure).permit(:title, :paid, :fund, :paid_date)
+      params.require(:dda_expenditure).permit(:title, :paid, :fund, :paid_date, :current_month)
     end
 end
