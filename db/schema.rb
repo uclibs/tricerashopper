@@ -11,11 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514194925) do
+ActiveRecord::Schema.define(version: 20150508175447) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "dda_expenditures", force: true do |t|
     t.text     "title"
-    t.integer  "paid",       limit: 2
+    t.decimal  "paid"
     t.string   "fund"
     t.date     "paid_date"
     t.datetime "created_at"
@@ -26,21 +29,21 @@ ActiveRecord::Schema.define(version: 20150514194925) do
     t.integer  "item_number"
     t.integer  "bib_number"
     t.text     "title"
-    t.string   "imprint"
-    t.string   "isbn"
-    t.string   "status"
+    t.text     "imprint"
+    t.text     "isbn"
+    t.text     "status"
     t.integer  "checkouts"
-    t.string   "location"
+    t.text     "location"
     t.text     "note"
-    t.string   "call_number"
-    t.string   "volume"
-    t.string   "barcode"
+    t.text     "call_number"
+    t.text     "volume"
+    t.text     "barcode"
     t.date     "due_date"
     t.date     "last_checkout"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "oclc"
-    t.string   "author"
+    t.text     "author"
   end
 
   create_table "orders", force: true do |t|
@@ -50,7 +53,7 @@ ActiveRecord::Schema.define(version: 20150514194925) do
     t.text     "publication_date"
     t.text     "isbn"
     t.text     "publisher"
-    t.integer  "oclc"
+    t.integer  "oclc",                   limit: 8
     t.text     "edition"
     t.text     "selector"
     t.text     "requestor"
@@ -97,9 +100,9 @@ ActiveRecord::Schema.define(version: 20150514194925) do
     t.datetime "updated_at"
   end
 
-  add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked"
-  add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num"
-  add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type"
+  add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked", using: :btree
+  add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num", using: :btree
+  add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -120,7 +123,7 @@ ActiveRecord::Schema.define(version: 20150514194925) do
     t.string   "type"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

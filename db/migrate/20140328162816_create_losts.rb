@@ -4,15 +4,15 @@ class CreateLosts < ActiveRecord::Migration
       t.integer :item_number
       t.integer :bib_number
       t.text :title
-      t.string :imprint
-      t.string :isbn
-      t.string :status
+      t.text :imprint
+      t.text :isbn
+      t.text :status
       t.integer :checkouts
-      t.string :location
+      t.text :location
       t.text :note
-      t.string :call_number
-      t.string :volume
-      t.string :barcode
+      t.text :call_number
+      t.text :volume
+      t.text :barcode
       t.date :due_date
       t.date :last_checkout
 

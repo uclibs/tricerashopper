@@ -9,11 +9,10 @@ scope :current_month, lambda { where("paid_date >= ? AND paid_date <= ?",
   end
 
   searchable do 
-    text :fund, :paid, :paid_date, :month
+    text :fund, :paid, :paid_date
     string :fund
     string :paid
     string :paid_date
-    date :month
   end
 
 end

@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration
       t.text :publication_date
       t.text :isbn
       t.text :publisher
-      t.integer :oclc
+      t.column :oclc, 'bigint'
       t.text :edition
       t.text :selector
       t.text :requestor
