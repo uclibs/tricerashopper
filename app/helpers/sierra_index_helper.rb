@@ -1,6 +1,24 @@
 module SierraIndexHelper
   ACTIVE_SIERRA_CLASS = { "b" => BibView, "i" => ItemView, "c" => HoldingView, "o" => OrderView }
 
+  def self.destroy_index_entry(record_num, record_type)
+    records_to_delete = SierraIndex.where(record_num: record_num, record_type: record_type)
+    records_to_delete.destroy_all
+  end
+
+  def self.update_date(record_num, record_type)
+    record = SierraIndex.where(record_num: record_num, record_type: record_type).last
+    unless record.nil?
+      record.last_checked = DateTime.now
+      record.save
+    end
+  end
+
+  def self.record_deleted?(record_num, record_type)
+    return true unless ACTIVE_SIERRA_CLASS[record_type].where(record_num: record_num).first.record_metadata.deletion_date_gmt.nil?
+    return false
+  end
+
   def self.delete_all(record_type)
     records_to_delete = all_index_records_of_one_type(record_type)
     puts "Deleting #{records_to_delete.length} \"#{record_type}\" records."
