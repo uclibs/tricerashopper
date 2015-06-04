@@ -1,43 +1,24 @@
 require 'spec_helper'
 
-describe Problem do
+describe BlankRdate do
 
-  subject { Problem.new }
-
-  it { should respond_to(:title) }
-  it { should respond_to(:record_num) }
-  it { should respond_to(:record_type) }
-  it { should respond_to(:description) }
-
-  it "is valid with title" do
-    expect(build(:problem, title: 'My Title')).to be_valid
+  class OrderRecord < Struct.new(:order_status_code, :order_date_gmt, :received_date_gmt, :bib_view, :acq_type_code, :record_type_code)
   end
 
-  it "is invalid without title" do
-    expect(build(:problem, title: nil)).to be_invalid
+  class OrderRecordMetadata < Struct.new(:cataloging_date_gmt, :title)
+  end
+  
+  it "is valid if record matches query" do
+    order_records = [OrderRecord.new('a', DateTime.parse('2001-01-01'), nil, OrderRecordMetadata.new(DateTime.parse('2001-01-01'), 'test title'), 'p', 'o')]
+    OrderView.stub(:where).and_return(order_records)
+    record = BlankRdate.new(record_num: 907215)
+    record.should be_valid
   end
 
-  it "is valid with record number" do
-    expect(build(:problem, record_num: 12345678)).to be_valid
-  end
-
-  it "is invalid without record number" do
-    expect(build(:problem, record_num: nil)).to be_invalid
-  end
-
-  it "is valid with record_type" do
-    expect(build(:problem, record_type: 'o')).to be_valid
-  end
-
-  it "is invalid wihtout record_type" do 
-    expect(build(:problem, record_type: nil)).to be_invalid
-  end
-
-  it "is valid with description" do
-    expect(build(:problem, description: 'My Text')).to be_valid
-  end
-
-  it "is invalid without description" do
-    expect(build(:problem, description: nil)).to be_invalid
+  it "is invalid if record doesn't match query" do
+    order_records = [OrderRecord.new('m', DateTime.parse('2001-01-01'), DateTime.parse('2001-01-01'), OrderRecordMetadata.new(DateTime.parse('2001-01-01'), 'test title'), 'p', 'o')]
+    OrderView.stub(:where).and_return(order_records)
+    record = BlankRdate.new(record_num: 907215)
+    record.should_not be_valid
   end
 end
