@@ -2,9 +2,9 @@ class CreateDdaExpenditures < ActiveRecord::Migration
   def change
     create_table :dda_expenditures do |t|
       t.text :title
-      t.integer :paid
+      t.decimal :paid
       t.string :fund
-      t.text :paid_date
+      t.date :paid_date
 
       t.timestamps
     end
