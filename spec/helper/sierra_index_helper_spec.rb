@@ -22,6 +22,26 @@ describe SierraIndexHelper do
     BibView.stub(:find_in_batches).and_yield(bib_records)
   end
 
+  describe "#all_records" do
+    it "returns all of the records of a given type" do
+      SierraIndex.create(record_num: 100001, record_type: 'b')
+      SierraIndex.create(record_num: 100002, record_type: 'b')
+      SierraIndex.create(record_num: 100003, record_type: 'b')
+      SierraIndex.create(record_num: 100001, record_type: 'o')
+      SierraIndex.create(record_num: 100001, record_type: 'i')
+      expect((SierraIndexHelper.all_records('b')).count).to eq(3)
+    end
+  end
+
+  describe "#oldest_10_percent" do
+    it "returns the ten percent of the record set with the oldest last_checked date" do
+      30.times do |i|
+        SierraIndex.create(record_num: 100001 + i, record_type: 'o', last_checked: DateTime.now + i)
+      end
+      expect(SierraIndexHelper.oldest_10_percent('o').collect { |record| record.record_num }).to eq([100001, 100002, 100003])
+    end
+  end
+
   describe "#destroy_index_entry" do
     it "deletes a given record" do
       SierraIndex.create(record_num: 100001, record_type: 'b')
