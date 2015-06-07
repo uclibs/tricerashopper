@@ -19,6 +19,15 @@ module SierraIndexHelper
     return false
   end
 
+  def self.all_records(record_type)
+    SierraIndex.where(record_type: record_type)
+  end
+
+  def self.oldest_10_percent(record_type)
+      count = SierraIndex.where(record_type: 'o').count / 10
+      SierraIndex.where(record_type: 'o').order(:last_checked).limit(count)
+  end
+
   def self.delete_all(record_type)
     records_to_delete = all_index_records_of_one_type(record_type)
     puts "Deleting #{records_to_delete.length} \"#{record_type}\" records."
