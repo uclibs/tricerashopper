@@ -1,9 +1,9 @@
-<%- model_class = Problem -%>
+<%- model_class = Problem %>
 <html>
 <%= render 'layouts/header' %>
 <body>
 <div class="container-fluid">
-  <h1> <%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <h1> <%=t '.title', :default => "QC #{model_class.model_name.human.pluralize.titleize}" %></h1>
   <% bootstrap_flash.html_safe %>
   <% form_tag problems_path, method: :get do %>
     <div class="input-append">

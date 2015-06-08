@@ -1,14 +1,19 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = Problem -%>
+<% bootstrap_flash %>
 <%= render 'layouts/header' %>
-<p>
-  <strong>Record type:</strong>
-  <%= @problem.record_type %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @problem.description %>
-</p>
-
-<%= link_to 'Edit', edit_problem_path(@problem) %> |
-<%= link_to 'Back', problems_path %>
+<div class="container">
+  <div class="page-header">
+    <h1><%= t '.title', :default => "QC #{model_class.model_name.human.titleize}" %></h1>
+  </div>
+  <dl class="dl-horizontal">  
+    <dt>Error description</dt>
+    <dd><%= @problem.class::DESCRIPTION %></dd>
+  <% for attribute in @problem.attributes.keys %>
+    <dt><%= attribute.humanize %></dt>
+    <dd><%= @problem.attributes[attribute].to_s.presence || '-' %></dd>
+  <% end %>
+</dl>
+<div class="well">
+  <%= render 'show_actions' %>
+</div>
+</div>

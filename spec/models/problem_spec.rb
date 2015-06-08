@@ -7,7 +7,6 @@ describe Problem do
   it { should respond_to(:title) }
   it { should respond_to(:record_num) }
   it { should respond_to(:record_type) }
-  it { should respond_to(:description) }
 
   it "has a valid factory" do
     expect(build(:sierra_index)).to be_valid
@@ -37,11 +36,4 @@ describe Problem do
     expect(build(:problem, record_type: nil)).to be_invalid
   end
 
-  it "is valid with description" do
-    expect(build(:problem, description: 'My Text')).to be_valid
-  end
-
-  it "is invalid without description" do
-    expect(build(:problem, description: nil)).to be_invalid
-  end
 end

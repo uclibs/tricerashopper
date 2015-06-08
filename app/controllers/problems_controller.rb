@@ -50,6 +50,6 @@ class ProblemsController < ApplicationController
     end
 
     def problem_params
-      params.require(:problem).permit(:title, :record_num, :record_type, :description)
+      params.require(:problem).permit(:title, :record_num, :record_type, :note)
     end
 end

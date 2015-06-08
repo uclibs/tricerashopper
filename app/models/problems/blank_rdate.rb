@@ -6,6 +6,8 @@ class BlankRdate < Problem
 
   before_validation :select 
   validate :query
+  
+  DESCRIPTION = 'Order rdate is blank but status is marked paid'
 
   def query
     errors.add(:query, "no match") unless (
