@@ -1,7 +1,12 @@
 class BlankRdate < Problem
+
+  def self.model_name
+    Problem.model_name
+  end
+
   before_validation :select 
   validate :query
-  
+
   def query
     @minus4months = DateTime.now - 4.months 
     unless @ov.order_status_code == 'a' && @ov.order_date_gmt < @minus4months && @ov.received_date_gmt == nil && @ov.bib_view.cataloging_date_gmt != nil && @ov.acq_type_code == 'p'

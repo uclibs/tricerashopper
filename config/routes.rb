@@ -2,7 +2,6 @@ require 'resque/server'
 
 SelectorReporting::Application.routes.draw do
   resources :problems
-
   resources :dda_expenditures
   devise_for :users
   resources :users
