@@ -20,7 +20,6 @@ class BlankRdate < Problem
 private
   def select
     @ov = OrderView.where(record_num: self.record_num).first
-    self.description = 'Order rdate is blank but status is marked paid'
     self.title = @ov.bib_view.title
     self.record_type = @ov.record_type_code
   end

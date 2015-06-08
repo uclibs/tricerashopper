@@ -1,11 +1,19 @@
 class ProblemsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @problems = Problem.all
-    respond_with(@problems)
+    @search = Problem.search do
+      paginate(per_page: 25, page: params[:page])
+      fulltext params[:search]
+      with(:title)
+      facet(:type)
+      with(:type, params[:type]) if params[:type].present?
+    end
+
+      @problems = @search.results
   end
 
   def show
