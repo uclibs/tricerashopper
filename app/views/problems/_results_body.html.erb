@@ -1,0 +1,23 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Problem</th>
+      <th>Record Number</th>
+      <th>Record Type</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problems.each do |problem| %>
+      <tr>
+        <td><%= link_to problem.title, problem_path(problem) %></td>
+        <td><%= problem.type %></td>
+        <td><%= problem.record_num %></td>
+        <td><%= problem.record_type %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
