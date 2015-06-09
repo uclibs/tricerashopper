@@ -1,48 +1,55 @@
 class BlankRdate < Problem
+  before_validation :set_fields
+  validate :validation
+
+  DESCRIPTION = 'Order rdate is blank but status is marked paid'
 
   def self.model_name
     Problem.model_name
   end
 
-  before_validation :select 
-  validate :query
-  
-  DESCRIPTION = 'Order rdate is blank but status is marked paid'
-
-  def query
-    errors.add(:query, "no match") unless (
-      order_status_code_is_a and
-      order_is_more_than_4_months_old and
-      received_date_is_nil and
-      cataloging_date_is_not_nil and
-      acq_type_is_p
-    )
+  def validation
+    errors.add(:query, "no match") unless query
   end
 
-private
-  def select
-    @ov = OrderView.where(record_num: self.record_num).first
-    self.title = @ov.bib_view.title
-    self.record_type = @ov.record_type_code
+  def query
+    load_order_view
+    order_status_code_is_a and
+    order_is_more_than_4_months_old and
+    received_date_is_nil and
+    cataloging_date_is_not_nil and
+    acq_type_is_p
+  end
+
+  private
+
+  def load_order_view
+    @order_view ||= OrderView.where(record_num: self.record_num).first
+  end
+
+  def set_fields
+    load_order_view
+    self.title = @order_view.bib_view.title
+    self.record_type = @order_view.record_type_code
   end
   
   def order_status_code_is_a
-    @ov.order_status_code == 'a' 
+    @order_view.order_status_code == 'a' 
   end
 
   def order_is_more_than_4_months_old
-    @ov.order_date_gmt < DateTime.now - 4.months
+    @order_view.order_date_gmt < DateTime.now - 4.months
   end
   
   def received_date_is_nil
-    @ov.received_date_gmt == nil
+    @order_view.received_date_gmt == nil
   end
 
   def cataloging_date_is_not_nil
-    @ov.bib_view.cataloging_date_gmt != nil 
+    @order_view.bib_view.cataloging_date_gmt != nil 
   end
 
   def acq_type_is_p
-    @ov.acq_type_code == 'p'
+    @order_view.acq_type_code == 'p'
   end
 end
