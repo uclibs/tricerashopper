@@ -1,15 +1,17 @@
 class BlankRdate < Problem
   before_validation :select 
-  validate :query
+  validate :validate
   
+  def validate
+    errors.add(:query, "no match") unless query
+  end
+
   def query
-    errors.add(:query, "no match") unless (
-      order_status_code_is_a and
-      order_is_more_than_4_months_old and
-      received_date_is_nil and
-      cataloging_date_is_not_nil and
-      acq_type_is_p
-    )
+    order_status_code_is_a and
+    order_is_more_than_4_months_old and
+    received_date_is_nil and
+    cataloging_date_is_not_nil and
+    acq_type_is_p
   end
 
 private
