@@ -5,6 +5,5 @@ FactoryGirl.define do
     title "MyString"
     record_type "o"
     record_num 12345678
-    description "MyText"
   end
 end

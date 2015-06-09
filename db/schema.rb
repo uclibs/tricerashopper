@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508175447) do
+ActiveRecord::Schema.define(version: 20150609150250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,9 +87,9 @@ ActiveRecord::Schema.define(version: 20150508175447) do
     t.text     "title"
     t.integer  "record_num"
     t.string   "record_type"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "type"
   end
 
   create_table "sierra_indices", force: true do |t|

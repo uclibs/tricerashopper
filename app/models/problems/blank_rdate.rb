@@ -1,7 +1,14 @@
 class BlankRdate < Problem
+
+  def self.model_name
+    Problem.model_name
+  end
+
   before_validation :select 
   validate :query
   
+  DESCRIPTION = 'Order rdate is blank but status is marked paid'
+
   def query
     errors.add(:query, "no match") unless (
       order_status_code_is_a and
@@ -15,7 +22,6 @@ class BlankRdate < Problem
 private
   def select
     @ov = OrderView.where(record_num: self.record_num).first
-    self.description = 'Order rdate is blank but status is marked paid'
     self.title = @ov.bib_view.title
     self.record_type = @ov.record_type_code
   end

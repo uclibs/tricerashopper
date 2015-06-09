@@ -1,0 +1,17 @@
+<%- model_class = Problem %>
+<div id="facets">
+  <div class="well sidebar-nav">
+    <ul class="nav nav-list">
+      <h4>Problem type</h4>
+      <% for row in @search.facet(:type).rows %>
+        <li>
+        <% if params[:type].blank? %>
+          <%= link_to model_class.human_attribute_name(row.value), type: row.value %>
+        <% else %>
+          <%= link_to "#{model_class.human_attribute_name(row.value)} (remove)", request.params.merge({type: nil, page: nil}) %>
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

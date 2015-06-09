@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Record Number</th>
+      <th>Problem</th>
+      <th>Record Type</th>
+      <th>Title</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @problems.each do |problem| %>
+      <tr>
+        <td><%= link_to problem.record_num, problem_path(problem) %></td>
+        <td><%= problem.type %></td>
+        <td><%= problem.record_type %></td>
+        <td><%= problem.title %></td>
+        <td><%= link_to 'Audit', '#', class: 'btn btn-success' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
