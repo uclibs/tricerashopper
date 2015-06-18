@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
+
   before_filter :authenticate_user!
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
-  def index
+ def index
       @search = Order.search do
         @user = current_user
         paginate(per_page: 20, page: params[:page])
@@ -32,7 +33,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.new(order_params)
+    attributes = convert_cost_to_int(order_params)
+    @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
     if @order.save
@@ -46,7 +48,10 @@ class OrdersController < ApplicationController
   end
 
   def update
-    @order.update(order_params)
+   
+    attributes = convert_cost_to_int(order_params)
+    @order.update(attributes)
+    
     respond_with(@order)
   end
 
@@ -109,8 +114,9 @@ class OrdersController < ApplicationController
       record.append(MARC::DataField.new('245', '1', '0', ['a', order.title]))
       record.append(MARC::DataField.new('260', ' ', ' ', ['b', order.publisher], ['c', order.publication_date.to_s]))
  
-      f960 = MARC::DataField.new('960', ' ', ' ', ['o', '1'], ['s', order.cost.to_s], ['t', order.location_code], ['u', order.fund], ['v', order.vendor_code])
+      f960 = MARC::DataField.new('960', ' ', ' ', ['o', '1'], ['t', order.location_code], ['u', order.fund], ['v', order.vendor_code])
       f960.append(MARC::Subfield.new('h', 'r')) unless order.rush_order.blank?
+      f960.append(MARC::Subfield.new('s', order.cost.to_s)) unless order.cost.blank?
       f960.append(MARC::Subfield.new('j', 'n')) unless order.notify.blank?
       f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
       f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
@@ -183,11 +189,18 @@ class OrdersController < ApplicationController
     end
  
       private
+
+    def convert_cost_to_int(order_params)
+      attributes = order_params.clone 
+      attributes[:cost] = order_params[:cost].gsub(/[^\d\.]+/, '').to_d*100
+      return attributes
+    end
+
     def set_order
       @order = Order.find(params[:id])
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :series, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :currency, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
     end
 end

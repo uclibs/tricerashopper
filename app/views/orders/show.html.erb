@@ -18,6 +18,8 @@
   <dd><%= @order.isbn.presence  || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></dt>
   <dd><%= @order.publisher.presence || '-'%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:series) %>:</strong></dt>
+  <dd><%= @order.series.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>
   <dd><%= @order.oclc || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:edition) %>:</strong></dt>
@@ -31,7 +33,9 @@
   <dt><strong><%= model_class.human_attribute_name(:fund) %>:</strong></dt>
   <dd><%= @order.fund.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
-  <dd><%= number_to_currency(@order.cost.to_s.insert(-3,'.'))  || '-'%></dd>
+  <dd><%= number_to_currency(cost_in_dollars(@order.cost))  || '-'%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currency) %>:</strong></dt>
+  <dd><%= @order.currency || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:added_edition) %>:</strong></dt>
   <dd><%= @order.added_edition.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:added_copy) %>:</strong></dt>

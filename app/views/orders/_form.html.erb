@@ -1,4 +1,4 @@
-<%= form_for @order, html: {class: 'form-horizontal'} do |f| %>
+<%= form_for @order, html: {class: 'form-horizontal'}, validate: true do |f| %>
   <%= bootstrap_flash %>
 <% if @order.errors.any? %>
     <div class="container">
@@ -56,6 +56,12 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :series, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :series, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
     <%= f.label :oclc, class: 'control-label' %>
     <div class="controls">
       <%= f.number_field :oclc, class: 'text-field' %>
@@ -77,7 +83,7 @@
     <div class="control-group required">
     <%= f.label :selector, class: 'control-label' %>
     <div class="controls">
-      <%= f.text_field :selector, class: 'text-field', value: current_user.email %>
+      <%= f.text_field :selector, class: 'text-field', value: current_user.email, readonly: true %>
   </div>
   </div>
   <div class="control-group">
@@ -98,19 +104,17 @@
     <%= f.select :fund, options_for_select(fund_code_list, f.object.fund), include_blank: true %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="control-group">
     <%= f.label :cost, class: 'control-label' %>
     <div class="controls">
-
-      <% if @order.cost.presence %> 
-         <% if @order.cost < 10 %> 
-      <%= f.text_field :cost, class: 'text-field', value: @order.cost.to_s.insert(-2,'.0') %>
-    <% else %>
-        <%= f.text_field :cost, class: 'text-field', value: @order.cost.to_s.insert(-3,'.') %>
-      <% end %>
-    <% else %>
-      <%= f.text_field :cost, class: 'text-field' %>
-      <% end %>
+      <%= f.text_field :cost, class: 'number_field', value: number_to_currency(cost_in_dollars(@order.cost), unit:'') %>
+    </div>
+    </div>
+    <div class="control-group required">
+      <%= f.label :currency, class: 'control-label' %>
+        <div class="controls">
+      <%= f.text_field :currency, class: 'text_field', value: 'USD' %>
+    </div>
     </div>
   </div>
   </div>

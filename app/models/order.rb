@@ -10,7 +10,8 @@ class Order < ActiveRecord::Base
   validates :location_code, presence: true
   validates :fund, presence: true
   validates :cost, presence: true
-  validates :cost, format: { with: /\d{2}/, message: 'format X.XX' }
+  validates :currency, presence: true
+  validates :currency, length: { is: 3, message: '3 letter currency code' }
   validates_presence_of :notification_contact, if: :notify?, message: 'can\'t be blank if notification requested'
   validates_presence_of :not_yet_published_date, if: :not_yet_published?, message: 'can\'t be blank if \'not yet published\' indicated'
   
@@ -25,10 +26,6 @@ class Order < ActiveRecord::Base
     integer :id
   end
 
-  def cost=(val)
-        write_attribute :cost, val.to_s.gsub(/\D/, '').to_i
-  end
-  
   workflow do 
     state :provisional do
       event :approve_selection, :transitions_to => :new

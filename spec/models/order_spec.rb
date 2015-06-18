@@ -38,6 +38,10 @@ describe Order do
     expect(build(:order, publisher: nil)).to be_invalid
   end
 
+  it "is valid with series" do
+    expect(build(:order, series: 'test')).to be_valid
+  end
+
    it "is valid with a selector" do
     expect(build(:order, selector: 'test')).to be_valid
   end
@@ -66,8 +70,11 @@ describe Order do
     expect(build(:order, cost: 2000)).to be_valid
   end
 
-  it "is invalid without a cost" do
-    expect(build(:order, cost: nil)).to be_invalid
+  it "is valid with currency" do
+    expect(build(:order, currency: 'USD')).to be_valid
   end
 
+  it "is invalid without currency" do
+    expect(build(:order, currency: nil)).to be_invalid
+  end
 end

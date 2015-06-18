@@ -14,10 +14,11 @@ FactoryGirl.define do
     requestor "MyString"
     location_code "MyString"
     fund "MyString"
-    cost 1.5
     added_edition false
     added_copy false
     added_copy_call_number "MyString"
+    cost 3214
+    currency 'USD'
     rush_order false
     notify false
     reserve false
