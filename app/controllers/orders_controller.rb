@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
 
     def get_selectors
       if current_user.type == 'Assistant'
-       "#{current_user.email} (#{current_user.selector.email})"
+       "#{current_user.email}, #{current_user.selector.email}"
       else
         current_user.email
       end
@@ -47,11 +47,11 @@ class OrdersController < ApplicationController
     @user = current_user
     @order.user_id = @user.id
     if @order.save
-      OrderMailer.new_order(@user, @order).deliver
-    unless @user.instance_of? Assistant
-      @order.approve_selection!
-      @order.save
-    end
+      unless @user.instance_of? Assistant
+        @order.approve_selection!
+        @order.save
+      end
+      OrderMailer.new_order(@order).deliver
     end
     respond_with(@order)
   end
@@ -87,6 +87,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.ordered!
     @order.save
+    OrderMailer.ordered_order(@order).deliver
     respond_with(@order)
   end
 
@@ -101,6 +102,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.reject!
     @order.save
+    OrderMailer.rejected_order(@order).deliver
     respond_with(@order)
   end
 
