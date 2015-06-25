@@ -25,7 +25,16 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], location_code: params[:location])
+
+    def get_selectors
+      if current_user.type == 'Assistant'
+       "#{current_user.email} (#{current_user.selector.email})"
+      else
+        current_user.email
+      end
+    end
+    
+    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], location_code: params[:location], selector: get_selectors)
     respond_with(@order)
   end
 
