@@ -5,15 +5,11 @@ class ProblemsController < ApplicationController
   respond_to :html
 
   def index
-    @search = Problem.search do
-      paginate(per_page: 25, page: params[:page])
-      fulltext params[:search]
-      with(:title)
-      facet(:type)
-      with(:type, params[:type]) if params[:type].present?
-    end
-
-      @problems = @search.results
+    @problems = Problem.all
+      .paginate(per_page: 25, page: params[:page])
+    @problems = @problems.where(type: params[:type]) unless params[:type].blank?
+    @problems = @problems.where(record_num: params[:record_num]) unless params[:record_num].blank?
+    @problem_facets = Problem.group(:type).count
   end
 
   def show

@@ -3,12 +3,12 @@
   <div class="well sidebar-nav">
     <ul class="nav nav-list">
       <h4>Problem type</h4>
-      <% for row in @search.facet(:type).rows %>
+      <% for facet in @problem_facets %>
         <li>
         <% if params[:type].blank? %>
-          <%= link_to model_class.human_attribute_name(row.value), type: row.value %>
+          <%= link_to model_class.human_attribute_name(facet[0]), type: facet[0] %>
         <% else %>
-          <%= link_to "#{model_class.human_attribute_name(row.value)} (remove)", request.params.merge({type: nil, page: nil}) %>
+          <%= link_to "#{model_class.human_attribute_name(facet[0])} (remove)", request.params.merge({type: nil, page: nil}) %>
         <% end %>
         </li>
       <% end %>
