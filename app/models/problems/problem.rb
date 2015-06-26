@@ -6,9 +6,4 @@ class Problem < ActiveRecord::Base
   has_many :blank_rdates, class_name: 'BlankRdate',
                          foreign_key: 'id'
 
-  searchable do
-    text :title, :type
-    string :title
-    string :type
-    end
 end
