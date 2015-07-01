@@ -26,3 +26,6 @@ solr/
 
 # Ignore Gemfile.locl
 Gemfile.lock
+
+# Ignore redis .rdb
+*.rdb
