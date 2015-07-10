@@ -1,7 +1,7 @@
 class BlankRdate < Problem
   before_validation :set_fields
   validate :validation
-
+  validates :record_num, uniqueness: true
   DESCRIPTION = 'Order rdate is blank but status is marked paid'
 
   def self.model_name

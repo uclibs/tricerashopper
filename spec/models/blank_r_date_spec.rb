@@ -21,4 +21,12 @@ describe BlankRdate do
     record = BlankRdate.new(record_num: 907215)
     record.should_not be_valid
   end
+
+  it "is invalid if duplicate" do
+    order_records = [OrderRecord.new('a', DateTime.parse('2001-01-01'), nil, OrderRecordMetadata.new(DateTime.parse('2001-01-01'), 'test title'), 'p', 'o')]
+    OrderView.stub(:where).and_return(order_records)
+    record1 = BlankRdate.create(record_num: 907215)
+    record2 = BlankRdate.create(record_num: 907215)
+    record2.should_not be_valid
+  end
 end
