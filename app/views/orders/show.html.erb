@@ -60,13 +60,16 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              orders_path, :class => 'btn'  %>
-          
-          
-            <%= link_to t('.edit', :default => t("helpers.links.edit")), edit_order_path(@order), :class => 'btn' || '-' %>
-<% if current_user.instance_of? Admin %>
+            orders_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")), 
+            edit_order_path(@order), :class => 'btn' || '-' %>
+         
+  <% if current_user.instance_of? Admin %>
   <%= render "show_admin_actions" %>
 <% elsif current_user.instance_of? Selector %>
   <%= render "show_selector_actions" %>
-          <% end %>
+<% end %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_order_path, :class => 'btn btn-success pull-right' %>
+   
   </div>
