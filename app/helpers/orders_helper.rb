@@ -1,4 +1,26 @@
 module OrdersHelper
+
+  def cost_in_dollars cost
+    cost.to_d/100 if cost
+  end
+
+  def currency_list
+    ['USD',
+     'AUD',
+     'CAD',
+     'CHF',
+     'DKK',
+     'EUR',
+     'GBP', 
+     'ILS',
+     'JPY',
+     'MXN',
+     'NAK',
+     'NZD',
+     'SEK',
+     'SGD']
+  end
+  
   def fund_code_list
      ['TEST',
       'HALHN',
@@ -134,6 +156,7 @@ module OrdersHelper
       'ULAK',
       'ULADF']
   end
+
   def format_list
      ['Print',
       'DVD',
