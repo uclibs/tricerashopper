@@ -1,6 +1,6 @@
 class OrderMailer < ActionMailer::Base
   default from: "NO-REPLY@lucy.libraries.uc.edu"
-  add_template_helper(OrderFormHelper)
+  add_template_helper(OrdersHelper)
 
   def new_order(order)
       @order = order
