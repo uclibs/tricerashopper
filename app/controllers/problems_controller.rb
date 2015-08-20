@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :audit]
 
   respond_to :html
 
@@ -36,8 +36,20 @@ class ProblemsController < ApplicationController
   end
 
   def destroy
+   
     @problem.destroy
     respond_with(@problem)
+  end
+
+  def audit
+    respond_to do |format|
+      if @problem.valid?
+        flash[:notice] = "QC Problem #{@problem.record_num} unresolved"
+      else
+        @problem.destroy
+      end
+      format.js
+    end
   end
 
   private
