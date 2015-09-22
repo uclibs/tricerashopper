@@ -5,7 +5,7 @@ class OrderMailer < ActionMailer::Base
   #change bcc to cc in mailer for testing
   def new_order(order)
       @order = order
-      mail(to: @order.selector, cc: Admin.pluck(:email), subject: 'Tricerashopper Order Request Confirmation')
+      mail(to: @order.selector, bcc: Admin.pluck(:email), subject: 'Tricerashopper Order Request Confirmation')
   end
 
    def provisional_order(order)
