@@ -49,7 +49,6 @@ class OrdersController < ApplicationController
     #for the creation of provisional orders
     if @order.save and @user.instance_of? Assistant
       OrderMailer.provisional_order(@order).deliver
-      @order.save
     #for the creation of all other orders
     elsif @order.save
       @order.approve_selection!
