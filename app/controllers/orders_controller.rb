@@ -46,15 +46,19 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
-    if @order.save
-      unless @user.instance_of? Assistant
-        @order.approve_selection!
-        @order.save
-      end
+    #for the creation of provisional orders
+    if @order.save and @user.instance_of? Assistant
+      OrderMailer.provisional_order(@order).deliver
+      @order.save
+    #for the creation of all other orders
+    elsif @order.save
+      @order.approve_selection!
       OrderMailer.new_order(@order).deliver
+      @order.save
     end
     respond_with(@order)
   end
+
 
   def update
    
@@ -111,6 +115,9 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
+    #add call to mailer here
+    OrderMailer.new_order(@order).deliver
+
   end
 
   def provisional

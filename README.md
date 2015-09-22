@@ -29,7 +29,7 @@ Selector type allows users to submit and edit orders.
 Assistant type is a delegate account, tied to a selector, allowing the user to submit and edit orders to be reviewed and approved by assigned selector.
 
 ```ruby
-@user = Assistant.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', selector_id = 1)
+@user = Assistant.new(:email => 'test@example.com', :password => 'password', :password_confirmation => 'password', :selector_id => 1)
 
 @user.save
 
@@ -42,3 +42,17 @@ Admin type is for Acquisitions staff to review and process the orders.
 @user.save
 
 ```
+
+Updating a user
+```ruby
+u = User.find(idnumber)
+
+u.update_attributes(attribute: value)
+
+u.save
+```
+
+Listing user info
+```ruby
+y User.all
+````
