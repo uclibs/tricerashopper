@@ -14,7 +14,9 @@ class OrdersController < ApplicationController
         with(:title)
         order_by(:id, :desc)
         facet(:workflow_state)
+        facet(:rush_order)
         with(:workflow_state, params[:state]) if params[:state].present?
+        with(:rush_order, params[:rush]) if params[:rush].present?
      end
   
     @orders = @search.results    
@@ -46,13 +48,27 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
+    #for creation of provisional rush orders
+    if @order.save and @user.instance_of? Assistant and @order.rush_order
+      @subj = "RUSH Provisional Tricerashopper Order Request Confirmation"
+      OrderMailer.provisional_order(@order, @subj).deliver
+      @order.save
     #for the creation of provisional orders
-    if @order.save and @user.instance_of? Assistant
-      OrderMailer.provisional_order(@order).deliver
+    elsif @order.save and @user.instance_of? Assistant
+      @subj = "Provisional Tricerashopper Order Request Confirmation'"
+      OrderMailer.provisional_order(@order, @subj).deliver
+      @order.save
+    #for creation of approved rush orders
+    elsif @order.save and @order.rush_order
+      @order.approve_selection!
+      @subj = "RUSH Tricerashopper Order Request Confirmation"
+      OrderMailer.new_order(@order, @subj).deliver
+      @order.save
     #for the creation of all other orders
     elsif @order.save
       @order.approve_selection!
-      OrderMailer.new_order(@order).deliver
+      @subj = "Tricerashopper Order Request Confirmation'"
+      OrderMailer.new_order(@order, @subj).deliver
       @order.save
     end
     respond_with(@order)
@@ -114,8 +130,8 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
-    #add call to mailer here
-    OrderMailer.new_order(@order).deliver
+    @subj = "Approved Tricerashopper Order Confirmation"
+    OrderMailer.new_order(@order, @subj).deliver
 
   end
 
