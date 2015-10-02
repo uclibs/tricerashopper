@@ -48,26 +48,25 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
-    #for creation of provisional rush orders
-    if @order.save and @user.instance_of? Assistant and @order.rush_order
-      @subj = "RUSH Provisional Tricerashopper Order Request Confirmation"
-      OrderMailer.provisional_order(@order, @subj).deliver
-      @order.save
-    #for the creation of provisional orders
-    elsif @order.save and @user.instance_of? Assistant
-      @subj = "Provisional Tricerashopper Order Request Confirmation'"
+    #for creation of provisional rush orders and regular provisional orders
+    if @order.save and @user.instance_of? Assistant 
+      if @order.rush_order
+        @subj = "[tricera] RUSH Provisional Order Confirmation"
+      else
+        @subj = "[tricera] Provisional Order Confirmation"
+      end
       OrderMailer.provisional_order(@order, @subj).deliver
       @order.save
     #for creation of approved rush orders
     elsif @order.save and @order.rush_order
       @order.approve_selection!
-      @subj = "RUSH Tricerashopper Order Request Confirmation"
+      @subj = "[tricera] RUSH Order Confirmation"
       OrderMailer.new_order(@order, @subj).deliver
       @order.save
     #for the creation of all other orders
     elsif @order.save
       @order.approve_selection!
-      @subj = "Tricerashopper Order Request Confirmation'"
+      @subj = "[tricera] Order Request Confirmation"
       OrderMailer.new_order(@order, @subj).deliver
       @order.save
     end
@@ -130,12 +129,12 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
-    @subj = "Approved Tricerashopper Order Confirmation"
+    if @order.rush_order
+      @subj = "[tricera] RUSH Approved Order Confirmation"
+    else
+      @subj = "[tricera] Approved Order Confirmation"
+    end
     OrderMailer.new_order(@order, @subj).deliver
-
-  end
-
-  def provisional
   end
 
   def export_to_marc
