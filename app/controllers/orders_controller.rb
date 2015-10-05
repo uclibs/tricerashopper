@@ -14,7 +14,9 @@ class OrdersController < ApplicationController
         with(:title)
         order_by(:id, :desc)
         facet(:workflow_state)
+        facet(:rush_order)
         with(:workflow_state, params[:state]) if params[:state].present?
+        with(:rush_order, params[:rush]) if params[:rush].present?
      end
   
     @orders = @search.results    
@@ -46,19 +48,37 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
-    #for the creation of provisional orders
-    if @order.save and @user.instance_of? Assistant
-      OrderMailer.provisional_order(@order).deliver
-    #for the creation of all other orders
-    elsif @order.save
-      @order.approve_selection!
-      OrderMailer.new_order(@order).deliver
-      @order.save
+   
+    #for creation of provisional rush orders and regular provisional orders
+    if @order.save
+      
+      if @user.instance_of? Assistant
+        if @order.rush_order
+          @subj = "[tricerashopper] RUSH Provisional Order Confirmation"
+        else
+          @subj = "[tricerashopper] Provisional Order Confirmation"
+        end
+        OrderMailer.provisional_order(@order, @subj).deliver
+    
+      #for creation of approved rush orders
+      elsif @order.rush_order
+        @order.approve_selection!
+        @subj = "[tricerashopper] RUSH Order Confirmation"
+        OrderMailer.new_order(@order, @subj).deliver
+        @order.save
+      
+      #for the creation of all other orders
+      else
+        @order.approve_selection!
+        @subj = "[tricerashopper] Order Confirmation"
+        OrderMailer.new_order(@order, @subj).deliver
+        @order.save
+      end
     end
+   
     respond_with(@order)
   end
-
-
+  
   def update
    
     attributes = convert_cost_to_int(order_params)
@@ -114,12 +134,12 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
-    #add call to mailer here
-    OrderMailer.new_order(@order).deliver
-
-  end
-
-  def provisional
+    if @order.rush_order
+      @subj = "[tricera] RUSH Approved Order Confirmation"
+    else
+      @subj = "[tricera] Approved Order Confirmation"
+    end
+    OrderMailer.new_order(@order, @subj).deliver
   end
 
   def export_to_marc

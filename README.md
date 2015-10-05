@@ -56,3 +56,18 @@ Listing user info
 ```ruby
 y User.all
 ````
+
+=====================================================================================================
+Search and Index
+
+Sunspot is used to provide interaction with Solr. [Sunspot Docs](https://github.com/sunspot/sunspot)
+
+When installing, run 
+```
+bundle exec rake sunspot:solr:start
+```
+
+When updating the searchable definition in a model, be sure to reindex:
+```
+bundle exec rake sunspot:solr:reindex
+```

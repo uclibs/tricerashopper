@@ -5,10 +5,25 @@
       <h4>Status</h4>
         <% for row in @search.facet(:workflow_state).rows %>
           <li>
-            <% if params[:state].blank? %>
+            <% if not params[:rush].blank? and params[:state].blank? %>
+                <% %>
+                <!-- if user has clicked on rush, do nothing -->
+            <% elsif params[:state].blank? %>
               <%= link_to model_class.human_attribute_name(row.value), state: row.value %>
             <% else %>
               <%= link_to "#{model_class.human_attribute_name(row.value)} (remove)", request.params.merge({state: nil, page: nil}) %> 
+            <% end %>
+          </li>
+        <% end %>
+        <% for row in @search.facet(:rush_order).rows %>
+         <li>
+            <% if params[:rush].blank? and not params[:state].blank? %>
+                <% %>
+                <!-- if user has clicked on an order status, do nothing -->
+            <% elsif params[:rush].blank? %>
+              <%= link_to model_class.human_attribute_name("rush"), rush: row.value %>
+            <% else %>
+              <%= link_to "#{model_class.human_attribute_name("rush")} (remove)", request.params.merge({rush: nil, page: nil}) %> 
             <% end %>
           </li>
         <% end %>
