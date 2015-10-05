@@ -48,32 +48,37 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
+   
     #for creation of provisional rush orders and regular provisional orders
-    if @order.save and @user.instance_of? Assistant 
-      if @order.rush_order
-        @subj = "[tricera] RUSH Provisional Order Confirmation"
+    if @order.save
+      
+      if @user.instance_of? Assistant
+        if @order.rush_order
+          @subj = "[tricerashopper] RUSH Provisional Order Confirmation"
+        else
+          @subj = "[tricerashopper] Provisional Order Confirmation"
+        end
+        OrderMailer.provisional_order(@order, @subj).deliver
+    
+      #for creation of approved rush orders
+      elsif @order.rush_order
+        @order.approve_selection!
+        @subj = "[tricerashopper] RUSH Order Confirmation"
+        OrderMailer.new_order(@order, @subj).deliver
+        @order.save
+      
+      #for the creation of all other orders
       else
-        @subj = "[tricera] Provisional Order Confirmation"
+        @order.approve_selection!
+        @subj = "[tricerashopper] Order Confirmation"
+        OrderMailer.new_order(@order, @subj).deliver
+        @order.save
       end
-      OrderMailer.provisional_order(@order, @subj).deliver
-      @order.save
-    #for creation of approved rush orders
-    elsif @order.save and @order.rush_order
-      @order.approve_selection!
-      @subj = "[tricera] RUSH Order Confirmation"
-      OrderMailer.new_order(@order, @subj).deliver
-      @order.save
-    #for the creation of all other orders
-    elsif @order.save
-      @order.approve_selection!
-      @subj = "[tricera] Order Request Confirmation"
-      OrderMailer.new_order(@order, @subj).deliver
-      @order.save
     end
+   
     respond_with(@order)
   end
-
-
+  
   def update
    
     attributes = convert_cost_to_int(order_params)

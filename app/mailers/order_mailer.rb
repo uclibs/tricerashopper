@@ -15,12 +15,12 @@ class OrderMailer < ActionMailer::Base
  
   def rejected_order(order)
       @order = order
-      mail(to: @order.selector, subject: '[tricera] Order Rejected')
+      mail(to: @order.selector, subject: '[tricerashopper] Order Rejected')
   end
 
   def ordered_order(order)
       @order = order
-      mail(to: @order.selector, subject: '[tricera] Order Completed')
+      mail(to: @order.selector, subject: '[tricerashopper] Order Completed')
   end
 
 
