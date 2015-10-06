@@ -1,0 +1,95 @@
+<%- model_class = Order -%>
+  <table style="width:75%">
+      <tr>  
+        <td><strong><%= model_class.human_attribute_name(:title) %>:</strong></td>
+        <td><%= @order.title || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:author) %>:</strong></td>
+        <td><%= @order.author || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:format) %>:</strong></td>
+        <td><%= @order.format || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:publication_date) %>:</strong></td>
+        <td><%= @order.publication_date || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></td>
+        <td><%= @order.isbn || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></td>
+        <td><%= @order.publisher || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:series) %>:</strong></td>
+        <td><%= @order.series.presence || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></td>
+        <td><%= @order.oclc || '-' %></td>
+      </tr>
+     <tr>
+        <td><strong><%= model_class.human_attribute_name(:edition) %>:</strong></td>
+        <td><%= @order.edition.presence || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:selector) %>:</strong></td>
+        <td><%= @order.selector || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:requestor) %>:</strong></td>
+        <td><%= @order.requestor || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:location_code) %>:</strong></td>
+        <td><%= @order.location_code || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:fund) %>:</strong></td>
+        <td><%= @order.fund || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:cost) %>:</strong></td>
+        <td><%= number_to_currency(cost_in_dollars(@order.cost), unit: "#{@order.currency} ") %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:added_edition) %>:</strong></td>
+        <td><%= @order.added_edition || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:added_copy) %>:</strong></td>
+        <td><%= @order.added_copy || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:added_copy_call_number) %>:</strong></td>
+        <td><%= @order.added_copy_call_number.presence || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:rush_order) %>:</strong></td>
+        <td><%= @order.rush_order || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:notify) %>:</strong></td>
+        <td><%= @order.notify || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:reserve) %>:</strong></td>
+        <td><%= @order.reserve || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:notification_contact) %>:</strong></td>
+        <td><%= @order.notification_contact.presence || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:relevant_url) %>:</strong></td>
+        <td><%= @order.relevant_url.presence || '-' %></td>
+      </tr>
+      <tr>
+        <td><strong><%= model_class.human_attribute_name(:other_notes) %>:</strong></td>
+        <td><%= @order.other_notes || '-' %></td>
+      </tr>
+   </table>

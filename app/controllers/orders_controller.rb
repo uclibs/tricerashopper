@@ -135,9 +135,9 @@ class OrdersController < ApplicationController
     @order.save
     respond_with(@order)
     if @order.rush_order
-      @subj = "[tricera] RUSH Approved Order Confirmation"
+      @subj = "[tricera] RUSH Approved Provisional Order Confirmation"
     else
-      @subj = "[tricera] Approved Order Confirmation"
+      @subj = "[tricera] Approved Provisional Order Confirmation"
     end
     OrderMailer.new_order(@order, @subj).deliver
   end
