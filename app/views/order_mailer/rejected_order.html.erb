@@ -7,37 +7,7 @@
   <body>
     <h4>Order Rejected</h4>
     <p>
-    <table style="width:75%">
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:author) %>:</strong></td>
-        <td><%= @order.author %></td>
-      </tr>
-      <tr>  
-        <td><strong><%= model_class.human_attribute_name(:title) %>:</strong></td>
-        <td><%= @order.title %></td>
-      </tr>
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:publisher) %>:</strong></td>
-        <td><%= @order.publisher %></td>
-      </tr>
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></td>
-        <td><%= @order.isbn %></td>
-      </tr>
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:fund) %>:</strong></td>
-        <td><%= @order.fund %></td>
-      </tr>
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:cost) %>:</strong></td>
-        <td><%= number_to_currency(cost_in_dollars(@order.cost), unit: "#{@order.currency} ") %></td>
-      </tr>
-      <tr>
-        <td><strong><%= model_class.human_attribute_name(:other_notes) %>:</strong></td>
-        <td><%= @order.other_notes %></td>
-      </tr>
-
-    </table>
+      <%= render 'order_fields' %> 
     </p>
     <p><%= link_to order_url(@order), order_url(@order) %></p>
   </body>
