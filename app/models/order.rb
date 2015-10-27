@@ -25,6 +25,7 @@ class Order < ActiveRecord::Base
     date :created_at
     integer :id
     string :rush_order
+    string :reserve
   end
 
   workflow do 
