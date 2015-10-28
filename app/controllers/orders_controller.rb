@@ -51,10 +51,10 @@ class OrdersController < ApplicationController
     @user = current_user
     @order.user_id = @user.id
    
-    #for creation of provisional rush orders and regular provisional orders
+    
     if @order.save
       
-
+      #for creation of provisional rush and/or reserve orders and regular provisional orders
       if @user.instance_of? Assistant
         if @order.rush_order && @order.reserve
           @subj = "[tricerashopper] RUSH RESERVE Provisional Order Confirmation"
@@ -66,32 +66,22 @@ class OrdersController < ApplicationController
           @subj = "[tricerashopper] Provisional Order Confirmation"
         end
         OrderMailer.provisional_order(@order, @subj).deliver
-    
-      elsif @order.reserve && @order.rush_order
+      
+      #for creation of regular rush and/or reserve orders and regular selector orders    
+      else    
+        if @order.reserve && @order.rush_order
+          @subj = "[tricerashopper] RUSH RESERVE Order Confirmation"
+        elsif @order.reserve
+          @subj = "[tricerashopper] RESERVE Order Confirmation"
+        elsif @order.rush_order
+          @subj = "[tricerashopper] RUSH Order Confirmation" 
+        else
+          @subj = "[tricerashopper] Order Confirmation"
+        end
         @order.approve_selection!
-        @subj = "[tricerashopper] RUSH RESERVE Order Confirmation"
         OrderMailer.new_order(@order, @subj).deliver
         @order.save
 
-      elsif @order.reserve
-        @order.approve_selection!
-        @subj = "[tricerashopper] RESERVE Order Confirmation"
-        OrderMailer.new_order(@order, @subj).deliver
-        @order.save
-         
-      #for creation of approved rush orders
-      elsif @order.rush_order
-        @order.approve_selection!
-        @subj = "[tricerashopper] RUSH Order Confirmation"
-        OrderMailer.new_order(@order, @subj).deliver
-        @order.save
-      
-      #for the creation of all other orders
-      else
-        @order.approve_selection!
-        @subj = "[tricerashopper] Order Confirmation"
-        OrderMailer.new_order(@order, @subj).deliver
-        @order.save
       end
     end
    
