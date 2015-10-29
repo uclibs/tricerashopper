@@ -22,7 +22,6 @@ gem 'marc'
 gem 'roo'
 gem 'googlecharts'
 gem 'workflow'
-gem 'minitest', '~> 4.7.5'
 
 group :doc do
   gem 'sdoc', require: false
