@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20150616173748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "adminpack"
 
   create_table "dda_expenditures", force: true do |t|
     t.text     "title"
@@ -105,6 +106,12 @@ ActiveRecord::Schema.define(version: 20150616173748) do
   add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked", using: :btree
   add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num", using: :btree
   add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type", using: :btree
+
+  create_table "testing", id: false, force: true do |t|
+    t.string "book",  limit: 40
+    t.string "video", limit: 40
+    t.string "idnum", limit: 20
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -5,9 +5,9 @@
       <h4>Status</h4>
         <% for row in @search.facet(:workflow_state).rows %>
           <li>
-            <% if not params[:rush].blank? and params[:state].blank? %>
+            <% if not (params[:rush].blank? and params[:reserve].blank?) and params[:state].blank? %>
                 <% %>
-                <!-- if user has clicked on rush, do nothing -->
+                <!-- if user has clicked on rush , do nothing -->
             <% elsif params[:state].blank? %>
               <%= link_to model_class.human_attribute_name(row.value), state: row.value %>
             <% else %>
@@ -20,10 +20,28 @@
             <% if params[:rush].blank? and not params[:state].blank? %>
                 <% %>
                 <!-- if user has clicked on an order status, do nothing -->
+            <% elsif params[:rush].blank? and not params[:reserve].blank? %>
+                <% %>
+                <!-- if user has clicked on reserve status, do nothing -->
             <% elsif params[:rush].blank? %>
               <%= link_to model_class.human_attribute_name("rush"), rush: row.value %>
             <% else %>
               <%= link_to "#{model_class.human_attribute_name("rush")} (remove)", request.params.merge({rush: nil, page: nil}) %> 
+            <% end %>
+          </li>
+        <% end %>
+        <% for row in @search.facet(:reserve).rows %>
+         <li>
+            <% if params[:reserve].blank? and not params[:state].blank? %>
+                <% %>
+                <!-- if user has clicked on an order status, do nothing -->
+            <% elsif params[:reserve].blank? and not params[:rush].blank? %>
+                <% %>
+                <!-- if user has clicked on rush status, do nothing -->
+            <% elsif params[:reserve].blank? %>
+              <%= link_to model_class.human_attribute_name("reserve"), reserve: row.value %>
+            <% else %>
+              <%= link_to "#{model_class.human_attribute_name("reserve")} (remove)", request.params.merge({reserve: nil, page: nil}) %> 
             <% end %>
           </li>
         <% end %>

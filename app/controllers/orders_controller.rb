@@ -15,8 +15,10 @@ class OrdersController < ApplicationController
         order_by(:id, :desc)
         facet(:workflow_state)
         facet(:rush_order)
+        facet(:reserve)
         with(:workflow_state, params[:state]) if params[:state].present?
         with(:rush_order, params[:rush]) if params[:rush].present?
+        with(:reserve, params[:reserve]) if params[:reserve].present?
      end
   
     @orders = @search.results    
@@ -49,30 +51,37 @@ class OrdersController < ApplicationController
     @user = current_user
     @order.user_id = @user.id
    
-    #for creation of provisional rush orders and regular provisional orders
+    
     if @order.save
       
+      #for creation of provisional rush and/or reserve orders and regular provisional orders
       if @user.instance_of? Assistant
-        if @order.rush_order
+        if @order.rush_order && @order.reserve
+          @subj = "[tricerashopper] RUSH RESERVE Provisional Order Confirmation"
+        elsif @order.rush_order
           @subj = "[tricerashopper] RUSH Provisional Order Confirmation"
+        elsif @order.reserve
+          @subj = "[tricerashopper] RESERVE Provisional Order Confirmation"
         else
           @subj = "[tricerashopper] Provisional Order Confirmation"
         end
         OrderMailer.provisional_order(@order, @subj).deliver
-    
-      #for creation of approved rush orders
-      elsif @order.rush_order
-        @order.approve_selection!
-        @subj = "[tricerashopper] RUSH Order Confirmation"
-        OrderMailer.new_order(@order, @subj).deliver
-        @order.save
       
-      #for the creation of all other orders
-      else
+      #for creation of regular rush and/or reserve orders and regular selector orders    
+      else    
+        if @order.reserve && @order.rush_order
+          @subj = "[tricerashopper] RUSH RESERVE Order Confirmation"
+        elsif @order.reserve
+          @subj = "[tricerashopper] RESERVE Order Confirmation"
+        elsif @order.rush_order
+          @subj = "[tricerashopper] RUSH Order Confirmation" 
+        else
+          @subj = "[tricerashopper] Order Confirmation"
+        end
         @order.approve_selection!
-        @subj = "[tricerashopper] Order Confirmation"
         OrderMailer.new_order(@order, @subj).deliver
         @order.save
+
       end
     end
    
@@ -134,10 +143,14 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
-    if @order.rush_order
-      @subj = "[tricera] RUSH Approved Provisional Order Confirmation"
+    if @order.rush_order && @order.reserve
+      @subj = "[tricerashopper] RUSH RESERVE Approved Provisional Order Confirmation"
+    elsif @order.rush_order
+      @subj = "[tricerashopper] RUSH Approved Provisional Order Confirmation"
+    elsif @order.reserve
+      @subj = "[tricerashopper] RESERVE Approved Provisional Order Confirmation"
     else
-      @subj = "[tricera] Approved Provisional Order Confirmation"
+      @subj = "[tricerashopper] Approved Provisional Order Confirmation"
     end
     OrderMailer.new_order(@order, @subj).deliver
   end
