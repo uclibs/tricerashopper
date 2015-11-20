@@ -168,6 +168,8 @@ class OrdersController < ApplicationController
       f960.append(MARC::Subfield.new('h', 'r')) unless order.rush_order.blank?
       f960.append(MARC::Subfield.new('s', order.cost.to_s)) unless order.cost.blank?
       f960.append(MARC::Subfield.new('j', 'n')) unless order.notify.blank?
+      f960.append(MARC::Subfield.new('k', 'u'))
+      f960.append(MARC::Subfield.new('l', 'u'))
       f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
       f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
       f960.append(MARC::Subfield.new('z', order.currency)) unless order.currency == 'USD'
