@@ -14,7 +14,11 @@ class OrdersController < ApplicationController
         with(:title)
         order_by(:id, :desc)
         facet(:workflow_state)
+        facet(:rush_order)
+        facet(:reserve)
         with(:workflow_state, params[:state]) if params[:state].present?
+        with(:rush_order, params[:rush]) if params[:rush].present?
+        with(:reserve, params[:reserve]) if params[:reserve].present?
      end
   
     @orders = @search.results    
@@ -46,16 +50,44 @@ class OrdersController < ApplicationController
     @order = Order.new(attributes)
     @user = current_user
     @order.user_id = @user.id
+   
+    
     if @order.save
-      unless @user.instance_of? Assistant
+      
+      #for creation of provisional rush and/or reserve orders and regular provisional orders
+      if @user.instance_of? Assistant
+        if @order.rush_order && @order.reserve
+          @subj = "[tricerashopper] RUSH RESERVE Provisional Order Confirmation"
+        elsif @order.rush_order
+          @subj = "[tricerashopper] RUSH Provisional Order Confirmation"
+        elsif @order.reserve
+          @subj = "[tricerashopper] RESERVE Provisional Order Confirmation"
+        else
+          @subj = "[tricerashopper] Provisional Order Confirmation"
+        end
+        OrderMailer.provisional_order(@order, @subj).deliver
+      
+      #for creation of regular rush and/or reserve orders and regular selector orders    
+      else    
+        if @order.reserve && @order.rush_order
+          @subj = "[tricerashopper] RUSH RESERVE Order Confirmation"
+        elsif @order.reserve
+          @subj = "[tricerashopper] RESERVE Order Confirmation"
+        elsif @order.rush_order
+          @subj = "[tricerashopper] RUSH Order Confirmation" 
+        else
+          @subj = "[tricerashopper] Order Confirmation"
+        end
         @order.approve_selection!
+        OrderMailer.new_order(@order, @subj).deliver
         @order.save
+
       end
-      OrderMailer.new_order(@order).deliver
     end
+   
     respond_with(@order)
   end
-
+  
   def update
    
     attributes = convert_cost_to_int(order_params)
@@ -111,9 +143,16 @@ class OrdersController < ApplicationController
     @order.approve_selection!
     @order.save
     respond_with(@order)
-  end
-
-  def provisional
+    if @order.rush_order && @order.reserve
+      @subj = "[tricerashopper] RUSH RESERVE Approved Provisional Order Confirmation"
+    elsif @order.rush_order
+      @subj = "[tricerashopper] RUSH Approved Provisional Order Confirmation"
+    elsif @order.reserve
+      @subj = "[tricerashopper] RESERVE Approved Provisional Order Confirmation"
+    else
+      @subj = "[tricerashopper] Approved Provisional Order Confirmation"
+    end
+    OrderMailer.new_order(@order, @subj).deliver
   end
 
   def export_to_marc
@@ -129,6 +168,8 @@ class OrdersController < ApplicationController
       f960.append(MARC::Subfield.new('h', 'r')) unless order.rush_order.blank?
       f960.append(MARC::Subfield.new('s', order.cost.to_s)) unless order.cost.blank?
       f960.append(MARC::Subfield.new('j', 'n')) unless order.notify.blank?
+      f960.append(MARC::Subfield.new('k', 'u'))
+      f960.append(MARC::Subfield.new('l', 'u'))
       f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
       f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
       f960.append(MARC::Subfield.new('z', order.currency)) unless order.currency == 'USD'

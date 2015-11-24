@@ -16,8 +16,8 @@ def create
        s.drop(1).each do |row|
        record = MARC::Record.new()
        record.append(MARC::DataField.new('024', '0', '0', ['a', row[3].to_s]))
-       record.append(MARC::DataField.new('245', '0', '0', ['a', row[2]]))
-       record.append(MARC::DataField.new('260', ' ', ' ', ['b', row[0]]))
+       record.append(MARC::DataField.new('245', '0', '0', ['a', row[2].to_s]))
+       record.append(MARC::DataField.new('260', ' ', ' ', ['b', row[0].to_s]))
        record.append(MARC::DataField.new('300', ' ', ' ', ['a', row[4].to_s]))
        record.append(MARC::DataField.new('961', ' ', ' ', ['d', "Invoice # #{row[5].to_i.to_s}"]))
        record.append(MARC::DataField.new('980', ' ', ' ', ['a', Time.now.strftime("%y%m%d")], ['b', row[6].to_s.gsub('.', '')], ['e', row[6].to_s.gsub('.', '')], ['f', row[5].to_i.to_s], ['g', '1']))
