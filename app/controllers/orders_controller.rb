@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
       end
     end
     
-    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], location_code: params[:location], selector: get_selectors)
+    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], edition: params[:edition], language: params[:language], location_code: params[:location], selector: get_selectors)
     respond_with(@order)
   end
 
@@ -254,6 +254,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :series, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :currency, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :series, :oclc, :edition, :language, :selector, :requestor, :location_code, :fund, :cost, :currency, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
     end
 end
