@@ -159,6 +159,9 @@ class OrdersController < ApplicationController
     
     def create_marc(order)
       record = MARC::Record.new()
+      fl = '                                      '
+      fl[35] = order.language
+      record.append(MARC::ControlField.new('008', value = fl))
       record.append(MARC::DataField.new('020', ' ', ' ', ['a', order.isbn.to_s]))
       record.append(MARC::DataField.new('100', '0', ' ', ['a', order.author]))
       record.append(MARC::DataField.new('245', '1', '0', ['a', order.title]))
