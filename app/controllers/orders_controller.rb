@@ -176,6 +176,7 @@ class OrdersController < ApplicationController
       f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
       f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
       f960.append(MARC::Subfield.new('z', order.currency)) unless order.currency == 'USD'
+      f960.append(MARC::Subfield.new('w', order.language))
       
       record.append(f960)
 
