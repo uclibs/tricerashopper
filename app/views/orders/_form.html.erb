@@ -38,9 +38,27 @@
     </div>
   </div>
   <div class="control-group required">
+    <%= f.label :publisher, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :publisher, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group required">
     <%= f.label :publication_date, class: 'control-label' %>
     <div class="controls">
       <%= f.text_field :publication_date, class: 'text-field' %>
+    </div>
+  </div>
+   <div class="control-group">
+    <%= f.label :series, class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :series, class: 'text-field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :edition, class: 'control-label' %>
+    <div class="controls">
+    <%= f.text_field :edition, class: 'text-field' %>
     </div>
   </div>
   <div class="control-group">
@@ -49,28 +67,10 @@
       <%= f.text_field :isbn, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group required">
-    <%= f.label :publisher, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :publisher, class: 'text-field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :series, class: 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :series, class: 'text-field' %>
-    </div>
-  </div>
   <div class="control-group">
     <%= f.label :oclc, class: 'control-label' %>
     <div class="controls">
       <%= f.number_field :oclc, class: 'text-field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :edition, class: 'control-label' %>
-    <div class="controls">
-    <%= f.text_field :edition, class: 'text-field' %>
     </div>
   </div>
   <div class="control-group">
