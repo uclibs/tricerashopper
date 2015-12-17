@@ -24,6 +24,8 @@
   <dd><%= @order.oclc || '-' %></dd>
   <dt><strong><%= model_class.human_attribute_name(:edition) %>:</strong></dt>
   <dd><%= @order.edition.presence || '-'%></dd>
+  <dt><strong><%= model_class.human_attribute_name(:language) %>:</strong></dt>
+  <dd><%= @order.language.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:selector) %>:</strong></dt>
   <dd><%= @order.selector.presence || '-'%></dd>
   <dt><strong><%= model_class.human_attribute_name(:requestor) %>:</strong></dt>

@@ -37,6 +37,10 @@
         <td><%= @order.edition.presence || '-' %></td>
       </tr>
       <tr>
+        <td><strong><%= model_class.human_attribute_name(:language) %>:</strong></td>
+        <td><%= @order.language.presence || '-' %></td>
+      </tr>
+      <tr>
         <td><strong><%= model_class.human_attribute_name(:selector) %>:</strong></td>
         <td><%= @order.selector || '-' %></td>
       </tr>
