@@ -3,7 +3,7 @@ require 'resque/server'
 SelectorReporting::Application.routes.draw do
   resources :problems do
     member do
-      get :audit
+       get :audit
     end
   end
 

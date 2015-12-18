@@ -42,14 +42,12 @@ class ProblemsController < ApplicationController
   end
 
   def audit
-    respond_to do |format|
       if @problem.valid?
-        flash[:notice] = "QC Problem #{@problem.record_num} unresolved"
+        @audit_pass = false
       else
         @problem.destroy
+        @audit_pass = true
       end
-      format.js
-    end
   end
 
   private

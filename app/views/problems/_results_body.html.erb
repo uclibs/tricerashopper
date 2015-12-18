@@ -17,11 +17,9 @@
         <td><%= problem.type %></td>
         <td><%= problem.record_type %></td>
         <td><%= problem.title %></td>
-        <td><%= link_to 'Audit', audit_problem_path(problem), class: 'btn btn-success', remote: true %></td>
+        <td><%= link_to 'Audit', audit_problem_path(problem), class: 'btn btn-default', remote: true %></td>
       </tr>
     <% end %>
     <% end %>
   </tbody>
 </table>
-
-
