@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
       end
     end
     
-    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], location_code: params[:location], selector: get_selectors)
+    @order = Order.new(author: params[:author], title: params[:title], publisher: params[:publisher], isbn: params[:isbn], oclc: params[:oclc], edition: params[:edition], language: params[:language], location_code: params[:location], selector: get_selectors)
     respond_with(@order)
   end
 
@@ -159,6 +159,9 @@ class OrdersController < ApplicationController
     
     def create_marc(order)
       record = MARC::Record.new()
+      fl = '                                      '
+      fl[35] = order.language
+      record.append(MARC::ControlField.new('008', value = fl))
       record.append(MARC::DataField.new('020', ' ', ' ', ['a', order.isbn.to_s]))
       record.append(MARC::DataField.new('100', '0', ' ', ['a', order.author]))
       record.append(MARC::DataField.new('245', '1', '0', ['a', order.title]))
@@ -173,6 +176,7 @@ class OrdersController < ApplicationController
       f960.append(MARC::Subfield.new('m', '2')) unless order.not_yet_published.blank?
       f960.append(MARC::Subfield.new('a', 'b')) unless order.credit_card_order.blank?
       f960.append(MARC::Subfield.new('z', order.currency)) unless order.currency == 'USD'
+      f960.append(MARC::Subfield.new('w', order.language))
       
       record.append(f960)
 
@@ -254,6 +258,6 @@ class OrdersController < ApplicationController
     end
 
     def order_params
-      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :series, :oclc, :edition, :selector, :requestor, :location_code, :fund, :cost, :currency, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
+      params.require(:order).permit(:title, :author, :format, :publication_date, :isbn, :publisher, :series, :oclc, :edition, :language, :selector, :requestor, :location_code, :fund, :cost, :currency, :added_edition, :added_copy, :added_copy_call_number, :rush_order, :notify, :reserve, :notification_contact, :relevant_url, :other_notes, :vendor_note, :vendor_code, :not_yet_published, :not_yet_published_date, :vendor_address, :credit_card_order, :internal_note, :processing_note)
     end
 end
