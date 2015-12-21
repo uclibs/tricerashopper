@@ -1,4 +1,6 @@
 class BlankRdate < Problem
+  include ProblemLogic
+
   before_validation :set_fields
   validate :validation
   validates :record_num, uniqueness: true
@@ -16,9 +18,9 @@ class BlankRdate < Problem
     load_order_view
     order_status_code_is_a and
     order_is_more_than_4_months_old and
-    received_date_is_nil and
-    cataloging_date_is_not_nil and
-    acq_type_is_p
+    order_received_date_is_nil and
+    order_cataloging_date_is_not_nil and
+    order_acq_type_is_p
   end
 
   private
@@ -31,25 +33,5 @@ class BlankRdate < Problem
     load_order_view
     self.title = @order_view.bib_view.title
     self.record_type = @order_view.record_type_code
-  end
-  
-  def order_status_code_is_a
-    @order_view.order_status_code == 'a' 
-  end
-
-  def order_is_more_than_4_months_old
-    @order_view.order_date_gmt < DateTime.now - 4.months
-  end
-  
-  def received_date_is_nil
-    @order_view.received_date_gmt == nil
-  end
-
-  def cataloging_date_is_not_nil
-    @order_view.bib_view.cataloging_date_gmt != nil 
-  end
-
-  def acq_type_is_p
-    @order_view.acq_type_code == 'p'
   end
 end
