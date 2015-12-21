@@ -1,7 +1,12 @@
 require 'resque/server'
 
 SelectorReporting::Application.routes.draw do
-  resources :problems, except: [:edit, :update]
+  resources :problems do
+    member do
+       get :audit
+    end
+  end
+
   resources :dda_expenditures, except: [:edit, :update]
   devise_for :users
   resources :users

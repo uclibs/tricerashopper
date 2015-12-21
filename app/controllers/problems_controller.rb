@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_problem, only: [:show, :edit, :update, :destroy]
+  before_action :set_problem, only: [:show, :edit, :update, :destroy, :audit]
 
   respond_to :html
 
@@ -36,8 +36,18 @@ class ProblemsController < ApplicationController
   end
 
   def destroy
+   
     @problem.destroy
     respond_with(@problem)
+  end
+
+  def audit
+      if @problem.valid?
+        @audit_pass = false
+      else
+        @problem.destroy
+        @audit_pass = true
+      end
   end
 
   private

@@ -1,0 +1,10 @@
+$('a').on('ajax:success', function(event){
+    var audit_pass= <%= @audit_pass %>
+    if(audit_pass == true){
+      $(this).closest('tr').fadeOut('slow');
+    }
+    else{
+      $(this).closest('tr').attr('class', 'fail');
+    }
+      $('a').unbind()
+  })
