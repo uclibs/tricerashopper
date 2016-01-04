@@ -198,6 +198,7 @@ module OrdersHelper
       'Japanese' => 'jpn',
       'Korean' => 'kor',
       'Kru' => 'kro',
+      'Latin' => 'lat',
       'Lithuanian' => 'lit',
       'Malayalam' => 'mal',
       'Miao (Hmong)' => 'hmn',

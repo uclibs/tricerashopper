@@ -1,4 +1,4 @@
-Copyright (c) 2015 James Van Mil, Sean Crowe
+Copyright (c) 2015 James Van Mil, Sean Crowe, Bill McMillin
 
 MIT License
 
