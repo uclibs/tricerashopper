@@ -7,6 +7,7 @@ class OrderRecordQc
         problem_review(record_num)
       else
         blank_r_date(record_num)
+        cancelled_by_vendor(record_num)
       end 
       update_index_date(record_num)
     end
@@ -16,6 +17,10 @@ class OrderRecordQc
 
   def self.blank_r_date(record_num)
       BlankRdate.create(record_num: record_num)
+  end
+ 
+  def self.cancelled_by_vendor(record_num)
+      CancelledByVendor.create(record_num: record_num)
   end
   
   def self.problem_exist?(record_num)
