@@ -16,4 +16,6 @@ class Problem < ActiveRecord::Base
   has_many :blank_rdates, class_name: 'BlankRdate',
                          foreign_key: 'id'
 
+  has_many :cancelled_by_vendors, class_name: 'CancelledByVendor',
+                         foreign_key: 'id'
 end

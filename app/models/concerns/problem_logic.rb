@@ -22,4 +22,18 @@ module ProblemLogic
   def order_status_code_is_a
     @order_view.order_status_code == 'a' 
   end
+
+  def order_status_code_is_o
+    @order_view.order_status_code == 'o' 
+  end
+
+  def order_edi_response_is_2
+    @order_view.order_record_edifact_responses.each do |response|
+      if response.code == '2'
+        return true
+      end
+    end
+    false
+  end
+
 end

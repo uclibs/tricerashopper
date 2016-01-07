@@ -23,13 +23,15 @@ describe OrderRecordQc do
         BlankRdate.stub(:create).and_return(true)
       end
 
-      it "should update the SierraIndex.last_checked date" do
+      it "should run problem tests and update the index" do
+        ## should update the SierraIndex.last_checked date
         SierraIndexHelper.should receive(:update_date).with(100001, 'o')
-        Resque.enqueue(OrderRecordQc, 100001)
-      end
-
-      it "should run the BlankRdate test" do
+      
+        ## should run the BlankRdate test
         BlankRdate.should receive(:create)
+
+        ## should run the CancelledByVendor test
+        CancelledByVendor.should receive(:create)
         Resque.enqueue(OrderRecordQc, 100001)
       end
     end
