@@ -9,7 +9,7 @@ describe Problem do
   it { should respond_to(:record_type) }
 
   it "has a valid factory" do
-    expect(build(:sierra_index)).to be_valid
+    expect(build(:problem)).to be_valid
   end
 
   it "is valid with title" do
