@@ -2,8 +2,7 @@
   <thead>
     <tr>
       <th>Record Number</th>
-      <th>Problem</th>
-      <th>Record Type</th>
+      <th>Problem Type</th>
       <th>Title</th>
       <th></th>
     </tr>
@@ -13,11 +12,10 @@
     <% @problems.each do |problem| %>
       <%= div_for problem do %>
       <tr>
-        <td><%= link_to problem.record_num, problem_path(problem) %></td>
+        <td><%= human_readable_record_number(problem.record_type, problem.record_num) %></td>
         <td><%= problem.type %></td>
-        <td><%= problem.record_type %></td>
         <td><%= problem.title %></td>
-        <td><%= link_to 'Audit', audit_problem_path(problem), class: 'btn btn-default', remote: true %></td>
+        <td><%= link_to 'Check', audit_problem_path(problem), class: 'btn btn-default', remote: true %></td>
       </tr>
     <% end %>
     <% end %>

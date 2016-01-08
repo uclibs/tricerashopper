@@ -7,10 +7,10 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:item_number) %>:</strong></dt>
-  <dd><%= "i#{@lost.item_number.to_s}a" %></dd>
+  <dd><%= human_readable_record_number('i', @lost.item_number) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:bib_number) %>:</strong></dt>
 
-  <dd><%= "b#{@lost.bib_number}a" %></dd>
+  <dd><%= human_readable_record_number('b', @lost.bib_number) %></dd>
  
     <dt><strong><%= model_class.human_attribute_name(:oclc) %>:</strong></dt>
     <dd><%= @lost.oclc.presence || '-' %></dd>
