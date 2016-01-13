@@ -1,7 +1,7 @@
 <tbody>
   <% @losts.each do |lost| %>
     <tr>
-      <td> <%= link_to "i#{lost.item_number.to_s}a", lost_path(lost), :class => 'btn btn-default' %> </td>
+      <td> <%= link_to human_readable_record_number('i', lost.item_number), lost_path(lost), :class => 'btn btn-default' %> </td>
       <td> <%= if lost.title.length > 59 then "#{lost.title[0..60]}..." else lost.title end %> </td>
       <td> <%= lost.status %> </td>
       <td> <%= lost.location %> </td>
