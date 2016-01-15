@@ -60,11 +60,11 @@
   <%= render "show_admin_fields" %>
 <% end %>
 
-<div class="form-actions">
+<div class="well">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-            orders_path, :class => 'btn'  %>
+            orders_path, :class => 'btn btn-default'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")), 
-            edit_order_path(@order), :class => 'btn' || '-' %>
+            edit_order_path(@order), :class => 'btn btn-default' || '-' %>
          
   <% if current_user.instance_of? Admin %>
   <%= render "show_admin_actions" %>

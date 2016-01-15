@@ -197,11 +197,10 @@ class OrdersController < ApplicationController
     if @orders.any? {|i| i.vendor_code.blank? }
       @blank_vendor_codes = Array.new
       @orders.each {|i| @blank_vendor_codes << view_context.link_to( i.id, order_path(i.id.to_s), target: '_blank') if i.vendor_code.blank?}
-      
       flash[:notice] = "Vendor codes can\'t be blank for MARC export, check: "+  @blank_vendor_codes.join(", ")
       redirect_to orders_path and return
     end 
- 
+
     directory = "public/tmp/records"
     if  @orders.any? {|i| i.workflow_state == 'marc_yes_po' }
       pofile = true

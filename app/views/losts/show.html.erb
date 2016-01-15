@@ -43,11 +43,11 @@
 <div class="container">
   <div class="span8">
       <div class="btn-group">
-     <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{@lost.bib_number}~S39", target: '_blank', class: 'btn' %>
+     <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{@lost.bib_number}~S39", target: '_blank', class: 'btn btn-default' %>
 
      <% unless @lost.oclc.nil? %> 
-     <%= link_to 'OhioLINK', "http://olc1.ohiolink.edu/search/o?SEARCH=#{@lost.oclc}", target: '_blank', class: 'btn' %>
-     <%= link_to 'WorldCat', "https://www.worldcat.org/search?q=no:#{@lost.oclc}", target: '_blank', class: 'btn' %>
+     <%= link_to 'OhioLINK', "http://olc1.ohiolink.edu/search/o?SEARCH=#{@lost.oclc}", target: '_blank', class: 'btn btn-default' %>
+     <%= link_to 'WorldCat', "https://www.worldcat.org/search?q=no:#{@lost.oclc}", target: '_blank', class: 'btn btn-default' %>
    <% end %>
      
 </div>
