@@ -169,7 +169,7 @@ module OrdersHelper
   def format_list
      ['Print',
       'DVD',
-      'Streaming Video'
+      'Streaming Video',
       'Other']
   end
 
