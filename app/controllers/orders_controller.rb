@@ -70,7 +70,7 @@ class OrdersController < ApplicationController
       #for creation of regular rush and/or reserve orders and regular selector orders    
       else    
         if @order.reserve && @order.rush_order
-          @subj = "[tricerashopper] RUSH RESERVE Order Confirmation"
+          @subj = "[tricerashopper] RUSH RESERVE Order Confirmation - " + @order.format
         elsif @order.reserve
           @subj = "[tricerashopper] RESERVE Order Confirmation"
         elsif @order.rush_order
