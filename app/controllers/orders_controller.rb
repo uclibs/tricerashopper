@@ -57,13 +57,13 @@ class OrdersController < ApplicationController
       #for creation of provisional rush and/or reserve orders and regular provisional orders
       if @user.instance_of? Assistant
         if @order.rush_order && @order.reserve
-          @subj = "[tricerashopper] RUSH RESERVE Provisional Order Confirmation"
+          @subj = "[tricerashopper] RUSH RESERVE Provisional Order Confirmation - " + @order.format
         elsif @order.rush_order
-          @subj = "[tricerashopper] RUSH Provisional Order Confirmation"
+          @subj = "[tricerashopper] RUSH Provisional Order Confirmation - " + @order.format
         elsif @order.reserve
-          @subj = "[tricerashopper] RESERVE Provisional Order Confirmation"
+          @subj = "[tricerashopper] RESERVE Provisional Order Confirmation - " + @order.format
         else
-          @subj = "[tricerashopper] Provisional Order Confirmation"
+          @subj = "[tricerashopper] Provisional Order Confirmation - " + @order.format
         end
         OrderMailer.provisional_order(@order, @subj).deliver
       
@@ -72,11 +72,11 @@ class OrdersController < ApplicationController
         if @order.reserve && @order.rush_order
           @subj = "[tricerashopper] RUSH RESERVE Order Confirmation - " + @order.format
         elsif @order.reserve
-          @subj = "[tricerashopper] RESERVE Order Confirmation"
+          @subj = "[tricerashopper] RESERVE Order Confirmation - " + @order.format
         elsif @order.rush_order
-          @subj = "[tricerashopper] RUSH Order Confirmation" 
+          @subj = "[tricerashopper] RUSH Order Confirmation - " + @order.format 
         else
-          @subj = "[tricerashopper] Order Confirmation"
+          @subj = "[tricerashopper] Order Confirmation - " + @order.format
         end
         @order.approve_selection!
         OrderMailer.new_order(@order, @subj).deliver
@@ -144,13 +144,13 @@ class OrdersController < ApplicationController
     @order.save
     respond_with(@order)
     if @order.rush_order && @order.reserve
-      @subj = "[tricerashopper] RUSH RESERVE Approved Provisional Order Confirmation"
+      @subj = "[tricerashopper] RUSH RESERVE Approved Provisional Order Confirmation - " + @order.format
     elsif @order.rush_order
-      @subj = "[tricerashopper] RUSH Approved Provisional Order Confirmation"
+      @subj = "[tricerashopper] RUSH Approved Provisional Order Confirmation - " + @order.format
     elsif @order.reserve
-      @subj = "[tricerashopper] RESERVE Approved Provisional Order Confirmation"
+      @subj = "[tricerashopper] RESERVE Approved Provisional Order Confirmation - " + @order.format
     else
-      @subj = "[tricerashopper] Approved Provisional Order Confirmation"
+      @subj = "[tricerashopper] Approved Provisional Order Confirmation - " + @order.format
     end
     OrderMailer.new_order(@order, @subj).deliver
   end
