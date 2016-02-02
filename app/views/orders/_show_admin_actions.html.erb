@@ -13,7 +13,7 @@
            <% end %>
          </ul>
        <% else %>
-         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn' %>
+         <%= link_to "Status: #{model_class.human_attribute_name(@order.current_state)}", '', class: 'btn btn-default' %>
     <% end %>
   </div>
   <div class="pull-right">

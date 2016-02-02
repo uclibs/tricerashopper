@@ -17,169 +17,169 @@
   <div class="well">
  
     <div class="row">
-    <div class="span7">
+    <div class="col-md-7">
 
-    <div class="control-group required">
+    <div class="form-group required">
      <%= f.label :title, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :title, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :author, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :author, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :format, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.select :format, options_for_select(format_list, f.object.format), selected: @order.format %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :publisher, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :publisher, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :publication_date, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :publication_date, class: 'text-field' %>
     </div>
   </div>
-   <div class="control-group">
+   <div class="form-group">
     <%= f.label :series, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :series, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :edition, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :edition, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :isbn, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :isbn, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :oclc, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.number_field :oclc, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :language, class: 'control-label'%>
-    <div class="controls">
+    <div class="">
     <%= f.select :language, options_for_select(language_list, f.object.language), selected: @order.language %>
   </div>
 </div>
 </div>
-<div class="span4">To aid Content Services staff, please enter as much title information as possible.</div>
+<div class="col-md-4">To aid Content Services staff, please enter as much title information as possible.</div>
 
 </div>
 </div>
 
   <div class="well">
-    <div class="control-group required">
+    <div class="form-group required">
     <%= f.label :selector, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :selector, class: 'text-field', readonly: true %>
   </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :requestor, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :requestor, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :location_code, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.select :location_code, options_for_select(location_code_list, f.object.location_code), include_blank: true %>
     </div>
   </div>
-  <div class="control-group required">
+  <div class="form-group required">
     <%= f.label :fund, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.select :fund, options_for_select(fund_code_list, f.object.fund), include_blank: true %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :cost, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
       <%= f.text_field :cost, class: 'number_field', value: number_to_currency(cost_in_dollars(@order.cost), unit:'') %>
     </div>
     </div>
-    <div class="control-group required">
+    <div class="form-group required">
       <%= f.label :currency, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
     <%= f.select :currency, options_for_select(currency_list, f.object.currency), selected: @order.currency %>
     </div>
     </div>
   </div>
   </div>
     <div class="well">
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :added_edition, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.check_box :added_edition, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :added_copy, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.check_box :added_copy, class: 'checkbox' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :added_copy_call_number, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :added_copy_call_number, class: 'text-field' %>
     </div>
   </div>
   </div>
     <div class="well"> 
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :rush_order, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.check_box :rush_order, class: 'checkbox' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :notify, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.check_box :notify, class: 'checkbox' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :reserve, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.check_box :reserve, class: 'checkbox' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :notification_contact, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :notification_contact, class: 'text-field' %>
     </div>
   </div>
 </div>
   <div class="well">
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :relevant_url, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_field :relevant_url, class: 'text-field' %>
     </div>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :other_notes, class: 'control-label' %>
-    <div class="controls">
+    <div class="">
     <%= f.text_area :other_notes, class: 'text-area' %>
     </div>
   </div>
@@ -191,54 +191,54 @@
   <div class="well">
 
     <div class="row">
-      <div class="span7">
-    <div class="control-group required">
+      <div class="col-md-7">
+    <div class="form-group required">
         <h4>Admin</h4>
         <%= f.label :vendor_code, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.text_field :vendor_code, class: 'text-field' %>
         </div>
         </div>
-        <div class="control-group">
+        <div class="form-group">
         <%= f.label :vendor_note, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.text_field :vendor_note, class: 'text-field' %>
         </div>
       </div> 
-         <div class="control-group">
+         <div class="form-group">
         <%= f.label :internal_note, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.text_field :internal_note, class: 'text-field' %>
         </div>
       </div> 
-          <div class="control-group">
+          <div class="form-group">
         <%= f.label :processing_note, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.text_field :processing_note, class: 'text-field' %>
         </div>
       </div> 
-  <div class="control-group">
+  <div class="form-group">
         <%= f.label :not_yet_published, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.check_box :not_yet_published, class: 'check-box' %>
         </div>
       </div>
-  <div class="control-group">
+  <div class="form-group">
         <%= f.label :not_yet_published_date, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.date_field :not_yet_published_date, class: 'date_field' %>
         </div>
       </div>
-  <div class="control-group">
+  <div class="form-group">
         <%= f.label :vendor_address, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.text_field :vendor_address, class: 'text-field' %>
         </div>
       </div>
 
-  <div class="control-group">
+  <div class="form-group">
         <%= f.label :credit_card_order, class: 'control-label' %>
-        <div class="controls">
+        <div class="">
           <%= f.check_box :credit_card_order, class: 'check-box' %>
         </div>
       </div>
@@ -255,7 +255,7 @@
 <% end %>
 
   <div class="actions">
-    <%= f.submit class: 'btn'%>
+    <%= f.submit class: 'btn btn-default'%>
   </div>
   </div>
 <% end %>
