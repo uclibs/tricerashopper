@@ -27,7 +27,6 @@ class Lost < ActiveRecord::Base
   end
 
   def loc_trunc
-    #check for gov doc location
     if self.location[0..3] == 'ulag'
       self.location = 'Gov_Docs'
     elsif self.location[0] == 'u'
