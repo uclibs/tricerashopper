@@ -87,6 +87,7 @@ module OrdersHelper
       'NSPAN',
       'NTHTR',
       'NWOMS',
+      'SEDUE',
       'UCRCE',
       'UCRCL',
       'UELIG',
