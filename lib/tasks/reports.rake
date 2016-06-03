@@ -8,7 +8,10 @@ def filter_delims(field)
   end
 end
 
+@location_whitelist = ['u', 'h', 'tdp']
+
 def lmlo_create(x)
+  if(x.location_code[0..3] == 'ulag') || (x.location_code[0] == 'u') || (x.location_code[0] == 'h') || (x.location_code =~ /tdp/)
     bibview = x.bib_views.first
     metadata = x.record_metadata
       Lost.create(
@@ -32,6 +35,8 @@ def lmlo_create(x)
         updated_at: x.record_metadata.record_last_updated_gmt
         ) 
   puts bibview.title
+  puts x.location_code
+  end
 end 
 
 @minus1month = Time.now - 1.months
