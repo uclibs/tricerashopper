@@ -6,7 +6,7 @@ gem 'resque'
 
 gem 'therubyracer'
 
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '~> 3.2.2'
 gem 'less-rails'
 gem 'will_paginate-bootstrap'
 gem 'rails', '4.0.13'

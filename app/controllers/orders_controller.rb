@@ -235,7 +235,7 @@ class OrdersController < ApplicationController
       writerPrintPO.close() unless poFile == false
 
       flash[:notice] = "Records Processed"
-      redirect_to marc_downloads_path
+      redirect_to downloads_path
 
     else
       flash[:notice] = "No records to process"

@@ -26,6 +26,6 @@ def create
      end
      writer.close()
      flash[:notice] = "Records Processed" 
-     redirect_to marc_downloads_path
+     redirect_to downloads_path
     end
    end
