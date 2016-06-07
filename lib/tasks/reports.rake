@@ -11,7 +11,7 @@ end
 @location_whitelist = ['u', 'h', 'tdp']
 
 def lmlo_create(x)
-  if(x.location_code[0] == 'u') || (x.location_code[0] == 'h') || (x.location_code =~ /tdp/)
+  if((x.location_code[0] == 'u') || (x.location_code[0] == 'h') || (x.location_code =~ /tdp/)) && (x.location_code != 'tdpso')
     bibview = x.bib_views.first
     metadata = x.record_metadata
       Lost.create(
