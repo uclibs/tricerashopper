@@ -15,7 +15,7 @@ SelectorReporting::Application.routes.draw do
   resources :losts, except: [:edit, :update]
   get '/marc_uploads', to: 'marc_uploads#index'
   post '/marc_uploads/create', to: 'marc_uploads#create'
-  get '/marc_downloads', to: 'marc_downloads#index'
+  get '/downloads', to: 'downloads#index'
   get '/dda_expenditures', to: 'dda_expenditures#index'
   resources :orders do
     member do
