@@ -1,0 +1,36 @@
+<%- model_class = Lost -%>
+
+<div class="row">
+  <hr>
+  <div class="col-xs-1">
+    <%= "#{lost.id}." %>
+  </div>
+  <div class="col-xs-7">
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:author) %>:</strong></dt>
+      <dd><%= lost.author.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+      <dd><%= lost.title.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:imprint) %>:</strong></dt>
+      <dd><%= lost.imprint %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:isbn) %>:</strong></dt>
+      <dd><%= lost.isbn.gsub(/(\d{13}|\d{9}[X\d])/, "<a href=\"http://www.gobi3.com/hx/Gobi.ashx?location=runsearch&source=quicksearch&quicksearchval=\\1\" target=\"_blank\">\\1</a>").html_safe.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
+      <dd><%= lost.location.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:call_number) %>:</strong></dt>
+      <dd><%= lost.call_number.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:volume) %>:</strong></dt>
+      <dd><%= lost.volume.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:checkouts) %>:</strong></dt>
+      <dd><%= lost.checkouts.presence || '-' %></dd>
+      <dt><strong><%= model_class.human_attribute_name(:last_checkout) %>:</strong></dt>
+      <dd><%= lost.last_checkout.presence || '-' %></dd>
+    </dl> 
+  </div>
+    <div class='col-xs-2'>
+      <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{lost.bib_number}~S39", target: '_blank', class: 'btn btn-danger btn-xs btn-block' %>
+      <%= link_to 'OhioLINK', "http://olc1.ohiolink.edu/search/o?SEARCH=#{lost.oclc}", target: '_blank', class: 'btn btn-info btn-xs btn-block' %>
+      <%= link_to 'WorldCat', "https://www.worldcat.org/search?q=no:#{lost.oclc}", target: '_blank', class: 'btn btn-warning btn-xs btn-block' %>
+     <%= link_to 'Tricerashopper', new_order_path(title: lost.title, author: lost.author, isbn: lost.isbn, oclc: lost.oclc, publisher: lost.imprint, location: lost.location.upcase), target: "_blank", class: 'btn btn-success btn-xs btn-block' %>
+    </div>
+  </div>

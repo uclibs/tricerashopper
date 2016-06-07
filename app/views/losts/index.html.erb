@@ -1,28 +1,19 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
-<html>
-  <body>
-    <%= render 'layouts/header' %>
-
-    <div class="container-fluid">
-
-      <h2>Lost, Missing, Long-overdue</h2>
-
-      <div class="row">
-
-      <div class="span9">
-        <%= render "search_box" %>
-        <table class="table table-striped table-condensed table-responsive">
-          <%= render "results_header" %>
-          <%= render "results_body" %>
-        </table>
-
+<div class="container">
+ <h2>Lost, Missing, Long-overdue</h2>
+ <div class="lost-search">
+   <%= render "search_box" %>
+ </div>
+ <div class="row lost-content">
+   <div class="col-md-3">
+     <%= render "facets" %>
+   </div>
+   <div class="col-md-9">
+     <%= render "results_body" %>
+   </div>   
+ </div>   
+    <div class="row">
+      <div class="pagination">
+         <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
       </div>
-      <%= render "facets" %>
-      </div>
-    </div>
-
-    <div class="pagination">
-      <%= will_paginate @search.hits, renderer: BootstrapPagination::Rails %>
-    </div>
-  </body>
-</html>
+   </div>
+</div>

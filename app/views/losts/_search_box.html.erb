@@ -1,6 +1,27 @@
-<div class="input-append">
+<div class="row">
+  <div class="col-md-4">
+    <div class="input-group">
   <%= form_tag losts_path, :method => :get do %>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", name: nil, class: 'btn btn-default' %>
-  <% end %>
+      <span class="input-group-btn">
+      <%= text_field_tag :search, params[:search], class: 'form-control no-border-radius' %>
+      <%= submit_tag "Search", name: nil, class: 'btn btn-default' %>
+      </span>
+      <% end %>
+    </div>
+  </div>
+
+<div class="col-md-4">
+  <div class="dropdown">
+     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Sort
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><%= link_to "Title", request.params.merge({sort: :title}) %></li>
+        <li><%= link_to "Call Number", request.params.merge({sort: :call_number}) %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= link_to 'Clear Sort', request.params.merge({sort: nil}) %></li>
+      </ul>
+    </div>
+  </div>
 </div>
