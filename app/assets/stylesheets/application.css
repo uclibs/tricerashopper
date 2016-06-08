@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+
+.red-link {
+  color: red;
+}
+
+.footer {
+  padding-bottom: 50px;
+}
