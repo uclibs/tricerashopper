@@ -88,17 +88,6 @@ namespace :reports do
       Lost.destroy_all
     end
   
-    desc "Get status'p' records"
-    task:get_status_p => :environment do
-      
-      p = ItemView.where("item_status_code = 'p'")
-      p.each do |i|
-        unless i.record_metadata.record_last_updated_gmt > @minus3months || i.bib_views.first.cataloging_date_gmt.nil? || i.bib_views.first.bcode3 == 's'
-          lmlo_create(i) 
-        end
-      end
-    end
-  
     desc "Get status 'l' item records"
     task:get_status_l => :environment do
       l = ItemView.where("item_status_code = 'l'")
@@ -125,14 +114,6 @@ namespace :reports do
       end
     end
   
-    desc "Get status 'x' item records"
-    task:get_status_x => :environment do
-      x = ItemView.where("item_status_code = 'x'")
-      x.each do |i|
-        lmlo_create(i)
-      end
-    end 
-
     desc "Notify Users of new materials"
     task:notify_users =>  :environment do
       @users = Selector.all
@@ -146,12 +127,10 @@ namespace :reports do
   
     desc "run all losts"
     task :run_all => [
-      #:get_status_p, 
       :reset,
       :get_status_l, 
       :get_status_dollar, 
-      :get_status_z, 
-      :get_status_x] do
+      :get_status_z] do
     end
   end
 end
