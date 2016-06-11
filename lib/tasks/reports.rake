@@ -32,7 +32,8 @@ def lmlo_create(x)
         due_date: x.checkout.try(:due_gmt) || nil,
         last_checkout: x.last_checkout_gmt,
         created_at: x.record_creation_date_gmt,
-        updated_at: x.record_metadata.record_last_updated_gmt
+        updated_at: x.record_metadata.record_last_updated_gmt,
+        reviewed: false
         ) 
   puts bibview.title
   puts x.location_code
