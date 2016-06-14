@@ -1,0 +1,5 @@
+<% if @lost.reviewed == true %>
+$(".review-lost-<%= @lost.id %>").html('Reviewed').removeClass('btn-warning').addClass('btn-success')
+<% else %>
+$(".review-lost-<%= @lost.id %>").html('Unreviewed').removeClass('btn-success').addClass('btn-warning')
+<% end %>

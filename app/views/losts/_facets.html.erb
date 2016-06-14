@@ -6,13 +6,14 @@
         <%= link_to 'Remove Filters', request.params.merge({trunc: nil, loc: nil, full: nil, page: nil}), class:  'btn btn-default' %>
       <%end%>
 
-      <h4> Location </h4>
 
       <% def remove_loc(ary,val) %>
         <% remove = ary.dup %>
         <% remove.delete(val) %>
         <% remove %>
       <% end %>
+
+      <h4>Location</h4>
 
       <% for row in @search.facet(:loc_trunc).rows %>
         <% if params[:loc].present? %>

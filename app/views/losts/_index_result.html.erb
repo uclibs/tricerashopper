@@ -6,6 +6,7 @@
     <%= "#{lost.id}." %>
   </div>
   <div class="col-xs-7">
+    <div id="<%= "lost-#{lost.id}" %>">
     <dl class="dl-horizontal">
       <dt><strong><%= model_class.human_attribute_name(:author) %>:</strong></dt>
       <dd><%= lost.author.presence || '-' %></dd>
@@ -26,11 +27,16 @@
       <dt><strong><%= model_class.human_attribute_name(:last_checkout) %>:</strong></dt>
       <dd><%= lost.last_checkout.presence || '-' %></dd>
     </dl> 
+    </div>
   </div>
     <div class='col-xs-2'>
-      <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{lost.bib_number}~S39", target: '_blank', class: 'btn btn-danger btn-xs btn-block' %>
-      <%= link_to 'OhioLINK', "http://olc1.ohiolink.edu/search/o?SEARCH=#{lost.oclc}", target: '_blank', class: 'btn btn-info btn-xs btn-block' %>
-      <%= link_to 'WorldCat', "https://www.worldcat.org/search?q=no:#{lost.oclc}", target: '_blank', class: 'btn btn-warning btn-xs btn-block' %>
-     <%= link_to 'Tricerashopper', new_order_path(title: lost.title, author: lost.author, isbn: lost.isbn, oclc: lost.oclc, publisher: lost.imprint, location: lost.location.upcase), target: "_blank", class: 'btn btn-success btn-xs btn-block' %>
+      <%= link_to 'UCLID', "http://uclid.uc.edu/record=b#{lost.bib_number}~S39", target: '_blank', class: 'btn btn-default btn-xs btn-block' %>
+      <%= link_to 'OhioLINK', "http://olc1.ohiolink.edu/search/o?SEARCH=#{lost.oclc}", target: '_blank', class: 'btn btn-default btn-xs btn-block' %>
+      <%= link_to 'WorldCat', "https://www.worldcat.org/search?q=no:#{lost.oclc}", target: '_blank', class: 'btn btn-default btn-xs btn-block' %>
+     <%= link_to 'Tricerashopper', new_order_path(title: lost.title, author: lost.author, isbn: lost.isbn, oclc: lost.oclc, publisher: lost.imprint, location: lost.location.upcase), target: "_blank", class: 'btn btn-xs btn-block btn-default' %>
+
+     <%= link_to "#{ lost.reviewed ? 'Reviewed' : 'Unreviewed' }", toggle_reviewed_status_lost_path(lost), method: :patch, remote: :true, class: "review-lost-#{lost.id} btn btn-block btn-#{ lost.reviewed ? 'success' : 'warning' }" %>
+
+
     </div>
   </div>

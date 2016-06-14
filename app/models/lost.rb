@@ -12,6 +12,8 @@ class Lost < ActiveRecord::Base
     string :location
     string :loc_trunc 
     string :class_trunc
+    boolean :reviewed
+    integer :id
   end
 
   def class_full

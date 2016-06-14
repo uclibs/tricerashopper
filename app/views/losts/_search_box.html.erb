@@ -10,7 +10,7 @@
     </div>
   </div>
 
-<div class="col-md-4">
+<div class="col-md-1">
   <div class="dropdown">
      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
         Sort
@@ -21,6 +21,21 @@
         <li><%= link_to "Call Number", request.params.merge({sort: :call_number}) %></li>
         <li role="separator" class="divider"></li>
         <li><%= link_to 'Clear Sort', request.params.merge({sort: nil}) %></li>
+      </ul>
+    </div>
+  </div>
+
+<div class="col-md-1">
+  <div class="dropdown">
+     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+       Status
+       <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><%= link_to "Reviewed", request.params.merge({reviewed: 'true'}) %></li>
+        <li><%= link_to "Unreviewed", request.params.merge({reviewed: 'false'}) %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= link_to 'Clear Filter', request.params.merge({reviewed: nil}) %></li>
       </ul>
     </div>
   </div>

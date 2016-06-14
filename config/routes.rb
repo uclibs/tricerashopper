@@ -12,7 +12,11 @@ SelectorReporting::Application.routes.draw do
   resources :users
   root 'static_pages#home'
   get '/help', to: 'static_pages#help'
-  resources :losts, except: [:edit, :update]
+  resources :losts, except: [:edit, :update] do
+    member do
+      patch :toggle_reviewed_status
+    end
+  end
   get '/marc_uploads', to: 'marc_uploads#index'
   post '/marc_uploads/create', to: 'marc_uploads#create'
   get '/downloads', to: 'downloads#index'
