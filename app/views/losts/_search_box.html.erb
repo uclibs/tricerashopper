@@ -27,10 +27,22 @@
 
 <div class="col-md-1">
   <div class="dropdown">
-     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-       Status
+    <%if params[:reviewed] == 'true'%>
+     <button class="btn btn-success" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+       Reviewed
        <span class="caret"></span>
       </button>
+    <%elsif params[:reviewed] == 'false'%>
+     <button class="btn btn-warning" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+       Unreviewed
+       <span class="caret"></span>
+      </button>
+    <% else %>
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+      Status
+       <span class="caret"></span>
+      </button>
+    <% end %>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
         <li><%= link_to "Reviewed", request.params.merge({reviewed: 'true'}) %></li>
         <li><%= link_to "Unreviewed", request.params.merge({reviewed: 'false'}) %></li>
