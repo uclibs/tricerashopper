@@ -6,7 +6,7 @@ class LostsController < ApplicationController
   # GET /losts.json
   def index
     @search = Lost.search do 
-      paginate(per_page: 25, page: params[:page])
+      paginate(per_page: 20, page: params[:page])
       fulltext params[:search]
       with(:title)
       with(:call_number)
