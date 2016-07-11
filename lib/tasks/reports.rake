@@ -114,7 +114,15 @@ namespace :reports do
         lmlo_create(i)
       end
     end
-  
+	  
+	  desc "Get status 'x' item records"
+    task:get_status_x => :environment do
+      x = ItemView.where("item_status_code = 'x'")
+      x.each do |i|
+        lmlo_create(i)
+      end
+    end
+	
     desc "Notify Users of new materials"
     task:notify_users =>  :environment do
       @users = Selector.all
@@ -130,7 +138,8 @@ namespace :reports do
     task :run_all => [
       :reset,
       :get_status_l, 
-      :get_status_dollar, 
+      :get_status_dollar,
+		  :get_status_x,	
       :get_status_z] do
     end
   end
