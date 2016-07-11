@@ -114,8 +114,8 @@ namespace :reports do
         lmlo_create(i)
       end
     end
-	  
-	  desc "Get status 'x' item records"
+		
+    desc "Get status 'x' item records"
     task:get_status_x => :environment do
       x = ItemView.where("item_status_code = 'x'")
       x.each do |i|
@@ -139,7 +139,7 @@ namespace :reports do
       :reset,
       :get_status_l, 
       :get_status_dollar,
-		  :get_status_x,	
+      :get_status_x,	
       :get_status_z] do
     end
   end
