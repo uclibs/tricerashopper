@@ -78,6 +78,10 @@ class OrdersController < ApplicationController
         else
           @subj = "[tricerashopper] Order Confirmation - " + @order.format
         end
+				if @order.notify
+					@subj << " NOTIFY"
+				end
+
         @order.approve_selection!
         OrderMailer.new_order(@order, @subj).deliver
         @order.save
