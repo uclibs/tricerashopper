@@ -2,6 +2,7 @@ class Order < ActiveRecord::Base
   include Workflow
   validates :title, presence: true
   validates :author, presence: true
+  validates :format, presence: true
   validates :publication_date, presence: true
   validates :publication_date, length: {is: 4, message: 'format must be YYYY'} 
   validates :vendor_code, length: { maximum: 5 }
@@ -26,6 +27,7 @@ class Order < ActiveRecord::Base
     integer :id
     string :rush_order
     string :reserve
+	string :format
   end
 
   workflow do 
