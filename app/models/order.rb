@@ -27,7 +27,7 @@ class Order < ActiveRecord::Base
     integer :id
     string :rush_order
     string :reserve
-	string :format
+    string :format
   end
 
   workflow do 

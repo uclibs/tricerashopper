@@ -11,31 +11,31 @@
     <ul class="nav nav-list">
       <h4>Status</h4>
         <% for row in @search.facet(:workflow_state).rows %>
-		    <% if params[:state].present? %>
-		      <% unless params[:state].include? row.value%>
-		        <li><%= link_to row.value, request.params.merge({state: params[:state] | [row.value], page: nil}) %></li>
-		      <% else %>
-		        <li><%= link_to "#{row.value} (remove)", request.params.merge({state: remove_fac(params[:state], row.value) }), {style: "color: red"} %></li>
-		      <% end %>
+		  <% if params[:state].present? %>
+		    <% unless params[:state].include? row.value%>
+		      <li><%= link_to row.value, request.params.merge({state: params[:state] | [row.value], page: nil}) %></li>
 		    <% else %>
-		      <li><%= link_to row.value, request.params.merge({state: [row.value], page: nil}) %></li>
-		    <% end %> 
-		<% end %>
+		      <li><%= link_to "#{row.value} (remove)", request.params.merge({state: remove_fac(params[:state], row.value) }), {style: "color: red"} %></li>
+		    <% end %>
+		  <% else %>
+		    <li><%= link_to row.value, request.params.merge({state: [row.value], page: nil}) %></li>
+    	<% end %> 		
+	<% end %>
 
 		<% for row in @search.facet(:rush_order).rows %>
-		    <% if params[:rush].present? %>
-		      <% unless params[:rush].include? row.value%>
-		        <li><%= link_to "#{model_class.human_attribute_name("rush")}", request.params.merge({rush: params[:rush] | [row.value], page: nil}) %></li>
-		      <% else %>
-		        <li><%= link_to "#{model_class.human_attribute_name("rush")} (remove)", request.params.merge({rush: nil, page:nil}) %>
-		      <% end %>
+		  <% if params[:rush].present? %>
+		    <% unless params[:rush].include? row.value%>
+		      <li><%= link_to "#{model_class.human_attribute_name("rush")}", request.params.merge({rush: params[:rush] | [row.value], page: nil}) %></li>
 		    <% else %>
-		        <li><%= link_to "#{model_class.human_attribute_name("rush")}", request.params.merge({rush: params[:rush] | [row.value], page: nil}) %></li>
-		    <% end %> 
-		<% end %>
+	       <li><%= link_to "#{model_class.human_attribute_name("rush")} (remove)", request.params.merge({rush: nil, page:nil}) %>
+	      <% end %>
+	      <% else %>
+            <li><%= link_to "#{model_class.human_attribute_name("rush")}", request.params.merge({rush: params[:rush] | [row.value], page: nil}) %></li>
+	    <% end %> 		
+	<% end %>
 
 		<% for row in @search.facet(:reserve).rows %>
-		    <% if params[:reserve].present? %>
+	      <% if params[:reserve].present? %>
 		      <% unless params[:reserve].include? row.value%>
 		        <li><%= link_to "#{model_class.human_attribute_name("reserve")}", request.params.merge({reserve: params[:reserve] | [row.value], page: nil}) %></li>
 		      <% else %>

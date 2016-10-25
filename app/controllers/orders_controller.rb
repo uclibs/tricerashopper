@@ -15,9 +15,9 @@ class OrdersController < ApplicationController
         order_by(:id, :desc)
         facet(:rush_order)
         facet(:reserve)
-		facet(:format)
+        facet(:format)
         with(:workflow_state, params[:state]) if params[:state].present?
-        	facet(:workflow_state)
+          facet(:workflow_state)
         with(:rush_order, params[:rush]) if params[:rush].present?
         with(:reserve, params[:reserve]) if params[:reserve].present?
         with(:format, params[:format]) if params[:format].present?
