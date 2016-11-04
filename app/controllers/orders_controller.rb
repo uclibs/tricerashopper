@@ -13,12 +13,14 @@ class OrdersController < ApplicationController
         with(:user_id, @user.assistants.pluck(:id) << @user.id) unless @user.instance_of? Admin
         with(:title)
         order_by(:id, :desc)
-        facet(:workflow_state)
         facet(:rush_order)
         facet(:reserve)
+        facet(:format)
         with(:workflow_state, params[:state]) if params[:state].present?
+          facet(:workflow_state)
         with(:rush_order, params[:rush]) if params[:rush].present?
         with(:reserve, params[:reserve]) if params[:reserve].present?
+        with(:format, params[:format]) if params[:format].present?
      end
   
     @orders = @search.results    
