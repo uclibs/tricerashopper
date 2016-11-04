@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20160610180448) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "dda_expenditures", force: true do |t|
     t.text     "title"
     t.decimal  "paid"
@@ -54,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160610180448) do
     t.text     "publication_date"
     t.text     "isbn"
     t.text     "publisher"
-    t.integer  "oclc",                   limit: 8
+    t.integer  "oclc"
     t.text     "edition"
     t.text     "selector"
     t.text     "requestor"
@@ -104,9 +101,9 @@ ActiveRecord::Schema.define(version: 20160610180448) do
     t.datetime "updated_at"
   end
 
-  add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked", using: :btree
-  add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num", using: :btree
-  add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type", using: :btree
+  add_index "sierra_indices", ["last_checked"], name: "index_sierra_indices_on_last_checked"
+  add_index "sierra_indices", ["record_num"], name: "index_sierra_indices_on_record_num"
+  add_index "sierra_indices", ["record_type"], name: "index_sierra_indices_on_record_type"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -127,7 +124,7 @@ ActiveRecord::Schema.define(version: 20160610180448) do
     t.string   "type"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end
