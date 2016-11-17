@@ -22,7 +22,7 @@ class Order < ActiveRecord::Base
     text :title, :workflow_state, :location_code
     string :title
     string :location_code
-	string :workflow_state
+    string :workflow_state
     integer :user_id
     date :created_at
     integer :id
