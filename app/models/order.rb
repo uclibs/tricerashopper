@@ -19,8 +19,9 @@ class Order < ActiveRecord::Base
   belongs_to :user
 
   searchable do 
-    text :title, :workflow_state
+    text :title, :workflow_state, :location_code
     string :title
+    string :location_code
     string :workflow_state
     integer :user_id
     date :created_at
