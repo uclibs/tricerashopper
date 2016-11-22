@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
         with(:rush_order, params[:rush]) if params[:rush].present?
         with(:reserve, params[:reserve]) if params[:reserve].present?
         with(:format, params[:format]) if params[:format].present?
-		with(:location_code, params[:location_code]) if params[:location_code].present?
+        with(:location_code, params[:location_code]) if params[:location_code].present?
      end
   
     @orders = @search.results    
