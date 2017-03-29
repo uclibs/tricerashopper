@@ -32,7 +32,7 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails", "~> 2.14.0"
+  gem "rspec-rails"
   gem "factory_girl_rails", "~> 4.2.1"
   gem "database_cleaner", "~> 1.0.1"
   gem 'sunspot_solr'
