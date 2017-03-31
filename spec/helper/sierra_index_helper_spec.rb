@@ -67,7 +67,7 @@ describe SierraIndexHelper do
       SierraIndexHelper.update_date(100001, 'b')
       index.reload
 
-      expect { index.last_checked.today? }.to be_true
+      expect(index.last_checked.today?).to be true
     end
   end
 
