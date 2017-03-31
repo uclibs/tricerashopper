@@ -40,7 +40,7 @@ end
 
 group :test do
   gem "faker", "~> 1.2"
-  gem "capybara"
+  gem "capybara", "~> 2.2.0"
   gem "launchy", "~> 2.3.0"
   gem "selenium-webdriver", "~> 2.39.0"
 end
