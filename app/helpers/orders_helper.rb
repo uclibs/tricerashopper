@@ -111,6 +111,7 @@ module OrdersHelper
       'YBOTU',
       'YBREU',
       'YCANA',
+      'YDAJU',
       'YDAYU',
       'YELLU',
       'YFLOU',
