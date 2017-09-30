@@ -1,5 +1,5 @@
 class MarcUploadsController < ApplicationController
-before_filter :authenticate_user!
+before_action :authenticate_user!
 def create
      redirect_to marc_uploads_path and flash[:notice] = 'Include file!' and return if params[:upload].nil?
      name = params[:upload][:file].original_filename
