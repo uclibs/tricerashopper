@@ -4,6 +4,7 @@ rvm:
 script: "bundle exec rake"
 before_script:
   - cp config/database.travis.yml config/database.yml
+  - bin/rails db:migrate RAILS_ENV=test
 
 before_install:
   - gem install bundler -v '= 1.5.1'
