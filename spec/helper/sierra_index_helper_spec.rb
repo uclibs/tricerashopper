@@ -86,6 +86,7 @@ describe SierraIndexHelper do
 
   describe "#update_index" do
     it "adds all records of a given type, starting with a date" do
+      pending
       BibView.stub_chain(:find_by_record_num, :record_creation_date_gmt).and_return(DateTime.parse('2001-01-06'))
 
       SierraIndexHelper.build_index('b') 

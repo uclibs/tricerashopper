@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_problem, only: [:show, :edit, :update, :destroy, :audit]
 
   respond_to :html

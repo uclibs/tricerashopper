@@ -1,4 +1,4 @@
-class CreateLosts < ActiveRecord::Migration
+class CreateLosts < ActiveRecord::Migration[5.0]
   def change
     create_table :losts do |t|
       t.integer :item_number

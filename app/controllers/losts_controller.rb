@@ -1,5 +1,5 @@
 class LostsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_lost, only: [:show, :edit, :update, :destroy, :toggle_reviewed_status]
 
   # GET /losts

@@ -1,4 +1,4 @@
-class CreateSierraIndices < ActiveRecord::Migration
+class CreateSierraIndices < ActiveRecord::Migration[5.0]
   def change
     create_table :sierra_indices do |t|
       t.string :record_type

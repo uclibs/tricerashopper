@@ -5,24 +5,26 @@ gem 'devise'
 gem 'resque'
 
 gem 'therubyracer'
-gem 'rake', '< 11.0'
-gem 'twitter-bootstrap-rails', '~> 3.2.2'
+gem 'rake'
+gem 'twitter-bootstrap-rails'
+gem 'font-awesome-rails'
 gem 'less-rails'
 gem 'will_paginate-bootstrap'
-gem 'rails', '4.0.13'
+gem 'rails', '5.1.4'
 gem 'sqlite3'
-gem 'sass-rails', '~> 4.0.2'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
-gem 'sunspot_rails', '2.1.1'
+gem 'jbuilder'
+gem 'sunspot_rails'
 gem 'marc'
 gem 'roo'
 gem 'googlecharts'
 gem 'workflow'
 gem 'pg'
+gem 'bigdecimal', '>=1.3.2'
 
 group :doc do
   gem 'sdoc', require: false
@@ -33,15 +35,15 @@ group :development do
 end
 
 group :development, :test do
-  gem "rspec-rails", "~> 2.14.0"
-  gem "factory_girl_rails", "~> 4.2.1"
-  gem "database_cleaner", "~> 1.0.1"
-  gem 'sunspot_solr', '2.1.1'
+  gem "rspec-rails"
+  gem "factory_girl_rails"
+  gem "database_cleaner"
+  gem 'sunspot_solr'
 end
 
 group :test do
-  gem "faker", "~> 1.2"
-  gem "capybara", "~> 2.1.0"
-  gem "launchy", "~> 2.3.0"
-  gem "selenium-webdriver", "~> 2.39.0"
+  gem "faker"
+  gem "capybara"
+  gem "launchy"
+  gem "selenium-webdriver"
 end
