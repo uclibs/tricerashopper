@@ -24,6 +24,7 @@ gem 'roo'
 gem 'googlecharts'
 gem 'workflow'
 gem 'pg'
+gem 'bigdecimal', '>=1.3.2'
 
 group :doc do
   gem 'sdoc', require: false
