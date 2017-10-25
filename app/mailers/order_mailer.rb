@@ -1,5 +1,5 @@
 class OrderMailer < ActionMailer::Base
-  default from: "NO-REPLY@lucy.libraries.uc.edu"
+  default from: "NO-REPLY@data.libraries.uc.edu"
   add_template_helper(OrdersHelper)
 
   #change bcc to cc in mailer for testing
