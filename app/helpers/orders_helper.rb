@@ -153,6 +153,7 @@ module OrdersHelper
       'UCR',
       'UCRB',
       'UCRC',
+      'UCRCO',
       'UCRE',
       'UCRES',
       'UCRL',
