@@ -34,6 +34,7 @@ SelectorReporting::Application.routes.draw do
       get :export_to_marc
     end
   end
+  get '/order_export', to: 'orders#export'
 
   mount Resque::Server.new, at: "/resque"
 

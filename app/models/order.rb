@@ -66,4 +66,28 @@ class Order < ActiveRecord::Base
       event :temporary_hold, :transitions_to => :temporary_hold
     end
   end 
+
+  def self.to_csv
+    attributes = %w{
+      created_at updated_at
+      title author format publication_date isbn
+      publisher oclc edition selector requestor
+      location_code fund cost added_edition
+      added_copy added_copy_call_number
+      rush_order notify reserve notification_contact
+      relevant_url other_notes workflow_state 
+      vendor_address credit_card_order vendor_code
+      vendor_note user_id not_yet_published
+      not_yet_published_date internal_note processing_note
+      currency series language
+    }
+
+    CSV.generate(headers: true, col_sep: "\t") do |csv|
+      csv << attributes
+
+      all.each do |order|
+        csv << attributes.map{ |attr| order.send(attr) }
+      end
+    end
+  end
 end
