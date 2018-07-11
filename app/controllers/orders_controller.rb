@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
 
   respond_to :html
 
- def index
+  def index
       @search = Order.search do
         @user = current_user
         paginate(per_page: 20, page: params[:page])
@@ -33,7 +33,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-
     def get_selectors
       if current_user.type == 'Assistant'
        "#{current_user.email}, #{current_user.selector.email}"
@@ -97,11 +96,16 @@ class OrdersController < ApplicationController
   end
   
   def update
-   
     attributes = convert_cost_to_int(order_params)
     @order.update(attributes)
     
     respond_with(@order)
+  end
+
+  def export
+    respond_to do |format|
+      format.csv { send_data Order.all.to_csv, filename: "orders-#{Date.today}.csv" }
+    end
   end
 
   def destroy
