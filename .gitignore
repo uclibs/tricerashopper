@@ -23,6 +23,3 @@
 # Sunspot Solr Dev and log files
 solr/
 /log/*.log.lck
-
-# Ignore Gemfile.locl
-Gemfile.lock
