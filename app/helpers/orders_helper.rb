@@ -76,6 +76,7 @@ module OrdersHelper
       'NLING',
       'NLREF',
       'NMATH',
+      'NMIDE',
       'NPHIL',
       'NPHYS',
       'NPOLS',
